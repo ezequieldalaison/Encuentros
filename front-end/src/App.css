@@ -1,0 +1,32 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 75px;
+}
+
+.loginForm {
+  padding: 50px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgray;
+  border-radius: 15px;
+}
+
+.validationLabel {
+  font-size: small;
+  color: red;
+}
+
+.alert {
+  width: 20%;
+  margin: 15px;
+}
+
+.spinner
+{
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    z-index: 1000;
+}
