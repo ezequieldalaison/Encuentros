@@ -1,2 +1,1 @@
-"# Encuentros"
-Este es el readme
+Aplicación de Encuentros
