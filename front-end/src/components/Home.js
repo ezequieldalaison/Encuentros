@@ -1,7 +1,9 @@
 import React from 'react';
+import Image from 'react-bootstrap/Image'
+import logo from '../images/logo_blanco.jpg';
 
 const Home = () => {
-    return <div>Home component</div>
+    return <Image src={logo} fluid />
 }
 
 export default Home;
