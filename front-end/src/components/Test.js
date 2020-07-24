@@ -25,7 +25,6 @@ const Test = (props) => {
     //     )
     //   );
 
-    console.log('test');
     return <div>Bearer ${props.auth.getAccessToken()}</div>
 }
 
