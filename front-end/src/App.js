@@ -11,7 +11,7 @@ import PublicRoute from './components/navigation/PublicRoute';
 import AuthContext from './contexts/AuthContext';
 import FetchContext from './contexts/FetchContext';
 import FetchHelper from './components/helpers/FetchHelpers';
-import PilatesConfiguration from './components/pages/Pilates/PilatesConfiguration';
+import Configuration from './components/pages/General/Configuration';
 
 class App extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class App extends Component {
 
         <PrivateRoute path="/Area" component={Area} />
         <PrivateRoute path="/Profile" component={Profile}/>
-        <PrivateRoute path="/PilatesConfiguration" component={PilatesConfiguration}/>
+        <PrivateRoute path="/Configuration" component={Configuration}/>
       </FetchContext.Provider>
       </AuthContext.Provider>
     );

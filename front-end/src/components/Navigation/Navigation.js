@@ -12,12 +12,11 @@ const Navigation = (props) => {
         {props.auth.isAuthenticated() ? 
             (<>
             <Nav> 
-                <NavDropdown title="Pilates" id="ddPilates">
-                    <NavDropdown.Item href="#action/3.1">Test</NavDropdown.Item>
+                <NavDropdown title="General" id="ddPilates">
+                    <NavDropdown.Item href="/Area">Áreas</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/PilatesConfiguration">Configuración</NavDropdown.Item>
+                    <NavDropdown.Item href="/Configuration">Configuración</NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="/Area">Áreas</Nav.Link>
             </Nav>
             <Nav className="ml-auto"> 
                 <Nav.Link href="/Profile">Mi Perfil</Nav.Link>
