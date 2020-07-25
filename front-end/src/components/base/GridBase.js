@@ -1,6 +1,6 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import { useTable } from 'react-table'
+import { useTable, useSortBy } from 'react-table';
 import Form from 'react-bootstrap/Form';
 
 const GridBase = (props) => {
@@ -9,24 +9,42 @@ const GridBase = (props) => {
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow,
-    } = useTable({ 
-        columns: props.columns, 
-        data: props.data,
-        initialState: { 
-            pageIndex: 0,
-            hiddenColumns: ['id']
-        }
-    });
+        prepareRow} = 
+        useTable({ 
+          columns: props.columns, 
+          data: props.data,
+          initialState: { 
+              pageIndex: 0,
+              hiddenColumns: ['id']
+            }
+          },
+          useSortBy
+    );
+    
+    //hack to only sort for certain columns
+    headerGroups[0].headers.map(h =>
+      h.canSort = props.columns.find(c => c.Header === h.Header).canSort === false ? false : true
+    );
+        
     return (
     <Table striped bordered hover responsive size="sm" {...getTableProps()}>
         <thead>
          {headerGroups.map(headerGroup => (
            <tr {...headerGroup.getHeaderGroupProps()}>
              {headerGroup.headers.map(column => (
-               <th {...column.getHeaderProps()} style={{textAlign: 'center'}} >
-                 {column.render('Header')}
-               </th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} 
+                  style={{textAlign: 'center'}} 
+                >
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''
+                    }
+                  </span>
+                </th>
              ))}
            </tr>
          ))}

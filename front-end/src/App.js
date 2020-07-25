@@ -9,26 +9,35 @@ import Profile from './components/Profile';
 import PrivateRoute from './components/navigation/PrivateRoute';
 import PublicRoute from './components/navigation/PublicRoute';
 import AuthContext from './contexts/AuthContext';
+import FetchContext from './contexts/FetchContext';
+import FetchHelper from './components/helpers/FetchHelpers';
+import PilatesConfiguration from './components/pages/Pilates/PilatesConfiguration';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      auth: new Auth(this.props.history)
+      auth: new Auth(this.props.history),
+      fetchHelper: new FetchHelper()
     };
   }
 
   render(){
-    const {auth} = this.state;
+    const {auth, fetchHelper} = this.state;
     return (
       <AuthContext.Provider value={auth}>
+      <FetchContext.Provider value={fetchHelper}>
         <Navigation auth={auth} />
+        
         <PublicRoute path="/" component={Home} exact />
         <PublicRoute path="/Login" component={Login} />
         <PublicRoute path="/Callback" component={Callback} />
+
         <PrivateRoute path="/Area" component={Area} />
         <PrivateRoute path="/Profile" component={Profile}/>
+        <PrivateRoute path="/PilatesConfiguration" component={PilatesConfiguration}/>
+      </FetchContext.Provider>
       </AuthContext.Provider>
     );
   }

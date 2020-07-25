@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import GridBase from '../../base/GridBase';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -6,31 +6,13 @@ import Container from 'react-bootstrap/Container';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import FetchContext from '../../../contexts/FetchContext';
 
 const Area = (props) => {
+    var fetchHelper = useContext(FetchContext);
+
     const data = React.useMemo(
-        () => [
-            {
-                id: 1,
-                name: 'Pilates',
-                isBillable: false
-            },
-            {
-                id: 2,
-                name: 'Transporte Especial',
-                isBillable: true
-            },
-            {
-                id: 3,
-                name: 'Consultorio',
-                isBillable: false
-            },
-            {
-                id: 4,
-                name: 'Psicopedagogía',
-                isBillable: true
-            }
-        ], []
+        fetchHelper.get, []
     );
     
     const columns = React.useMemo(() => [
@@ -45,6 +27,7 @@ const Area = (props) => {
             {
                 Header: 'Facturable',
                 accessor: 'isBillable',
+                canSort: false
             }
         ], []
     );
