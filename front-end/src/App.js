@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import Home from './components/Home';
-import Test from './components/Test';
+import Area from './components/pages/General/Area';
 import Login from './components/Login';
-import Navigation from './components/Navigation/Navigation';
-import Auth from './components/Auth/Auth';
-import Callback from './components/Auth/Callback';
+import Navigation from './components/navigation/Navigation';
+import Auth from './components/auth/Auth';
+import Callback from './components/auth/Callback';
 import Profile from './components/Profile';
-import PrivateRoute from './components/Navigation/PrivateRoute';
-import PublicRoute from './components/Navigation/PublicRoute';
+import PrivateRoute from './components/navigation/PrivateRoute';
+import PublicRoute from './components/navigation/PublicRoute';
 import AuthContext from './contexts/AuthContext';
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
         <PublicRoute path="/" component={Home} exact />
         <PublicRoute path="/Login" component={Login} />
         <PublicRoute path="/Callback" component={Callback} />
-        <PrivateRoute path="/Test" component={Test} />
+        <PrivateRoute path="/Area" component={Area} />
         <PrivateRoute path="/Profile" component={Profile}/>
       </AuthContext.Provider>
     );
