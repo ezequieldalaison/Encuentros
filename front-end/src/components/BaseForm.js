@@ -1,15 +1,15 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import React from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const BaseForm = ({
-    cancel,
-    submit,
-    submitButtonText,
-    elements,
-    cssFormClass,
-    showCancelButton}) => {
-
+  cancel,
+  submit,
+  submitButtonText,
+  elements,
+  cssFormClass,
+  showCancelButton
+}) => {
   function handleSubmit(event) {
     event.preventDefault();
     submit();
@@ -21,21 +21,22 @@ const BaseForm = ({
   }
 
   return (
-      <>
-        <Form onSubmit={handleSubmit} className={cssFormClass}>
-            {elements()}
+    <>
+      <Form onSubmit={handleSubmit} className={cssFormClass}>
+        {elements()}
 
-            <Button variant="primary" type="submit">
-                {submitButtonText}
-            </Button>
-            <Button variant="secondary" 
-                    onClick={handleCancel}
-                    style={{ visibility: showCancelButton ? 'visible': 'hidden'}}
-            >
-                Cancelar
-            </Button>
-        </Form>
-      </>
+        <Button variant="primary" type="submit">
+          {submitButtonText}
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={handleCancel}
+          style={{ visibility: showCancelButton ? "visible" : "hidden" }}
+        >
+          Cancelar
+        </Button>
+      </Form>
+    </>
   );
 };
 
