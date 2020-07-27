@@ -32,7 +32,15 @@ const GridBase = props => {
   );
 
   return (
-    <Table striped bordered hover responsive size="sm" {...getTableProps()}>
+    <Table
+      striped
+      bordered
+      hover
+      responsive
+      size="sm"
+      {...getTableProps()}
+      style={{ fontSize: "small" }}
+    >
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
