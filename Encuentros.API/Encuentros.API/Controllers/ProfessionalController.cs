@@ -8,16 +8,16 @@ namespace Encuentros.API.Controllers
 {
     [Route("api/professional")]
     [ApiController]
-    public class PersonController : ControllerBase
+    public class ProfessionalController : ControllerBase
     {
-        List<PersonDto> list;
+        List<ProfessionalDto> list;
 
-        public PersonController()
+        public ProfessionalController()
         {
-            list = new List<PersonDto> {
-                new PersonDto { Id = 1, Name = "Eze", LastName = "Dala", DocumentNumber = "111111", Email = "eze@ed.com", PhoneNumber ="12312", Percentage = 30, IsActive = true },
-                new PersonDto { Id = 2, Name = "Pepe", LastName = "Pepito", DocumentNumber = "2222", Email = "pepe@pepe.com", PhoneNumber ="222444", Percentage = 50, IsActive = true },
-                new PersonDto { Id = 3, Name = "Joselito", LastName = "Gonzalez", DocumentNumber = "33333333", Email = "je@jeje.com", PhoneNumber ="545666", Percentage = 30, IsActive = true }
+            list = new List<ProfessionalDto> {
+                new ProfessionalDto { Id = 1, Name = "Eze", LastName = "Dala", DocumentNumber = "111111", Email = "eze@ed.com", PhoneNumber ="12312", Percentage = 30, IsActive = true },
+                new ProfessionalDto { Id = 2, Name = "Pepe", LastName = "Pepito", DocumentNumber = "2222", Email = "pepe@pepe.com", PhoneNumber ="222444", Percentage = 50, IsActive = true },
+                new ProfessionalDto { Id = 3, Name = "Joselito", LastName = "Gonzalez", DocumentNumber = "33333333", Email = "je@jeje.com", PhoneNumber ="545666", Percentage = 30, IsActive = true }
             };
         }
 
@@ -28,7 +28,7 @@ namespace Encuentros.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(PersonDto p)
+        public ActionResult Post(ProfessionalDto p)
         {
             list.Add(p);
             return Ok(p);
@@ -53,7 +53,7 @@ namespace Encuentros.API.Controllers
     }
 }
 
-public class PersonDto
+public class ProfessionalDto
 {
     public long Id { get; set; }
     public string Name { get; set; }
