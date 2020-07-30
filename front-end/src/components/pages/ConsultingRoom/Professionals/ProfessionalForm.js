@@ -2,10 +2,10 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import InputValidated from "../../InputValidated";
+import InputValidated from "../../../InputValidated";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const PeopleForm = props => {
+const ProfessionalForm = props => {
   const { register, errors } = props;
 
   return (
@@ -80,4 +80,4 @@ const PeopleForm = props => {
   );
 };
 
-export default PeopleForm;
+export default ProfessionalForm;

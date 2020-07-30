@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Encuentros.API.Controllers
 {
-    [Route("api/person")]
+    [Route("api/professional")]
     [ApiController]
     public class PersonController : ControllerBase
     {

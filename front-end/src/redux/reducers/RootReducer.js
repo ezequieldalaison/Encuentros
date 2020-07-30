@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import peopleReducer from "./PeopleReducer";
+import ProfessionalReducer from "./ProfessionalReducer";
 
 const RootReducer = combineReducers({
-  people: peopleReducer
+  professional: ProfessionalReducer
 });
 
 export default RootReducer;

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import PageBase from "../../base/PageBase";
-import * as PeopleActions from "../../../redux/actions/PeopleActions";
+import PageBase from "../../../base/PageBase";
+import * as ProfessionalActions from "../../../../redux/actions/ProfessionalActions";
 import { connect } from "react-redux";
-import PeopleForm from "./PeopleForm";
+import ProfessionalForm from "./ProfessionalForm";
 
-const People = ({
-  people,
-  getPeople,
-  savePerson,
-  inactivatePerson,
-  activatePerson
+const ProfessionalPage = ({
+  professionals,
+  getProfessionals,
+  saveProfessional,
+  inactivateProfessional,
+  activateProfessional
 }) => {
   const [alert, setAlert] = useState({
     show: false,
@@ -19,8 +19,8 @@ const People = ({
 
   useEffect(() => {
     console.log("useEffect");
-    getPeople().catch(error => console.log("ERROR: " + error));
-  }, [getPeople]);
+    getProfessionals().catch(error => console.log("ERROR: " + error));
+  }, [getProfessionals]);
 
   const columns = React.useMemo(
     () => [
@@ -68,7 +68,7 @@ const People = ({
   );
 
   const grid = {
-    data: people,
+    data: professionals,
     columns: columns
   };
 
@@ -77,7 +77,7 @@ const People = ({
   };
 
   const onSubmit = data => {
-    savePerson(data);
+    saveProfessional(data);
     setAlert({
       show: true,
       message: "El profesional se guardó correctamente",
@@ -86,19 +86,19 @@ const People = ({
     setTimeout(hideAlert, 5000);
   };
 
-  const inactivate = personId => {
-    inactivatePerson(personId);
+  const inactivate = professionalId => {
+    inactivateProfessional(professionalId);
   };
 
-  const activate = personId => {
-    activatePerson(personId);
+  const activate = professionalId => {
+    activateProfessional(professionalId);
   };
 
   return (
     <PageBase
       grid={grid}
-      title="Personas"
-      form={PeopleForm}
+      title="Profesionales"
+      form={ProfessionalForm}
       onSubmit={onSubmit}
       activate={activate}
       inactivate={inactivate}
@@ -110,18 +110,18 @@ const People = ({
 
 function mapStateToProps(state) {
   return {
-    people: state.people
+    professionals: state.professional
   };
 }
 
 const mapDispatchToProps = {
-  getPeople: PeopleActions.getPeople,
-  savePerson: PeopleActions.savePerson,
-  inactivatePerson: PeopleActions.inactivatePerson,
-  activatePerson: PeopleActions.activatePerson
+  getProfessionals: ProfessionalActions.getProfessionals,
+  saveProfessional: ProfessionalActions.saveProfessional,
+  inactivateProfessional: ProfessionalActions.inactivateProfessional,
+  activateProfessional: ProfessionalActions.activateProfessional
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(People);
+)(ProfessionalPage);

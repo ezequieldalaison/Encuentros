@@ -14,8 +14,7 @@ import FetchHelper from "./components/helpers/FetchHelpers";
 import Configuration from "./components/pages/General/Configuration";
 import PageNotFound from "./components/pages/PageNotFound";
 import { Route, Switch } from "react-router-dom";
-import People from "./components/pages/General/People";
-import PeopleForm from "./components/pages/General/PeopleForm";
+import Professionals from "./components/pages/ConsultingRoom/Professionals/ProfessionalPage";
 
 class App extends Component {
   constructor(props) {
@@ -41,8 +40,7 @@ class App extends Component {
             <PrivateRoute path="/Area" component={Area} />
             <PrivateRoute path="/Profile" component={Profile} />
             <PrivateRoute path="/Configuration" component={Configuration} />
-            <PrivateRoute path="/People" component={People} />
-            <PrivateRoute path="/PeopleForm" component={PeopleForm} />
+            <PrivateRoute path="/Professionals" component={Professionals} />
 
             <Route component={PageNotFound} />
           </Switch>
