@@ -25,7 +25,7 @@ const BaseForm = ({
       <Form onSubmit={handleSubmit} className={cssFormClass}>
         {elements()}
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{ marginRight: "15px" }}>
           {submitButtonText}
         </Button>
         <Button

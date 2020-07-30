@@ -23,3 +23,21 @@ export function deletePerson(personId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function inactivatePerson(personId) {
+  return fetch(baseUrl + "inactivate/" + personId, {
+    method: "PUT",
+    headers: { "content-type": "application/json" }
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function activatePerson(personId) {
+  return fetch(baseUrl + "activate/" + personId, {
+    method: "PUT",
+    headers: { "content-type": "application/json" }
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

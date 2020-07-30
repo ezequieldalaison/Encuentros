@@ -1,11 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import PageBase from "../../base/PageBase";
 import * as PeopleActions from "../../../redux/actions/PeopleActions";
 import { connect } from "react-redux";
 import PeopleForm from "./PeopleForm";
 
-const People = ({ people, getPeople, savePerson }) => {
-  const childRef = useRef();
+const People = ({
+  people,
+  getPeople,
+  savePerson,
+  inactivatePerson,
+  activatePerson
+}) => {
   const [alert, setAlert] = useState({
     show: false,
     message: "",
@@ -37,17 +42,25 @@ const People = ({ people, getPeople, savePerson }) => {
       },
       {
         Header: "e-mail",
-        accessor: "email",
-        canSort: false
+        accessor: "email"
       },
       {
         Header: "Teléfono",
-        accessor: "phoneNumber",
-        canSort: false
+        accessor: "phoneNumber"
       },
       {
         Header: "Porcentaje de arreglo",
         accessor: "percentage",
+        canSort: false
+      },
+      {
+        Header: "Activo",
+        accessor: "isActive",
+        canSort: false
+      },
+      {
+        Header: "-",
+        accessor: "",
         canSort: false
       }
     ],
@@ -73,13 +86,22 @@ const People = ({ people, getPeople, savePerson }) => {
     setTimeout(hideAlert, 5000);
   };
 
+  const inactivate = personId => {
+    inactivatePerson(personId);
+  };
+
+  const activate = personId => {
+    activatePerson(personId);
+  };
+
   return (
     <PageBase
-      ref={childRef}
       grid={grid}
       title="Personas"
       form={PeopleForm}
       onSubmit={onSubmit}
+      activate={activate}
+      inactivate={inactivate}
       alert={alert}
       hideAlert={hideAlert}
     />
@@ -94,7 +116,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   getPeople: PeopleActions.getPeople,
-  savePerson: PeopleActions.savePerson
+  savePerson: PeopleActions.savePerson,
+  inactivatePerson: PeopleActions.inactivatePerson,
+  activatePerson: PeopleActions.activatePerson
 };
 
 export default connect(

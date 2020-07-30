@@ -2,6 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import { useTable, useSortBy } from "react-table";
 import Form from "react-bootstrap/Form";
+import { Button } from "react-bootstrap";
 
 const GridBase = props => {
   const {
@@ -30,7 +31,6 @@ const GridBase = props => {
           ? false
           : true)
   );
-
   return (
     <Table
       striped
@@ -39,16 +39,13 @@ const GridBase = props => {
       responsive
       size="sm"
       {...getTableProps()}
-      style={{ fontSize: "small" }}
+      style={{ fontSize: "small", textAlign: "center" }}
     >
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                style={{ textAlign: "center" }}
-              >
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render("Header")}
                 <span>
                   {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
@@ -65,13 +62,36 @@ const GridBase = props => {
             <tr {...row.getRowProps()}>
               {row.cells.map(cell => {
                 return typeof cell.value === "boolean" ? (
-                  <td {...cell.getCellProps()} style={{ textAlign: "center" }}>
+                  <td {...cell.getCellProps()}>
                     <Form.Check type="checkbox" disabled checked={cell.value} />
                   </td>
-                ) : (
-                  <td {...cell.getCellProps()} style={{ textAlign: "center" }}>
-                    {cell.render("Cell")}
+                ) : cell.column.Header === "-" ? (
+                  <td style={{ width: "auto" }} key={cell.column.Header}>
+                    <Button
+                      variant="link"
+                      onClick={() => console.log("Editar")}
+                      style={{
+                        fontSize: "small",
+                        padding: "0",
+                        marginRight: "5px"
+                      }}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="link"
+                      onClick={() =>
+                        row.values.isActive
+                          ? props.inactivate(row.values.id)
+                          : props.activate(row.values.id)
+                      }
+                      style={{ fontSize: "small", padding: "0" }}
+                    >
+                      {row.values.isActive ? "Inactivar" : "Activar"}
+                    </Button>
                   </td>
+                ) : (
+                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 );
               })}
             </tr>
