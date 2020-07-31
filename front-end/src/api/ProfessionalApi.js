@@ -18,8 +18,8 @@ export function saveProfessional(professional) {
     .catch(handleError);
 }
 
-// export function deletePerson(personId) {
-//   return fetch(baseUrl + personId, { method: "DELETE" })
+// export function deleteProfessional(professionalId) {
+//   return fetch(baseUrl + professionalId, { method: "DELETE" })
 //     .then(handleResponse)
 //     .catch(handleError);
 // }

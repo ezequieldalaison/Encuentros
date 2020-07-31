@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Encuentros.Data.IoCExtensions;
+using Encuentros.EntityMapper.IoCExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Encuentros.API
@@ -41,6 +37,10 @@ namespace Encuentros.API
                 {
                     a.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 }); ;
+
+            //services.AddDbContext();
+            services.AddRepositories();
+            services.AddAutomapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

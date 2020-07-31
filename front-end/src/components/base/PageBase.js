@@ -111,7 +111,7 @@ const PageBase = ({
       </Row>
 
       {FormComponent ? (
-        <Row style={{ marginTop: "25px" }}>
+        <Row style={{ marginTop: "25px", marginBottom: "25px" }}>
           <Col xs={12}>
             <Accordion>
               <Card border="secondary">
