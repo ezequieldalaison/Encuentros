@@ -38,7 +38,7 @@ namespace Encuentros.API
                     a.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 }); ;
 
-            //services.AddDbContext();
+            services.AddDbContext();
             services.AddRepositories();
             services.AddAutomapper();
         }

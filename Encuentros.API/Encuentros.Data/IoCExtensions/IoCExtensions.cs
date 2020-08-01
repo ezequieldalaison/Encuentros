@@ -1,4 +1,6 @@
-﻿using Encuentros.Data.Interfaces;
+﻿using Encuentros.Data.Contexts;
+using Encuentros.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,6 +10,11 @@ namespace Encuentros.Data.IoCExtensions
 {
     public static class IoCExtensions
     {
+        public static void AddDbContext(this IServiceCollection services)
+        {
+            services.AddScoped<DbContext>(_ => new ConsultingRoomContext(GetConnectionString(), true));
+        }
+
         public static void AddRepositories(this IServiceCollection services)
         {
             //services.AddScoped<IGenericRepository<Professional>, GenericRepository<Professional>>();

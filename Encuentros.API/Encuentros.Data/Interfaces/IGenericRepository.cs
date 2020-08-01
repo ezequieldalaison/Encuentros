@@ -9,6 +9,9 @@ namespace Encuentros.Data.Interfaces
         where TEntity : EntityBase
     {
         public IEnumerable<TEntity> GetAll();
+        public IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
+        public IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,
+            params Expression<Func<TEntity, object>>[] includeProperties);
         public IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate);
         public TEntity GetById(long id);
         public void Create(TEntity entity);

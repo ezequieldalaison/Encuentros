@@ -54,7 +54,9 @@ namespace Encuentros.API.Controllers.Base
 
             var entity = _mapper.Map<ENT>(dto);
             _repository.Create(entity);
-            return Ok();
+
+            var response = _mapper.Map<DTO>(entity);
+            return Ok(response);
         }
 
         [HttpPut]

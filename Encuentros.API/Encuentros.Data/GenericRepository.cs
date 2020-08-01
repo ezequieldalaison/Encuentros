@@ -1,8 +1,9 @@
 ﻿using Encuentros.Data.Interfaces;
 using Encuentros.Logic.Base;
-using Encuentros.Logic.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Encuentros.Data
@@ -10,40 +11,70 @@ namespace Encuentros.Data
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : EntityBase
     {
-        public void Create(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+        internal DbContext _context;
+        internal DbSet<TEntity> _dbSet;
 
-        public void Delete(long id)
+        public GenericRepository(DbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            var list = new List<Professional> {
-                    new Professional { Name = "Ezequiel", LastName = "Dalaison", DocumentNumber = "35070715", Email = "eze@gmail.com", PhoneNumber ="3413474636", Percentage = 30, IsActive = true },
-                    new Professional { Name = "Pepe", LastName = "Sanchez", DocumentNumber = "20445147", Email = "pepe@gmail.com", PhoneNumber ="34136535799", Percentage = 20, IsActive = true },
-                    new Professional { Name = "Jose", LastName = "Gonzalez", DocumentNumber = "39001245", Email = "Jose@gmail.com", PhoneNumber ="3413471044", Percentage = 30, IsActive = true }
-                };
-
-            return list as IEnumerable<TEntity>;
+            return _dbSet.AsNoTracking().ToList();
         }
 
-        public TEntity GetById(long id)
+        public IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            return GetAllIncluding(includeProperties).ToList();
+        }
+
+        public IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,
+          params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var query = GetAllIncluding(includeProperties);
+            IEnumerable<TEntity> results = query.Where(predicate).ToList();
+            return results;
+        }
+
+        private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> queryable = _dbSet.AsNoTracking();
+
+            return includeProperties.Aggregate
+              (queryable, (current, includeProperty) => current.Include(includeProperty));
         }
 
         public IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            IEnumerable<TEntity> results = _dbSet.AsNoTracking().Where(predicate).ToList();
+            return results;
+        }
+
+        public TEntity GetById(long id)
+        {
+            return _dbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
+        }
+
+        public void Create(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void Delete(long id)
+        {
+            var entity = GetById(id);
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

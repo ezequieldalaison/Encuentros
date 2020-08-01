@@ -16,46 +16,32 @@ namespace Encuentros.API.Controllers
         {
         }
 
-        //List<ProfessionalDto> list;
+        [HttpPut("activate/{id}")]
+        public ActionResult Activate(long id)
+        {
+            var entityRepo = _repository.GetById(id);
+            if (entityRepo == null)
+                return NotFound();
 
-        //public ProfessionalController()
-        //{
-        //    list = new List<ProfessionalDto> {
-        //        new ProfessionalDto { Id = 1, Name = "Ezequiel", LastName = "Dalaison", DocumentNumber = "35070715", Email = "eze@gmail.com", PhoneNumber ="3413474636", Percentage = 30, IsActive = true },
-        //        new ProfessionalDto { Id = 2, Name = "Pepe", LastName = "Sanchez", DocumentNumber = "20445147", Email = "pepe@gmail.com", PhoneNumber ="34136535799", Percentage = 20, IsActive = true },
-        //        new ProfessionalDto { Id = 3, Name = "Jose", LastName = "Gonzalez", DocumentNumber = "39001245", Email = "Jose@gmail.com", PhoneNumber ="3413471044", Percentage = 30, IsActive = true }
-        //    };
-        //}
+            entityRepo.Activate();
+            _repository.Update(entityRepo);
 
-        //[HttpGet]
-        //public ActionResult Get()
-        //{
-        //    return Ok(list);
-        //}
+            var response = _mapper.Map<ProfessionalDto>(entityRepo);
+            return Ok(response);
+        }
 
-        //[HttpPost]
-        //public ActionResult Post(ProfessionalDto p)
-        //{
-        //    p.IsActive = true;
-        //    list.Add(p);
-        //    return Ok(p);
-        //}
+        [HttpPut("inactivate/{id}")]
+        public ActionResult Inactivate(long id)
+        {
+            var entityRepo = _repository.GetById(id);
+            if (entityRepo == null)
+                return NotFound();
 
-        //[HttpPut("inactivate/{id}")]
-        //public ActionResult Inactivate(long id)
-        //{
-        //    var p = list.Single(x => x.Id == id);
-        //    p.IsActive = false;
-        //    return Ok(p);
-        //}
+            entityRepo.Inactivate();
+            _repository.Update(entityRepo);
 
-
-        //[HttpPut("activate/{id}")]
-        //public ActionResult Activate(long id)
-        //{
-        //    var p = list.Single(x => x.Id == id);
-        //    p.IsActive = true;
-        //    return Ok(p);
-        //}
+            var response = _mapper.Map<ProfessionalDto>(entityRepo);
+            return Ok(response);
+        }
     }
 }

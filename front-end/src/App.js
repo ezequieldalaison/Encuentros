@@ -29,8 +29,6 @@ class App extends Component {
   render() {
     const { auth, fetchHelper } = this.state;
     return (
-      <AuthContext.Provider value={auth}>
-        <FetchContext.Provider value={fetchHelper}>
           <NavigationBar auth={auth} />
           <Switch>
             <PublicRoute path="/" component={Home} exact />
@@ -44,8 +42,6 @@ class App extends Component {
 
             <Route component={PageNotFound} />
           </Switch>
-        </FetchContext.Provider>
-      </AuthContext.Provider>
     );
   }
 }

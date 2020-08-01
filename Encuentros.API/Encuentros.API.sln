@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.API", "Encuentros.API\Encuentros.API.csproj", "{BE83388D-1A59-4C99-A3A7-8296D7C37927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encuentros.Data", "Encuentros.Data\Encuentros.Data.csproj", "{08A79AC6-848A-4CFC-A7A0-A21C91B1B89D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.Data", "Encuentros.Data\Encuentros.Data.csproj", "{08A79AC6-848A-4CFC-A7A0-A21C91B1B89D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encuentros.DTOs", "Encuentros.DTOs\Encuentros.DTOs.csproj", "{B782C4D7-F63D-4955-88BE-859E094D5DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.DTOs", "Encuentros.DTOs\Encuentros.DTOs.csproj", "{B782C4D7-F63D-4955-88BE-859E094D5DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encuentros.EntityMapper", "Encuentros.EntityMapper\Encuentros.EntityMapper.csproj", "{1094486A-6148-406F-810B-8DF828280652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.EntityMapper", "Encuentros.EntityMapper\Encuentros.EntityMapper.csproj", "{1094486A-6148-406F-810B-8DF828280652}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encuentros.Logic", "Encuentros.Logic\Encuentros.Logic.csproj", "{064D2CCF-F63A-4563-9380-BEE1FC4DF852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.Logic", "Encuentros.Logic\Encuentros.Logic.csproj", "{064D2CCF-F63A-4563-9380-BEE1FC4DF852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encuentros.Migrations", "Encuentros.Migrations\Encuentros.Migrations.csproj", "{35869FF4-773E-4B34-8921-ADE2191B5A4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{064D2CCF-F63A-4563-9380-BEE1FC4DF852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{064D2CCF-F63A-4563-9380-BEE1FC4DF852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{064D2CCF-F63A-4563-9380-BEE1FC4DF852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
