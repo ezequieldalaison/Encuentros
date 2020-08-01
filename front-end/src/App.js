@@ -7,9 +7,7 @@ import Auth from "./components/auth/Auth";
 import Callback from "./components/auth/Callback";
 import Profile from "./components/Profile";
 import PrivateRoute from "./components/navigation/PrivateRoute";
-import PublicRoute from "./components/navigation/PublicRoute";
-import AuthContext from "./contexts/AuthContext";
-import FetchContext from "./contexts/FetchContext";
+import PublicRoute from "./components/navigation/PublicR
 import FetchHelper from "./components/helpers/FetchHelpers";
 import Configuration from "./components/pages/General/Configuration";
 import PageNotFound from "./components/pages/PageNotFound";
@@ -29,19 +27,21 @@ class App extends Component {
   render() {
     const { auth, fetchHelper } = this.state;
     return (
-          <NavigationBar auth={auth} />
-          <Switch>
-            <PublicRoute path="/" component={Home} exact />
-            <PublicRoute path="/Login" component={Login} />
-            <PublicRoute path="/Callback" component={Callback} />
+      <AuthContext.Provider value={auth}>
+        <NavigationBar auth={auth} />
+        <Switch>
+          <PublicRoute path="/" component={Home} exact />
+          <PublicRoute path="/Login" component={Login} />
+          <PublicRoute path="/Callback" component={Callback} />
 
-            <PrivateRoute path="/Area" component={Area} />
-            <PrivateRoute path="/Profile" component={Profile} />
-            <PrivateRoute path="/Configuration" component={Configuration} />
-            <PrivateRoute path="/Professionals" component={Professionals} />
+          <PrivateRoute path="/Area" component={Area} />
+          <PrivateRoute path="/Profile" component={Profile} />
+          <PrivateRoute path="/Configuration" component={Configuration} />
+          <PrivateRoute path="/Professionals" component={Professionals} />
 
-            <Route component={PageNotFound} />
-          </Switch>
+          <Route component={PageNotFound} />
+        </Switch>
+      </AuthContext.Provider>
     );
   }
 }
