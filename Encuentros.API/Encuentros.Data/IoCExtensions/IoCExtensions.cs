@@ -12,7 +12,7 @@ namespace Encuentros.Data.IoCExtensions
     {
         public static void AddDbContext(this IServiceCollection services)
         {
-            services.AddScoped<DbContext>(_ => new ConsultingRoomContext(GetConnectionString(), true));
+            services.AddScoped<DbContext>(_ => new EncuentrosContext(GetConnectionString(), true));
         }
 
         public static void AddRepositories(this IServiceCollection services)

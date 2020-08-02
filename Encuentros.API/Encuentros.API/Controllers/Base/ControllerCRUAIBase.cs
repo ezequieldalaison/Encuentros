@@ -1,17 +1,21 @@
 ﻿using AutoMapper;
-using Encuentros.API.Controllers.Base;
 using Encuentros.Data.Interfaces;
-using Encuentros.DTOs.ConsultingRoom;
-using Encuentros.Logic.Entities;
+using Encuentros.DTOs.Base;
+using Encuentros.Logic.Base;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
-namespace Encuentros.API.Controllers
+namespace Encuentros.API.Controllers.Base
 {
-    [Route("api/professional")]
-    [ApiController]
-    public class ProfessionalController : ControllerCRUDBase<Professional, ProfessionalDto>
+    /// <summary>
+    /// CRUDAI: Create, Read, Update, Activate, Inactivate
+    /// </summary>
+    public class ControllerCRUAIBase<ENT, DTO> : ControllerCRUDBase<ENT, DTO>
+        where ENT : EntityAIBase
+        where DTO : DtoAIBase
     {
-        public ProfessionalController(IGenericRepository<Professional> repository, IMapper mapper) 
+        public ControllerCRUAIBase(IGenericRepository<ENT> repository,
+                                  IMapper mapper)
             : base(repository, mapper)
         {
         }
@@ -26,7 +30,7 @@ namespace Encuentros.API.Controllers
             entityRepo.Activate();
             _repository.Update(entityRepo);
 
-            var response = _mapper.Map<ProfessionalDto>(entityRepo);
+            var response = _mapper.Map<DTO>(entityRepo);
             return Ok(response);
         }
 
@@ -40,8 +44,13 @@ namespace Encuentros.API.Controllers
             entityRepo.Inactivate();
             _repository.Update(entityRepo);
 
-            var response = _mapper.Map<ProfessionalDto>(entityRepo);
+            var response = _mapper.Map<DTO>(entityRepo);
             return Ok(response);
+        }
+
+        public override ActionResult Delete(long id)
+        {
+            throw new NotImplementedException("This entity could not be deleted.");
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Encuentros.Data.Migrations
 {
-    public partial class professionaltable : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,11 +18,28 @@ namespace Encuentros.Data.Migrations
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Percentage = table.Column<int>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false)
+                    IsActive = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Professionals", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(maxLength: 50, nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
@@ -36,6 +53,9 @@ namespace Encuentros.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Professionals");
+
+            migrationBuilder.DropTable(
+                name: "Students");
         }
     }
 }

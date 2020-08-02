@@ -11,13 +11,17 @@ const NavigationBar = props => {
         {props.auth.isAuthenticated() ? (
           <>
             <Nav>
-              <NavDropdown title="Consultorio" id="ddPilates">
+              <NavDropdown title="Consultorio" id="ddlConsultingRoom">
                 <NavDropdown.Item href="/Professionals">
                   Profesionales
                 </NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title="General" id="ddPilates">
-                <NavDropdown.Item href="/Area">Áreas</NavDropdown.Item>
+              <NavDropdown title="Pilates" id="ddPilates">
+                <NavDropdown.Item href="/Pilates/Alumnos">
+                  Alumnos
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="General" id="ddlGeneral">
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/Configuration">
                   Configuración

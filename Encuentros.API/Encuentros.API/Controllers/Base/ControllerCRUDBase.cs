@@ -3,7 +3,6 @@ using Encuentros.Data.Interfaces;
 using Encuentros.DTOs.Base;
 using Encuentros.Logic.Base;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace Encuentros.API.Controllers.Base

@@ -1,4 +1,6 @@
-﻿namespace Encuentros.Logic.Base
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Encuentros.Logic.Base
 {
     public abstract class EntityBase
     {

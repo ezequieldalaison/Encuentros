@@ -3,12 +3,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Encuentros.Data.Contexts
 {
-    public class ConsultingRoomContext : DbContext
+    public class EncuentrosContext : DbContext
     {
         private readonly string ConnectionString;
         public bool UseConsoleLogger { get; }
 
-        public ConsultingRoomContext(string connectionString, bool useConsoleLogger)
+        public EncuentrosContext(string connectionString, bool useConsoleLogger)
         {
             ConnectionString = connectionString;
             UseConsoleLogger = useConsoleLogger;

@@ -6,9 +6,9 @@ using System.IO;
 
 namespace Encuentros.Migrations
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ConsultingRoomContext>
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<EncuentrosContext>
     {
-        public ConsultingRoomContext CreateDbContext(string[] args)
+        public EncuentrosContext CreateDbContext(string[] args)
         {
             var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -20,7 +20,7 @@ namespace Encuentros.Migrations
             if (string.IsNullOrEmpty(configuration.GetConnectionString("DefaultConnection")))
                 throw new Exception("Can't read connection string");
 
-            return new ConsultingRoomContext(configuration.GetConnectionString("DefaultConnection"), true);
+            return new EncuentrosContext(configuration.GetConnectionString("DefaultConnection"), true);
         }
     }
 }
