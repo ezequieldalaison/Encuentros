@@ -2,8 +2,11 @@ import * as Types from "../../actions/ActionTypes";
 
 export default function StudentReducer(state = [], action) {
   switch (action.type) {
+    case Types.CREATE_STUDENT_SUCCESS:
+      return [...state, { ...action.student }];
     case Types.GET_STUDENTS_SUCCESS:
       return action.students;
+    case Types.UPDATE_STUDENT_SUCCESS:
     case Types.INACTIVATE_STUDENT_SUCCESS:
     case Types.ACTIVATE_STUDENT_SUCCESS: {
       return state.map(student =>

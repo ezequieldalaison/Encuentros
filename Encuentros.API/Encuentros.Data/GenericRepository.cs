@@ -59,6 +59,9 @@ namespace Encuentros.Data
 
         public void Create(TEntity entity)
         {
+            if (entity as EntityAIBase != null)
+                (entity as EntityAIBase).Activate();
+
             _dbSet.Add(entity);
             _context.SaveChanges();
         }

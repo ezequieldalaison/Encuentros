@@ -8,6 +8,16 @@ export function getStudents() {
     .catch(handleError);
 }
 
+export function saveStudent(student) {
+  return fetch(baseUrl + (student.id || ""), {
+    method: student.id ? "PUT" : "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(student)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function inactivateStudent(studentId) {
   return fetch(baseUrl + "inactivate/" + studentId, {
     method: "PUT",

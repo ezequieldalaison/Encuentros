@@ -1,15 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PageBase from "../../../base/PageBase";
 import { STUDENTS_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
 import * as StudentActions from "../../../../redux/actions/Pilates/StudentActions";
+import StudentForm from "./StudentForm";
 
 const StudentPage = ({
   students,
   getStudents,
   activateStudent,
-  inactivateStudent
+  inactivateStudent,
+  saveStudent
 }) => {
+  const [alert, setAlert] = useState({
+    show: false,
+    message: "",
+    variant: "success"
+  });
+
   useEffect(() => {
     getStudents().catch(error => console.log("ERROR: " + error));
   }, [getStudents]);
@@ -22,17 +30,41 @@ const StudentPage = ({
   };
 
   const inactivate = studentId => {
-    inactivateStudent(studentId);
+    inactivateStudent(studentId).then(() => {
+      setAlert({
+        show: true,
+        message: "El alumno se inactivó correctamente",
+        variant: "success"
+      });
+      setTimeout(hideAlert, 5000);
+    });
   };
 
   const activate = studentId => {
-    activateStudent(studentId);
+    activateStudent(studentId).then(() => {
+      setAlert({
+        show: true,
+        message: "El alumno se activó correctamente",
+        variant: "success"
+      });
+      setTimeout(hideAlert, 5000);
+    });
   };
 
-  //   form={null}
-  //   onSubmit={null}
-  //   alert={alert}
-  //   hideAlert={hideAlert}
+  const onSubmit = data => {
+    saveStudent(data).then(() => {
+      setAlert({
+        show: true,
+        message: "El alumno se guardó correctamente",
+        variant: "success"
+      });
+      setTimeout(hideAlert, 5000);
+    });
+  };
+
+  const hideAlert = () => {
+    setAlert({ show: false, message: "", variant: "success" });
+  };
 
   return (
     <PageBase
@@ -40,6 +72,10 @@ const StudentPage = ({
       title="Alumnos"
       activate={activate}
       inactivate={inactivate}
+      onSubmit={onSubmit}
+      alert={alert}
+      hideAlert={hideAlert}
+      form={StudentForm}
     />
   );
 };
@@ -52,6 +88,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   getStudents: StudentActions.getStudents,
+  saveStudent: StudentActions.saveStudent,
   inactivateStudent: StudentActions.inactivateStudent,
   activateStudent: StudentActions.activateStudent
 };
