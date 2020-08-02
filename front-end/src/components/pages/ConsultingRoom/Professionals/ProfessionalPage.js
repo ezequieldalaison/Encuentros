@@ -3,6 +3,7 @@ import PageBase from "../../../base/PageBase";
 import * as ProfessionalActions from "../../../../redux/actions/ProfessionalActions";
 import { connect } from "react-redux";
 import ProfessionalForm from "./ProfessionalForm";
+import { PROFESSIONALS_GRID } from "../../../helpers/GridHelper";
 
 const ProfessionalPage = ({
   professionals,
@@ -18,54 +19,10 @@ const ProfessionalPage = ({
   });
 
   useEffect(() => {
-    console.log("useEffect");
     getProfessionals().catch(error => console.log("ERROR: " + error));
   }, [getProfessionals]);
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "id",
-        accessor: "id"
-      },
-      {
-        Header: "Nombre",
-        accessor: "name"
-      },
-      {
-        Header: "Apellido",
-        accessor: "lastName"
-      },
-      {
-        Header: "Nº de Documento",
-        accessor: "documentNumber"
-      },
-      {
-        Header: "e-mail",
-        accessor: "email"
-      },
-      {
-        Header: "Teléfono",
-        accessor: "phoneNumber"
-      },
-      {
-        Header: "Porcentaje de arreglo",
-        accessor: "percentage",
-        canSort: false
-      },
-      {
-        Header: "Activo",
-        accessor: "isActive",
-        canSort: false
-      },
-      {
-        Header: "-",
-        accessor: "",
-        canSort: false
-      }
-    ],
-    []
-  );
+  const columns = React.useMemo(() => PROFESSIONALS_GRID, []);
 
   const grid = {
     data: professionals,

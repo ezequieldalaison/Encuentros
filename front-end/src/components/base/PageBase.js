@@ -14,6 +14,7 @@ const PageBase = ({
   grid,
   title,
   form: FormComponent,
+  search: SearchComponent,
   alert,
   hideAlert,
   activate,
@@ -57,26 +58,28 @@ const PageBase = ({
 
   return (
     <Container style={{ fontSize: "small" }}>
-      <Row style={{ marginTop: "25px" }}>
-        <Col xs={12}>
-          <Accordion>
-            <Card border="secondary">
-              <Card.Header style={{ padding: "5px" }}>
-                <Accordion.Toggle
-                  as={Button}
-                  variant="link"
-                  onClick={toggleSearch}
-                >
-                  <h6>Búsqueda</h6>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse in={showSearchState}>
-                <Card.Body></Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-        </Col>
-      </Row>
+      {SearchComponent ? (
+        <Row style={{ marginTop: "25px" }}>
+          <Col xs={12}>
+            <Accordion>
+              <Card border="secondary">
+                <Card.Header style={{ padding: "5px" }}>
+                  <Accordion.Toggle
+                    as={Button}
+                    variant="link"
+                    onClick={toggleSearch}
+                  >
+                    <h6>Búsqueda</h6>
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse in={showSearchState}>
+                  <Card.Body></Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </Col>
+        </Row>
+      ) : null}
       <Row style={{ marginTop: "25px" }}>
         <Col xs={12}>
           <Accordion>
@@ -145,7 +148,7 @@ const PageBase = ({
         </Row>
       ) : null}
 
-      {alert.show ? (
+      {alert && alert.show ? (
         <Alert
           className="fixed-bottom alert"
           variant={alert.variant}
