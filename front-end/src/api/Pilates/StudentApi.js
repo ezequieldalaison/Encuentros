@@ -8,6 +8,14 @@ export function getStudents() {
     .catch(handleError);
 }
 
+export function getStudent(studentId) {
+  return fetch(baseUrl + studentId, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function saveStudent(student) {
   return fetch(baseUrl + (student.id || ""), {
     method: student.id ? "PUT" : "POST",

@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import InputValidated from "../../../InputValidated";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const ProfessionalForm = props => {
+const StudentForm = props => {
   const { register, errors } = props;
 
   return (
@@ -56,4 +56,4 @@ const ProfessionalForm = props => {
   );
 };
 
-export default ProfessionalForm;
+export default StudentForm;

@@ -58,7 +58,7 @@ namespace Encuentros.API.Controllers.Base
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public virtual ActionResult Update(DTO dto)
         {
             var entityRepo = _repository.GetById(dto.Id);
@@ -67,7 +67,7 @@ namespace Encuentros.API.Controllers.Base
 
             var entity = _mapper.Map<ENT>(dto);
             _repository.Update(entity);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpDelete("{id}")]

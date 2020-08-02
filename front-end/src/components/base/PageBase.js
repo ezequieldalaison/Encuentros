@@ -19,18 +19,35 @@ const PageBase = ({
   hideAlert,
   activate,
   inactivate,
+  getEntity,
+  setEntityUnderUpdate,
   ...props
 }) => {
   const { data, columns } = grid;
   const [showSearchState, setShowSearchState] = useState(true);
   const [showGridState, setShowGridState] = useState(true);
   const [showFormState, setShowFormState] = useState(false);
-  const { register, handleSubmit, errors, reset } = useForm();
+  const { register, handleSubmit, errors, reset, setValue } = useForm();
 
   const onAdd = () => {
     setShowSearchState(false);
     setShowGridState(false);
     setShowFormState(true);
+
+    setEntityUnderUpdate();
+  };
+
+  const onUpdate = id => {
+    setShowSearchState(false);
+    setShowGridState(false);
+    setShowFormState(true);
+
+    getEntity(id).then(entity => {
+      setEntityUnderUpdate(entity);
+      for (var key in entity) {
+        setValue(key, entity[key], { shouldValidate: true });
+      }
+    });
   };
 
   const onCancelForm = () => {
@@ -100,6 +117,7 @@ const PageBase = ({
                     data={data}
                     activate={activate}
                     inactivate={inactivate}
+                    onUpdate={onUpdate}
                   />
                   <Row>
                     <Col xs={1} style={{ marginBottom: "5px" }}>

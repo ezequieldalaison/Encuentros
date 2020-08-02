@@ -69,7 +69,7 @@ const GridBase = props => {
                   <td style={{ width: "auto" }} key={cell.column.Header}>
                     <Button
                       variant="link"
-                      onClick={() => console.log("Editar")}
+                      onClick={() => props.onUpdate(row.values.id)}
                       style={{
                         fontSize: "small",
                         padding: "0",

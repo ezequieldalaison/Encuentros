@@ -5,6 +5,10 @@ export function getStudentsSuccess(students) {
   return { type: Types.GET_STUDENTS_SUCCESS, students };
 }
 
+export function getStudentSuccess(student) {
+  return { type: Types.GET_STUDENT_SUCCESS, student };
+}
+
 export function createStudentSuccess(student) {
   return { type: Types.CREATE_STUDENT_SUCCESS, student };
 }
@@ -26,6 +30,19 @@ export function getStudents() {
     return StudentApi.getStudents()
       .then(students => {
         dispatch(getStudentsSuccess(students));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getStudent(studentId) {
+  return function(dispatch) {
+    return StudentApi.getStudent(studentId)
+      .then(student => {
+        dispatch(getStudentSuccess(student));
+        return student;
       })
       .catch(error => {
         throw error;

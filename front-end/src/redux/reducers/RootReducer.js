@@ -4,7 +4,7 @@ import StudentReducer from "./Pilates/StudentReducer";
 
 const RootReducer = combineReducers({
   professional: ProfessionalReducer,
-  student: StudentReducer
+  students: StudentReducer
 });
 
 export default RootReducer;

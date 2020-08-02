@@ -8,10 +8,12 @@ import StudentForm from "./StudentForm";
 const StudentPage = ({
   students,
   getStudents,
+  getStudent,
   activateStudent,
   inactivateStudent,
   saveStudent
 }) => {
+  const [studentUnderUpdate, setStudentUnderUpdate] = useState();
   const [alert, setAlert] = useState({
     show: false,
     message: "",
@@ -19,7 +21,7 @@ const StudentPage = ({
   });
 
   useEffect(() => {
-    getStudents().catch(error => console.log("ERROR: " + error));
+    getStudents();
   }, [getStudents]);
 
   const columns = React.useMemo(() => STUDENTS_GRID, []);
@@ -52,6 +54,9 @@ const StudentPage = ({
   };
 
   const onSubmit = data => {
+    if (studentUnderUpdate) {
+      data = { ...studentUnderUpdate, ...data };
+    }
     saveStudent(data).then(() => {
       setAlert({
         show: true,
@@ -66,6 +71,12 @@ const StudentPage = ({
     setAlert({ show: false, message: "", variant: "success" });
   };
 
+  const getEntity = studentId => {
+    return getStudent(studentId).then(student => {
+      return student;
+    });
+  };
+
   return (
     <PageBase
       grid={grid}
@@ -76,13 +87,15 @@ const StudentPage = ({
       alert={alert}
       hideAlert={hideAlert}
       form={StudentForm}
+      getEntity={getEntity}
+      setEntityUnderUpdate={setStudentUnderUpdate}
     />
   );
 };
 
 function mapStateToProps(state) {
   return {
-    students: state.student
+    students: state.students
   };
 }
 
@@ -90,7 +103,8 @@ const mapDispatchToProps = {
   getStudents: StudentActions.getStudents,
   saveStudent: StudentActions.saveStudent,
   inactivateStudent: StudentActions.inactivateStudent,
-  activateStudent: StudentActions.activateStudent
+  activateStudent: StudentActions.activateStudent,
+  getStudent: StudentActions.getStudent
 };
 
 export default connect(
