@@ -4,7 +4,12 @@ import { STUDENTS_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
 import * as StudentActions from "../../../../redux/actions/Pilates/StudentActions";
 
-const StudentPage = ({ students, getStudents }) => {
+const StudentPage = ({
+  students,
+  getStudents,
+  activateStudent,
+  inactivateStudent
+}) => {
   useEffect(() => {
     getStudents().catch(error => console.log("ERROR: " + error));
   }, [getStudents]);
@@ -16,14 +21,27 @@ const StudentPage = ({ students, getStudents }) => {
     columns: columns
   };
 
+  const inactivate = studentId => {
+    inactivateStudent(studentId);
+  };
+
+  const activate = studentId => {
+    activateStudent(studentId);
+  };
+
   //   form={null}
   //   onSubmit={null}
-  //   activate={null}
-  //   inactivate={null}
   //   alert={alert}
   //   hideAlert={hideAlert}
 
-  return <PageBase grid={grid} title="Alumnos" />;
+  return (
+    <PageBase
+      grid={grid}
+      title="Alumnos"
+      activate={activate}
+      inactivate={inactivate}
+    />
+  );
 };
 
 function mapStateToProps(state) {
@@ -33,7 +51,9 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getStudents: StudentActions.getStudents
+  getStudents: StudentActions.getStudents,
+  inactivateStudent: StudentActions.inactivateStudent,
+  activateStudent: StudentActions.activateStudent
 };
 
 export default connect(
