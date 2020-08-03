@@ -4,6 +4,7 @@ import { STUDENTS_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
 import * as StudentActions from "../../../../redux/actions/Pilates/StudentActions";
 import StudentForm from "./StudentForm";
+import StudentSearch from "./StudentSearch";
 
 const StudentPage = ({
   students,
@@ -11,7 +12,8 @@ const StudentPage = ({
   getStudent,
   activateStudent,
   inactivateStudent,
-  saveStudent
+  saveStudent,
+  searchStudents
 }) => {
   const [studentUnderUpdate, setStudentUnderUpdate] = useState();
   const [alert, setAlert] = useState({
@@ -57,6 +59,7 @@ const StudentPage = ({
     if (studentUnderUpdate) {
       data = { ...studentUnderUpdate, ...data };
     }
+
     saveStudent(data).then(() => {
       setAlert({
         show: true,
@@ -77,6 +80,14 @@ const StudentPage = ({
     });
   };
 
+  const search = data => {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      getStudents();
+    } else {
+      searchStudents(data);
+    }
+  };
+
   return (
     <PageBase
       grid={grid}
@@ -87,8 +98,10 @@ const StudentPage = ({
       alert={alert}
       hideAlert={hideAlert}
       form={StudentForm}
+      search={StudentSearch}
       getEntity={getEntity}
       setEntityUnderUpdate={setStudentUnderUpdate}
+      onSearch={search}
     />
   );
 };
@@ -104,7 +117,8 @@ const mapDispatchToProps = {
   saveStudent: StudentActions.saveStudent,
   inactivateStudent: StudentActions.inactivateStudent,
   activateStudent: StudentActions.activateStudent,
-  getStudent: StudentActions.getStudent
+  getStudent: StudentActions.getStudent,
+  searchStudents: StudentActions.searchStudents
 };
 
 export default connect(

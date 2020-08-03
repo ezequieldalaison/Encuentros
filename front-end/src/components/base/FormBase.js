@@ -8,7 +8,8 @@ const BaseForm = ({
   submitButtonText,
   elements,
   cssFormClass,
-  showCancelButton
+  showCancelButton,
+  cancelButtonText
 }) => {
   function handleSubmit(event) {
     event.preventDefault();
@@ -33,7 +34,7 @@ const BaseForm = ({
           onClick={handleCancel}
           style={{ visibility: showCancelButton ? "visible" : "hidden" }}
         >
-          Cancelar
+          {cancelButtonText ? cancelButtonText : "Cancelar"}
         </Button>
       </Form>
     </>

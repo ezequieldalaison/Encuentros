@@ -10,6 +10,7 @@ export default function StudentReducer(state = [], action) {
       );
     }
     case Types.GET_STUDENTS_SUCCESS:
+    case Types.SEARCH_STUDENTS_SUCCESS:
       return action.students;
     case Types.UPDATE_STUDENT_SUCCESS:
     case Types.INACTIVATE_STUDENT_SUCCESS:

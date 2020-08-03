@@ -8,6 +8,16 @@ export function getStudents() {
     .catch(handleError);
 }
 
+export function searchStudents(criteria) {
+  return fetch(baseUrl + "search", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(criteria)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function getStudent(studentId) {
   return fetch(baseUrl + studentId, {
     method: "GET"

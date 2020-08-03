@@ -20,14 +20,16 @@ const PageBase = ({
   activate,
   inactivate,
   getEntity,
+  onSearch,
   setEntityUnderUpdate,
   ...props
 }) => {
   const { data, columns } = grid;
-  const [showSearchState, setShowSearchState] = useState(true);
+  const [showSearchState, setShowSearchState] = useState(false);
   const [showGridState, setShowGridState] = useState(true);
   const [showFormState, setShowFormState] = useState(false);
-  const { register, handleSubmit, errors, reset, setValue } = useForm();
+  const addUpdateForm = useForm();
+  const searchForm = useForm();
 
   const onAdd = () => {
     setShowSearchState(false);
@@ -45,14 +47,14 @@ const PageBase = ({
     getEntity(id).then(entity => {
       setEntityUnderUpdate(entity);
       for (var key in entity) {
-        setValue(key, entity[key], { shouldValidate: true });
+        addUpdateForm.setValue(key, entity[key], { shouldValidate: true });
       }
     });
   };
 
   const onCancelForm = () => {
-    reset();
-    setShowSearchState(true);
+    addUpdateForm.reset();
+    setShowSearchState(false);
     setShowGridState(true);
     setShowFormState(false);
   };
@@ -65,12 +67,22 @@ const PageBase = ({
     setShowGridState(!showGridState);
   };
 
-  const onSubmit = data => {
+  const onSubmitForm = data => {
     props.onSubmit(data);
-    reset();
-    setShowSearchState(true);
+    addUpdateForm.reset();
+    setShowSearchState(false);
     setShowGridState(true);
     setShowFormState(false);
+  };
+
+  const onSubmitSearch = data => {
+    onSearch(data);
+    setShowSearchState(false);
+  };
+
+  const onCancelSearch = () => {
+    console.log("limpiar");
+    searchForm.reset();
   };
 
   return (
@@ -90,7 +102,23 @@ const PageBase = ({
                   </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse in={showSearchState}>
-                  <Card.Body></Card.Body>
+                  <Card.Body>
+                    <Container fluid>
+                      <FormBase
+                        cancel={onCancelSearch}
+                        submit={searchForm.handleSubmit(onSubmitSearch)}
+                        submitButtonText="Buscar"
+                        showCancelButton={true}
+                        cancelButtonText="Limpiar"
+                        elements={() => (
+                          <SearchComponent
+                            onSubmit={onSubmitSearch}
+                            register={searchForm.register}
+                          />
+                        )}
+                      ></FormBase>
+                    </Container>
+                  </Card.Body>
                 </Accordion.Collapse>
               </Card>
             </Accordion>
@@ -146,14 +174,14 @@ const PageBase = ({
                     <Container fluid>
                       <FormBase
                         cancel={onCancelForm}
-                        submit={handleSubmit(onSubmit)}
+                        submit={addUpdateForm.handleSubmit(onSubmitForm)}
                         submitButtonText="Guardar"
                         showCancelButton={true}
                         elements={() => (
                           <FormComponent
-                            onSubmit={onSubmit}
-                            register={register}
-                            errors={errors}
+                            onSubmit={onSubmitForm}
+                            register={addUpdateForm.register}
+                            errors={addUpdateForm.errors}
                           />
                         )}
                       ></FormBase>

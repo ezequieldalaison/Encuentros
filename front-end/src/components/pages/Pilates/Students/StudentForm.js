@@ -2,8 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import InputValidated from "../../../InputValidated";
-import "bootstrap/dist/css/bootstrap.min.css";
+import InputValidated from "../../../common/InputValidated";
 
 const StudentForm = props => {
   const { register, errors } = props;
@@ -37,7 +36,7 @@ const StudentForm = props => {
             <InputValidated
               register={register}
               name="email"
-              type="text"
+              type="email"
               error={errors.email}
             ></InputValidated>
           </Col>
@@ -47,7 +46,9 @@ const StudentForm = props => {
               register={register}
               name="phoneNumber"
               type="text"
+              pattern="[0-9]*"
               error={errors.phoneNumber}
+              onlyNumbers
             ></InputValidated>
           </Col>
         </Row>
