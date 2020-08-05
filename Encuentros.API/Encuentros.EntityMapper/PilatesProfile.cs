@@ -11,7 +11,8 @@ namespace Encuentros.EntityMapper
         public PilatesProfile()
         {
             CreateMap<Entity.Student, DTO.StudentDto>().ReverseMap();
-            
+            CreateMap<Entity.Instructor, DTO.InstructorDto>().ReverseMap();
+
             CreateMap<Entity.Student, DTO.ClassStudentDto>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.Name + " " + src.LastName))
                 .ForMember(dest => dest.IsUpToDate, opt => opt.MapFrom(src => true));

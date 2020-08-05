@@ -22,7 +22,9 @@ namespace Encuentros.API.Controllers.Pilates
         [HttpGet]
         public override ActionResult<IEnumerable<WeeklyClassDto>> GetAll()
         {
-            var entities = _repository.GetAllInclude(x => x.WeeklyClassStudents, x => x.WeeklyClassStudents.Select(w => w.Student));
+            var entities = _repository.GetAllInclude(x => x.WeeklyClassStudents, 
+                                                     x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                     x => x.Instructor);
             
             foreach (var weeklyClass in entities)
                 weeklyClass.Fill();

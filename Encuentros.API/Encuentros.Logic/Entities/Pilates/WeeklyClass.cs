@@ -8,6 +8,7 @@ namespace Encuentros.Logic.Entities.Pilates
     {
         public virtual long DayId { get; private set; }
         public virtual string Hour { get; private set; }
+        public virtual Instructor Instructor { get; private set; }
         public virtual ICollection<WeeklyClassStudent> WeeklyClassStudents { get; private set; }
 
         public void Fill()

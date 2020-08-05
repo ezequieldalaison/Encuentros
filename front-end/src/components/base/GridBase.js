@@ -39,7 +39,7 @@ const GridBase = props => {
       responsive
       size="sm"
       {...getTableProps()}
-      style={{ fontSize: "small", textAlign: "center" }}
+      style={{ fontSize: "small", textAlign: "center", marginBottom: "3px" }}
     >
       <thead>
         {headerGroups.map(headerGroup => (

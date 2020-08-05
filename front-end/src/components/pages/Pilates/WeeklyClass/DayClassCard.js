@@ -16,7 +16,12 @@ const DayClassCard = ({ dayName, weeklyClasses }) => {
         <Accordion.Collapse in={true}>
           <Card.Body style={{ padding: "5px" }}>
             {weeklyClasses.map(wc => (
-              <ClassCard key={wc.id} students={wc.students} hour={wc.hour} />
+              <ClassCard
+                key={wc.id}
+                students={wc.students}
+                hour={wc.hour}
+                instructor={wc.instructor}
+              />
             ))}
           </Card.Body>
         </Accordion.Collapse>

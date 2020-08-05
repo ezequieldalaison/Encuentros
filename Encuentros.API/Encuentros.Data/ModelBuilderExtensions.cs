@@ -33,6 +33,15 @@ namespace Encuentros.Data
                 x.Property(x => x.IsActive).IsRequired();
             });
 
+            modelBuilder.Entity<Instructor>(x =>
+            {
+                x.ToTable("Instructors");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+                x.Property(x => x.LastName).IsRequired().HasMaxLength(50);
+                x.Property(x => x.IsActive).IsRequired();
+            });
+
             modelBuilder.Entity<WeeklyClassStudent>()
                 .ToTable("WeeklyClassStudents")
                 .HasKey(cs => new { cs.WeeklyClassId, cs.StudentId });
@@ -53,6 +62,7 @@ namespace Encuentros.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.DayId).IsRequired();
                 x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
+                x.HasOne(x => x.Instructor);
             });
         }
     }
