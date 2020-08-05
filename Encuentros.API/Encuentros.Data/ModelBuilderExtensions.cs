@@ -6,7 +6,7 @@ namespace Encuentros.Data
 {
     public static class ModelBuilderExtensions
     {
-        public static void AddProfessionalEntity(this ModelBuilder modelBuilder)
+        public static void AddEntities(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Professional>(x =>
             {
@@ -31,6 +31,28 @@ namespace Encuentros.Data
                 x.Property(x => x.Email).HasMaxLength(50);
                 x.Property(x => x.PhoneNumber);
                 x.Property(x => x.IsActive).IsRequired();
+            });
+
+            modelBuilder.Entity<WeeklyClassStudent>()
+                .ToTable("WeeklyClassStudents")
+                .HasKey(cs => new { cs.WeeklyClassId, cs.StudentId });
+
+            modelBuilder.Entity<WeeklyClassStudent>()
+                .HasOne(pt => pt.Student)
+                .WithMany(p => p.WeeklyClassStudents)
+                .HasForeignKey(pt => pt.StudentId);
+
+            modelBuilder.Entity<WeeklyClassStudent>()
+                .HasOne(pt => pt.WeeklyClass)
+                .WithMany(t => t.WeeklyClassStudents)
+                .HasForeignKey(pt => pt.WeeklyClassId);
+
+            modelBuilder.Entity<WeeklyClass>(x =>
+            {
+                x.ToTable("WeeklyClasses");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.DayId).IsRequired();
+                x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
             });
         }
     }

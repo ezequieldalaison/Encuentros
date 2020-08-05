@@ -13,6 +13,7 @@ import PageNotFound from "./components/pages/PageNotFound";
 import { Route, Switch } from "react-router-dom";
 import Professionals from "./components/pages/ConsultingRoom/Professionals/ProfessionalPage";
 import StudentPage from "./components/pages/Pilates/Students/StudentPage";
+import WeeklyClass from "./components/pages/Pilates/WeeklyClass/WeeklyClass";
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +39,10 @@ class App extends Component {
           <PrivateRoute path="/Professionals" component={Professionals} />
 
           <PrivateRoute path="/Pilates/Alumnos" component={StudentPage} />
+          <PrivateRoute
+            path="/Pilates/ClasesSemanales"
+            component={WeeklyClass}
+          />
 
           <Route component={PageNotFound} />
         </Switch>

@@ -1,10 +1,12 @@
-﻿using Encuentros.Data.Interfaces;
+﻿using Encuentros.Data.Extensions;
+using Encuentros.Data.Interfaces;
 using Encuentros.Logic.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace Encuentros.Data
 {
@@ -43,7 +45,10 @@ namespace Encuentros.Data
             IQueryable<TEntity> queryable = _dbSet.AsNoTracking();
 
             return includeProperties.Aggregate
-              (queryable, (current, includeProperty) => current.Include(includeProperty));
+              (queryable, (current, includeProperty) =>
+              {
+                  return current.Include(includeProperty.AsPath());
+              });
         }
 
         public IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate)

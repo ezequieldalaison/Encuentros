@@ -20,6 +20,9 @@ const NavigationBar = props => {
                 <NavDropdown.Item href="/Pilates/Alumnos">
                   Alumnos
                 </NavDropdown.Item>
+                <NavDropdown.Item href="/Pilates/ClasesSemanales">
+                  Clases Semanales
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="General" id="ddlGeneral">
                 <NavDropdown.Divider />

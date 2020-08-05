@@ -71,3 +71,15 @@ export const PROFESSIONALS_GRID = [
     canSort: false
   }
 ];
+export const CLASSES_GRID = [
+  {
+    Header: "Alumno",
+    accessor: "fullName",
+    canSort: false
+  },
+  {
+    Header: "Al día",
+    accessor: "isUpToDate",
+    canSort: false
+  }
+];

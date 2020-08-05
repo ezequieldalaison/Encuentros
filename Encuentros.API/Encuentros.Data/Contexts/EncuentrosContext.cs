@@ -16,7 +16,7 @@ namespace Encuentros.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.AddProfessionalEntity();
+            modelBuilder.AddEntities();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
