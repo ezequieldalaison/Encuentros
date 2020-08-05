@@ -4,6 +4,7 @@ import * as ProfessionalActions from "../../../../redux/actions/ProfessionalActi
 import { connect } from "react-redux";
 import ProfessionalForm from "./ProfessionalForm";
 import { PROFESSIONALS_GRID } from "../../../helpers/GridHelper";
+import { toast } from "react-toastify";
 
 const ProfessionalPage = ({
   professionals,
@@ -12,12 +13,7 @@ const ProfessionalPage = ({
   inactivateProfessional,
   activateProfessional
 }) => {
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
-    variant: "success"
-  });
-
+  const [professionalUnderUpdate, setProfessionalUnderUpdate] = useState();
   useEffect(() => {
     getProfessionals().catch(error => console.log("ERROR: " + error));
   }, [getProfessionals]);
@@ -29,26 +25,25 @@ const ProfessionalPage = ({
     columns: columns
   };
 
-  const hideAlert = () => {
-    setAlert({ show: false, message: "", variant: "success" });
-  };
-
   const onSubmit = data => {
-    saveProfessional(data);
-    setAlert({
-      show: true,
-      message: "El profesional se guardó correctamente",
-      variant: "success"
-    });
-    setTimeout(hideAlert, 5000);
+    if (professionalUnderUpdate) {
+      data = { ...professionalUnderUpdate, ...data };
+    }
+    saveProfessional(data).then(() =>
+      toast.success("El profesional se guardó correctamente")
+    );
   };
 
   const inactivate = professionalId => {
-    inactivateProfessional(professionalId);
+    inactivateProfessional(professionalId).then(() =>
+      toast.success("El profesional se inactivó correctamente")
+    );
   };
 
   const activate = professionalId => {
-    activateProfessional(professionalId);
+    activateProfessional(professionalId).then(() =>
+      toast.success("El profesional se activó correctamente")
+    );
   };
 
   return (
@@ -59,8 +54,7 @@ const ProfessionalPage = ({
       onSubmit={onSubmit}
       activate={activate}
       inactivate={inactivate}
-      alert={alert}
-      hideAlert={hideAlert}
+      setEntityUnderUpdate={setProfessionalUnderUpdate}
     />
   );
 };

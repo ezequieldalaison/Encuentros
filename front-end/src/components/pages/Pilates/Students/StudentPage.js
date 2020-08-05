@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as StudentActions from "../../../../redux/actions/Pilates/StudentActions";
 import StudentForm from "./StudentForm";
 import StudentSearch from "./StudentSearch";
+import { toast } from "react-toastify";
 
 const StudentPage = ({
   students,
@@ -16,11 +17,6 @@ const StudentPage = ({
   searchStudents
 }) => {
   const [studentUnderUpdate, setStudentUnderUpdate] = useState();
-  const [alert, setAlert] = useState({
-    show: false,
-    message: "",
-    variant: "success"
-  });
 
   useEffect(() => {
     getStudents();
@@ -34,25 +30,15 @@ const StudentPage = ({
   };
 
   const inactivate = studentId => {
-    inactivateStudent(studentId).then(() => {
-      setAlert({
-        show: true,
-        message: "El alumno se inactivó correctamente",
-        variant: "success"
-      });
-      setTimeout(hideAlert, 5000);
-    });
+    inactivateStudent(studentId).then(() =>
+      toast.success("El alumno se inactivó correctamente")
+    );
   };
 
   const activate = studentId => {
-    activateStudent(studentId).then(() => {
-      setAlert({
-        show: true,
-        message: "El alumno se activó correctamente",
-        variant: "success"
-      });
-      setTimeout(hideAlert, 5000);
-    });
+    activateStudent(studentId).then(() =>
+      toast.success("El alumno se activó correctamente")
+    );
   };
 
   const onSubmit = data => {
@@ -60,18 +46,9 @@ const StudentPage = ({
       data = { ...studentUnderUpdate, ...data };
     }
 
-    saveStudent(data).then(() => {
-      setAlert({
-        show: true,
-        message: "El alumno se guardó correctamente",
-        variant: "success"
-      });
-      setTimeout(hideAlert, 5000);
-    });
-  };
-
-  const hideAlert = () => {
-    setAlert({ show: false, message: "", variant: "success" });
+    saveStudent(data).then(() =>
+      toast.success("El alumno se guardó correctamente")
+    );
   };
 
   const getEntity = studentId => {
@@ -95,8 +72,6 @@ const StudentPage = ({
       activate={activate}
       inactivate={inactivate}
       onSubmit={onSubmit}
-      alert={alert}
-      hideAlert={hideAlert}
       form={StudentForm}
       search={StudentSearch}
       getEntity={getEntity}

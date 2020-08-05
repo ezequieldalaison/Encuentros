@@ -6,7 +6,6 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import GridBase from "./GridBase";
-import Alert from "react-bootstrap/Alert";
 import FormBase from "../base/FormBase";
 import { useForm } from "react-hook-form";
 
@@ -15,8 +14,6 @@ const PageBase = ({
   title,
   form: FormComponent,
   search: SearchComponent,
-  alert,
-  hideAlert,
   activate,
   inactivate,
   getEntity,
@@ -191,17 +188,6 @@ const PageBase = ({
             </Accordion>
           </Col>
         </Row>
-      ) : null}
-
-      {alert && alert.show ? (
-        <Alert
-          className="fixed-bottom alert"
-          variant={alert.variant}
-          onClose={() => hideAlert()}
-          dismissible
-        >
-          {alert.message}
-        </Alert>
       ) : null}
     </Container>
   );

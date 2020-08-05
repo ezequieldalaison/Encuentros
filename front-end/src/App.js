@@ -14,6 +14,9 @@ import { Route, Switch } from "react-router-dom";
 import Professionals from "./components/pages/ConsultingRoom/Professionals/ProfessionalPage";
 import StudentPage from "./components/pages/Pilates/Students/StudentPage";
 import WeeklyClassPage from "./components/pages/Pilates/WeeklyClass/WeeklyClassPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -46,6 +49,7 @@ class App extends Component {
 
           <Route component={PageNotFound} />
         </Switch>
+        <ToastContainer autoClose={5000} draggable={false} />
       </AuthContext.Provider>
     );
   }
