@@ -1,5 +1,6 @@
 import * as Types from "../ActionTypes";
 import * as StudentApi from "../../../api/Pilates/StudentApi";
+import { beginApiCall } from "../ApiStatus/ApiStatusActions";
 
 export function getStudentsSuccess(students) {
   return { type: Types.GET_STUDENTS_SUCCESS, students };
@@ -43,6 +44,7 @@ export function getStudents() {
 
 export function searchStudents(criteria) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return StudentApi.searchStudents(criteria)
       .then(students => {
         dispatch(searchStudentsSuccess(students));
@@ -55,6 +57,7 @@ export function searchStudents(criteria) {
 
 export function getStudent(studentId) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return StudentApi.getStudent(studentId)
       .then(student => {
         dispatch(getStudentSuccess(student));
@@ -68,6 +71,7 @@ export function getStudent(studentId) {
 
 export function inactivateStudent(studentId) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return StudentApi.inactivateStudent(studentId)
       .then(student => {
         dispatch(inactivateStudentSuccess(student));
@@ -80,6 +84,7 @@ export function inactivateStudent(studentId) {
 
 export function activateStudent(studentId) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return StudentApi.activateStudent(studentId)
       .then(student => {
         dispatch(activateStudentSuccess(student));
@@ -92,6 +97,7 @@ export function activateStudent(studentId) {
 
 export function saveStudent(student) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return StudentApi.saveStudent(student)
       .then(savedStudent => {
         student.id

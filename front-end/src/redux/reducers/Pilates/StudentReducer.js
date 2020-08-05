@@ -1,6 +1,7 @@
 import * as Types from "../../actions/ActionTypes";
+import InitialState from "../InitialState";
 
-export default function StudentReducer(state = [], action) {
+export default function StudentReducer(state = InitialState.students, action) {
   switch (action.type) {
     case Types.CREATE_STUDENT_SUCCESS:
       return [...state, { ...action.student }];

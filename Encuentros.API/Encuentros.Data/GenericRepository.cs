@@ -62,6 +62,13 @@ namespace Encuentros.Data
             return _dbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
         }
 
+        public TEntity GetByIdIncluding(long id, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var query = GetAllIncluding(includeProperties);
+            TEntity result = query.SingleOrDefault(x => x.Id == id);
+            return result;
+        }
+
         public void Create(TEntity entity)
         {
             if (entity as EntityAIBase != null)

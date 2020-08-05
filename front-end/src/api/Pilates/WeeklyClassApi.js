@@ -7,3 +7,11 @@ export function getWeeklyClasses() {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getWeeklyClass(weeklyClassId) {
+  return fetch(baseUrl + weeklyClassId, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

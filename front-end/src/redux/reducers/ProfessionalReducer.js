@@ -1,6 +1,10 @@
 import * as Types from "../actions/ActionTypes";
+import InitialState from "./InitialState";
 
-export default function ProfessionalReducer(state = [], action) {
+export default function ProfessionalReducer(
+  state = InitialState.professionals,
+  action
+) {
   switch (action.type) {
     case Types.CREATE_PROFESSIONALS_SUCCESS:
       return [...state, { ...action.professional }];

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
 import DayClassCard from "./DayClassCard";
 
-const WeeklyClass = ({ weeklyClasses, getWeeklyClasses }) => {
+const WeeklyClassPage = ({ weeklyClasses, getWeeklyClasses }) => {
   useEffect(() => {
     getWeeklyClasses();
   }, [getWeeklyClasses]);
@@ -64,4 +64,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WeeklyClass);
+)(WeeklyClassPage);

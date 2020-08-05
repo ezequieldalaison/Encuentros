@@ -81,7 +81,6 @@ const PageBase = ({
   };
 
   const onCancelSearch = () => {
-    console.log("limpiar");
     searchForm.reset();
   };
 

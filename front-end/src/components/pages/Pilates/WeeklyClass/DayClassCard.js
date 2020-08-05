@@ -18,6 +18,7 @@ const DayClassCard = ({ dayName, weeklyClasses }) => {
             {weeklyClasses.map(wc => (
               <ClassCard
                 key={wc.id}
+                weeklyClassId={wc.id}
                 students={wc.students}
                 hour={wc.hour}
                 instructor={wc.instructor}

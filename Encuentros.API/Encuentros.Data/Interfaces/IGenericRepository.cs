@@ -8,14 +8,15 @@ namespace Encuentros.Data.Interfaces
     public interface IGenericRepository<TEntity> 
         where TEntity : EntityBase
     {
-        public IEnumerable<TEntity> GetAll();
-        public IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
-        public IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,
+        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
+        IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,
             params Expression<Func<TEntity, object>>[] includeProperties);
-        public IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate);
-        public TEntity GetById(long id);
-        public void Create(TEntity entity);
-        public void Update(TEntity entity);
-        public void Delete(long id);
+        IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate);
+        TEntity GetById(long id);
+        void Create(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(long id);
+        TEntity GetByIdIncluding(long id, params Expression<Func<TEntity, object>>[] includeProperties);
     }
 }

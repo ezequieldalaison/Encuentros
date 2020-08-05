@@ -13,7 +13,7 @@ import PageNotFound from "./components/pages/PageNotFound";
 import { Route, Switch } from "react-router-dom";
 import Professionals from "./components/pages/ConsultingRoom/Professionals/ProfessionalPage";
 import StudentPage from "./components/pages/Pilates/Students/StudentPage";
-import WeeklyClass from "./components/pages/Pilates/WeeklyClass/WeeklyClass";
+import WeeklyClassPage from "./components/pages/Pilates/WeeklyClass/WeeklyClassPage";
 
 class App extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class App extends Component {
           <PrivateRoute path="/Pilates/Alumnos" component={StudentPage} />
           <PrivateRoute
             path="/Pilates/ClasesSemanales"
-            component={WeeklyClass}
+            component={WeeklyClassPage}
           />
 
           <Route component={PageNotFound} />

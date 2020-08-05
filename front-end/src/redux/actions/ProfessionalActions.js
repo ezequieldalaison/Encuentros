@@ -1,5 +1,6 @@
 import * as Types from "./ActionTypes";
 import * as ProfessionalApi from "../../api/ProfessionalApi";
+import { beginApiCall } from "./ApiStatus/ApiStatusActions";
 
 export function getProfessionalsSuccess(professionals) {
   return { type: Types.GET_PROFESSIONALS_SUCCESS, professionals };
@@ -23,6 +24,7 @@ export function activateProfessionalSuccess(professional) {
 
 export function getProfessionals() {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return ProfessionalApi.getProfessionals()
       .then(professionals => {
         dispatch(getProfessionalsSuccess(professionals));
@@ -35,6 +37,7 @@ export function getProfessionals() {
 
 export function saveProfessional(professional) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return ProfessionalApi.saveProfessional(professional)
       .then(savedProfessional => {
         professional.id
@@ -49,6 +52,7 @@ export function saveProfessional(professional) {
 
 export function inactivateProfessional(professionalId) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return ProfessionalApi.inactivateProfessional(professionalId)
       .then(professional => {
         dispatch(inactivateProfessionalSuccess(professional));
@@ -61,6 +65,7 @@ export function inactivateProfessional(professionalId) {
 
 export function activateProfessional(professionalId) {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return ProfessionalApi.activateProfessional(professionalId)
       .then(professional => {
         dispatch(activateProfessionalSuccess(professional));

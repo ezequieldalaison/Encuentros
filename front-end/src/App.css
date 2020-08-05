@@ -23,10 +23,13 @@
   margin: 15px;
 }
 
-.spinner
-{
-    position: fixed;
-    left: 50%;
-    top: 40%;
-    z-index: 1000;
+.spinner {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  z-index: 1000;
+}
+
+h6 {
+  margin: 0;
 }
