@@ -19,31 +19,31 @@ const WeeklyClassPage = ({ weeklyClasses, getWeeklyClasses }) => {
         <Col>
           <DayClassCard
             dayName="Lunes"
-            weeklyClasses={weeklyClasses.filter(wc => wc.dayId === 1)}
+            weeklyClasses={weeklyClasses.filter(wc => wc.day.id === 1)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Martes"
-            weeklyClasses={weeklyClasses.filter(wc => wc.dayId === 2)}
+            weeklyClasses={weeklyClasses.filter(wc => wc.day.id === 2)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Miércoles"
-            weeklyClasses={weeklyClasses.filter(wc => wc.dayId === 3)}
+            weeklyClasses={weeklyClasses.filter(wc => wc.day.id === 3)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Jueves"
-            weeklyClasses={weeklyClasses.filter(wc => wc.dayId === 4)}
+            weeklyClasses={weeklyClasses.filter(wc => wc.day.id === 4)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Viernes"
-            weeklyClasses={weeklyClasses.filter(wc => wc.dayId === 5)}
+            weeklyClasses={weeklyClasses.filter(wc => wc.day.id === 5)}
           />
         </Col>
       </Row>

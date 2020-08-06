@@ -24,7 +24,8 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var weeklyClasses = _repository.GetAllInclude(x => x.WeeklyClassStudents,
                                                           x => x.WeeklyClassStudents.Select(w => w.Student),
-                                                          x => x.Instructor);
+                                                          x => x.Instructor, 
+                                                          x => x.Day);
 
             foreach (var weeklyClass in weeklyClasses)
                 weeklyClass.Fill();
@@ -38,7 +39,8 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var weeklyClass = _repository.GetByIdIncluding(id, x => x.WeeklyClassStudents,
                                                                x => x.WeeklyClassStudents.Select(w => w.Student),
-                                                               x => x.Instructor);
+                                                               x => x.Instructor,
+                                                               x => x.Day);
             if (weeklyClass == null)
                 return NotFound();
 

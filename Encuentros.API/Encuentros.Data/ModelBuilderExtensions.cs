@@ -1,4 +1,5 @@
 ﻿using Encuentros.Logic.Entities;
+using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,13 +57,20 @@ namespace Encuentros.Data
                 .WithMany(t => t.WeeklyClassStudents)
                 .HasForeignKey(pt => pt.WeeklyClassId);
 
+            modelBuilder.Entity<Day>(x =>
+            {
+                x.ToTable("Days");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+
             modelBuilder.Entity<WeeklyClass>(x =>
             {
                 x.ToTable("WeeklyClasses");
                 x.HasKey(x => x.Id);
-                x.Property(x => x.DayId).IsRequired();
                 x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
                 x.HasOne(x => x.Instructor);
+                x.HasOne(x => x.Day);
             });
         }
     }

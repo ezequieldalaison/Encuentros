@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
@@ -12,9 +12,11 @@ const ClassModal = ({
   handleClose,
   getWeeklyClass
 }) => {
+  const [weeklyClass, setWeeklyClass] = useState();
+
   useEffect(() => {
     if (show) {
-      getWeeklyClass(weeklyClassId).then(wc => console.log(wc));
+      getWeeklyClass(weeklyClassId).then(wc => setWeeklyClass(wc));
     }
   }, [getWeeklyClass, show, weeklyClassId]);
 
@@ -25,7 +27,9 @@ const ClassModal = ({
       ) : (
         <>
           <Modal.Header closeButton>
-            <Modal.Title>Clase con ID {loading}</Modal.Title>
+            <Modal.Title>
+              {weeklyClass ? `${weeklyClass.day.name} ${weeklyClass.hour}` : ""}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
           <Modal.Footer>
