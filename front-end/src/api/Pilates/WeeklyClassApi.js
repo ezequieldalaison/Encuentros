@@ -15,3 +15,13 @@ export function getWeeklyClass(weeklyClassId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function saveWeeklyClass(weeklyClass) {
+  return fetch(baseUrl + (weeklyClass.id || ""), {
+    method: weeklyClass.id ? "PUT" : "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(weeklyClass)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

@@ -10,12 +10,13 @@ namespace Encuentros.EntityMapper
     {
         public PilatesProfile()
         {
-            CreateMap<Entity.Student, DTO.StudentDto>().ReverseMap();
-            CreateMap<Entity.Instructor, DTO.InstructorDto>().ReverseMap();
+            CreateMap<Entity.Student, DTO.StudentDto>()
+                .ForMember(dest => dest.FullName, opt => opt.Ignore())
+                .ReverseMap();
 
-            CreateMap<Entity.Student, DTO.ClassStudentDto>()
-                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.Name + " " + src.LastName))
-                .ForMember(dest => dest.IsUpToDate, opt => opt.MapFrom(src => true));
+            CreateMap<Entity.Instructor, DTO.InstructorDto>()
+                .ForMember(dest => dest.FullName, opt => opt.Ignore())
+                .ReverseMap();
 
             CreateMap<Entity.WeeklyClass, DTO.WeeklyClassDto>()
                 .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.WeeklyClassStudents.Select(x => x.Student).ToList()))

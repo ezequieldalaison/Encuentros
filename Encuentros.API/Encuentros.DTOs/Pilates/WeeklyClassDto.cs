@@ -9,6 +9,6 @@ namespace Encuentros.DTOs.Pilates
         public string Hour { get; set; }
         public InstructorDto Instructor { get; private set; }
         public DayDto Day { get; private set; }
-        public IEnumerable<ClassStudentDto> Students { get; set; }
+        public IEnumerable<StudentDto> Students { get; set; }
     }
 }

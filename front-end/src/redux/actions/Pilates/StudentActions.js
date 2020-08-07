@@ -32,9 +32,11 @@ export function activateStudentSuccess(student) {
 
 export function getStudents() {
   return function(dispatch) {
+    dispatch(beginApiCall());
     return StudentApi.getStudents()
       .then(students => {
         dispatch(getStudentsSuccess(students));
+        return students;
       })
       .catch(error => {
         throw error;
@@ -48,6 +50,7 @@ export function searchStudents(criteria) {
     return StudentApi.searchStudents(criteria)
       .then(students => {
         dispatch(searchStudentsSuccess(students));
+        return students;
       })
       .catch(error => {
         throw error;

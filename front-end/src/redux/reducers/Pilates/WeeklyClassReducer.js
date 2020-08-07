@@ -6,6 +6,15 @@ export default function WeeklyClassReducer(
   action
 ) {
   switch (action.type) {
+    case Types.CREATE_WEEKLY_CLASS_SUCCESS:
+      return [...state, { ...action.weeklyClass }];
+    case Types.UPDATE_WEEKLY_CLASS_SUCCESS: {
+      return state.map(weeklyClass =>
+        weeklyClass.id === action.weeklyClass.id
+          ? action.weeklyClass
+          : weeklyClass
+      );
+    }
     case Types.GET_WEEKLY_CLASSES_SUCCESS:
       return action.weeklyClasses;
     case Types.GET_WEEKLY_CLASS_SUCCESS: {

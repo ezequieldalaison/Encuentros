@@ -4,7 +4,14 @@ namespace Encuentros.DTOs.Pilates
 {
     public class InstructorDto : DtoAIBase
     {
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return Name + (string.IsNullOrEmpty(LastName) ? "" : " " + LastName);
+            }
+        }
     }
 }

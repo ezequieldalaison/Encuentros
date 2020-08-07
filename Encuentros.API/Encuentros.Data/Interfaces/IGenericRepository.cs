@@ -1,4 +1,5 @@
 ﻿using Encuentros.Logic.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -8,6 +9,7 @@ namespace Encuentros.Data.Interfaces
     public interface IGenericRepository<TEntity> 
         where TEntity : EntityBase
     {
+        DbContext GetContext();
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties);
         IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,

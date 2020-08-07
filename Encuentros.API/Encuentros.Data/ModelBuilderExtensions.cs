@@ -43,19 +43,24 @@ namespace Encuentros.Data
                 x.Property(x => x.IsActive).IsRequired();
             });
 
-            modelBuilder.Entity<WeeklyClassStudent>()
-                .ToTable("WeeklyClassStudents")
-                .HasKey(cs => new { cs.WeeklyClassId, cs.StudentId });
+            modelBuilder.Entity<WeeklyClassStudent>(x =>
+            {
+                x.ToTable("WeeklyClassStudents");
+                x.HasKey(x => x.Id);
+                x.HasIndex(x => new { x.WeeklyClassId, x.StudentId }).IsUnique();
+            });
 
             modelBuilder.Entity<WeeklyClassStudent>()
                 .HasOne(pt => pt.Student)
                 .WithMany(p => p.WeeklyClassStudents)
-                .HasForeignKey(pt => pt.StudentId);
+                .HasForeignKey(pt => pt.StudentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<WeeklyClassStudent>()
                 .HasOne(pt => pt.WeeklyClass)
                 .WithMany(t => t.WeeklyClassStudents)
-                .HasForeignKey(pt => pt.WeeklyClassId);
+                .HasForeignKey(pt => pt.WeeklyClassId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Day>(x =>
             {

@@ -21,6 +21,11 @@ namespace Encuentros.Data
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
+        
+        public DbContext GetContext()
+        {
+            return _context;
+        }
 
         public IEnumerable<TEntity> GetAll()
         {

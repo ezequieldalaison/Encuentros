@@ -14,9 +14,14 @@ namespace Encuentros.API.Controllers.Pilates
     [ApiController]
     public class WeeklyClassController : ControllerCRUDBase<WeeklyClass, WeeklyClassDto>
     {
-        public WeeklyClassController(IGenericRepository<WeeklyClass> repository, IMapper mapper)
+        private readonly IGenericRepository<Student> _studentRepo;
+
+        public WeeklyClassController(IGenericRepository<WeeklyClass> repository,
+                                     IGenericRepository<Student> studentRepo,
+                                     IMapper mapper)
             : base(repository, mapper)
         {
+            _studentRepo = studentRepo;
         }
 
         [HttpGet]
@@ -24,7 +29,7 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var weeklyClasses = _repository.GetAllInclude(x => x.WeeklyClassStudents,
                                                           x => x.WeeklyClassStudents.Select(w => w.Student),
-                                                          x => x.Instructor, 
+                                                          x => x.Instructor,
                                                           x => x.Day);
 
             foreach (var weeklyClass in weeklyClasses)
@@ -47,6 +52,37 @@ namespace Encuentros.API.Controllers.Pilates
             weeklyClass.Fill();
 
             var response = _mapper.Map<WeeklyClassDto>(weeklyClass);
+            return Ok(response);
+        }
+
+        public override ActionResult Update(WeeklyClassDto dto)
+        {
+            WeeklyClassDto response;
+            using (var context = _repository.GetContext())
+            {
+                var weeklyClass = _repository.GetByIdIncluding(dto.Id, x => x.WeeklyClassStudents,
+                                                                       x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                                       x => x.Instructor,
+                                                                       x => x.Day);
+
+                if (weeklyClass == null)
+                    return NotFound();
+
+                context.Attach(weeklyClass);
+
+                weeklyClass.UpdateStudents(dto.Students.Select(x => x.Id));
+
+                _repository.Update(weeklyClass);
+
+                weeklyClass = _repository.GetByIdIncluding(dto.Id, x => x.WeeklyClassStudents,
+                                                                   x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                                   x => x.Instructor,
+                                                                   x => x.Day);
+                weeklyClass.Fill();
+
+                response = _mapper.Map<WeeklyClassDto>(weeklyClass);
+            }
+
             return Ok(response);
         }
     }
