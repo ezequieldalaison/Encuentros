@@ -17,6 +17,7 @@ import WeeklyClassPage from "./components/pages/Pilates/WeeklyClass/WeeklyClassP
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import FeePage from "./components/pages/Pilates/Fee/FeePage";
 
 class App extends Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class App extends Component {
             path="/Pilates/ClasesSemanales"
             component={WeeklyClassPage}
           />
+          <PrivateRoute path="/Pilates/Coutas" component={FeePage} />
 
           <Route component={PageNotFound} />
         </Switch>

@@ -16,7 +16,8 @@ namespace Encuentros.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.AddEntities();
+            modelBuilder.AddCommonEntities();
+            modelBuilder.AddPilatesEntities();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

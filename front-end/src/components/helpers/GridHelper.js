@@ -30,6 +30,7 @@ export const STUDENTS_GRID = [
     canSort: false
   }
 ];
+
 export const PROFESSIONALS_GRID = [
   {
     Header: "id",
@@ -71,6 +72,7 @@ export const PROFESSIONALS_GRID = [
     canSort: false
   }
 ];
+
 export const CLASSES_GRID = [
   {
     Header: "Alumno",
@@ -80,6 +82,23 @@ export const CLASSES_GRID = [
   {
     Header: "Al día",
     accessor: "isUpToDate",
+    canSort: false
+  }
+];
+
+export const FEES_GRID = [
+  {
+    Header: "Alumno",
+    accessor: "fullName"
+  },
+  {
+    Header: "Fecha de Pago",
+    accessor: "paymentDate",
+    canSort: false
+  },
+  {
+    Header: "Importe",
+    accessor: "amount",
     canSort: false
   }
 ];

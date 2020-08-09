@@ -7,7 +7,45 @@ namespace Encuentros.Data
 {
     public static class ModelBuilderExtensions
     {
-        public static void AddEntities(this ModelBuilder modelBuilder)
+        public static void AddCommonEntities(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Day>(x =>
+            {
+                x.ToTable("Days");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Month>(x =>
+            {
+                x.ToTable("Months");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<JournalSide>(x =>
+            {
+                x.ToTable("JournalSides");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<MovementStatus>(x =>
+            {
+                x.ToTable("MovementStatuses");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Area>(x =>
+            {
+                x.ToTable("Areas");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+        }
+
+        public static void AddPilatesEntities(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Professional>(x =>
             {
@@ -61,13 +99,6 @@ namespace Encuentros.Data
                 .WithMany(t => t.WeeklyClassStudents)
                 .HasForeignKey(pt => pt.WeeklyClassId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Day>(x =>
-            {
-                x.ToTable("Days");
-                x.HasKey(x => x.Id);
-                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
-            });
 
             modelBuilder.Entity<WeeklyClass>(x =>
             {
