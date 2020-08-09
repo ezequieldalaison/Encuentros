@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="375fe4f3-e52d-4219-915d-6896e87ec89e" ChangeDateTime="08/09/2020 22:18:54">
+    <Property Name="ElementName" Value="[dbo].[Movements].[JournalSideId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Movements]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Comments" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1372262f-3f2b-4157-b78b-7fd17233f6b1" ChangeDateTime="08/09/2020 22:30:53">
+    <Property Name="ElementName" Value="[dbo].[Fees].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Fees]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Fee" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8050af0c-e883-4dae-be88-b2cedaa93d8c" ChangeDateTime="08/09/2020 22:31:05">
+    <Property Name="ElementName" Value="[dbo].[Fees].[Fee]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Fees]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StudentId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3eb43af7-e54e-4d67-a53a-7e9fe4431616" ChangeDateTime="08/09/2020 22:31:17">
+    <Property Name="ElementName" Value="[dbo].[Fees].[AreaId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Fees]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FeeTypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dd8093cb-ee57-4b20-a0f1-b5b25cfe8ebc" ChangeDateTime="08/09/2020 22:31:24">
+    <Property Name="ElementName" Value="[dbo].[Fees].[JournalSideId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Fees]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Month" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6a4bb2de-f46b-4916-857e-aa4c70852484" ChangeDateTime="08/09/2020 22:31:27">
+    <Property Name="ElementName" Value="[dbo].[Fees].[Month]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Fees]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MonthId" />
+  </Operation>
+</Operations>

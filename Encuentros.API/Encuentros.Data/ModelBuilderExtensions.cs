@@ -43,6 +43,26 @@ namespace Encuentros.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Name).IsRequired().HasMaxLength(50);
             });
+
+            modelBuilder.Entity<Concept>(x =>
+            {
+                x.ToTable("Concepts");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+                x.HasOne(x => x.Area);
+                x.HasOne(x => x.JournalSide);
+            });
+
+            modelBuilder.Entity<Movement>(x =>
+            {
+                x.ToTable("Movements");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Date);
+                x.Property(x => x.Amount);
+                x.Property(x => x.Comments);
+                x.HasOne(x => x.Concept);
+                x.HasOne(x => x.MovementStatus);
+            });
         }
 
         public static void AddPilatesEntities(this ModelBuilder modelBuilder)
@@ -89,15 +109,15 @@ namespace Encuentros.Data
             });
 
             modelBuilder.Entity<WeeklyClassStudent>()
-                .HasOne(pt => pt.Student)
-                .WithMany(p => p.WeeklyClassStudents)
-                .HasForeignKey(pt => pt.StudentId)
+                .HasOne(x => x.Student)
+                .WithMany(x => x.WeeklyClassStudents)
+                .HasForeignKey(x => x.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<WeeklyClassStudent>()
-                .HasOne(pt => pt.WeeklyClass)
-                .WithMany(t => t.WeeklyClassStudents)
-                .HasForeignKey(pt => pt.WeeklyClassId)
+                .HasOne(x => x.WeeklyClass)
+                .WithMany(x => x.WeeklyClassStudents)
+                .HasForeignKey(x => x.WeeklyClassId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<WeeklyClass>(x =>
@@ -107,6 +127,23 @@ namespace Encuentros.Data
                 x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
                 x.HasOne(x => x.Instructor);
                 x.HasOne(x => x.Day);
+            });
+
+            modelBuilder.Entity<FeeType>(x =>
+            {
+                x.ToTable("FeeTypes");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Fee>(x =>
+            {
+                x.ToTable("Fees");
+                x.HasKey(x => x.Id);
+                x.HasOne(x => x.Student);
+                x.HasOne(x => x.FeeType);
+                x.HasOne(x => x.Month);
+                x.HasOne(x => x.Movement);
             });
         }
     }

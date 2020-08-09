@@ -74,6 +74,10 @@
     <Build Include="dbo\Tables\JournalSides.sql" />
     <Build Include="dbo\Tables\Months.sql" />
     <Build Include="dbo\Tables\MovementStatuses.sql" />
+    <Build Include="dbo\Tables\Concepts.sql" />
+    <Build Include="dbo\Tables\Movements.sql" />
+    <Build Include="dbo\Tables\FeeTypes.sql" />
+    <Build Include="dbo\Tables\Fees.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Scripts\InitialData.PostDeployment.sql" />
@@ -81,5 +85,8 @@
   <ItemGroup>
     <None Include="dbo\Scripts\InitialData\Days.sql" />
     <None Include="Encuentros.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Encuentros.Database.refactorlog" />
   </ItemGroup>
 </Project>

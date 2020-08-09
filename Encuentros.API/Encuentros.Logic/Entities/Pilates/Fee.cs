@@ -8,5 +8,6 @@ namespace Encuentros.Logic.Entities.Pilates
         public Student Student { get; set; }
         public FeeType FeeType { get; set; }
         public Month Month { get; set; }
+        public Movement Movement { get; set; }
     }
 }
