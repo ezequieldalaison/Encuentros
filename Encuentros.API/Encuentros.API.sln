@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.EntityMapper", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Encuentros.Logic", "Encuentros.Logic\Encuentros.Logic.csproj", "{064D2CCF-F63A-4563-9380-BEE1FC4DF852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encuentros.Migrations", "Encuentros.Migrations\Encuentros.Migrations.csproj", "{35869FF4-773E-4B34-8921-ADE2191B5A4F}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Encuentros.Database", "Encuentros.Database\Encuentros.Database.sqlproj", "{CA88001A-1AC1-4F1D-A182-C890293A5A4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,12 @@ Global
 		{064D2CCF-F63A-4563-9380-BEE1FC4DF852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{064D2CCF-F63A-4563-9380-BEE1FC4DF852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{064D2CCF-F63A-4563-9380-BEE1FC4DF852}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35869FF4-773E-4B34-8921-ADE2191B5A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA88001A-1AC1-4F1D-A182-C890293A5A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA88001A-1AC1-4F1D-A182-C890293A5A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA88001A-1AC1-4F1D-A182-C890293A5A4D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CA88001A-1AC1-4F1D-A182-C890293A5A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA88001A-1AC1-4F1D-A182-C890293A5A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA88001A-1AC1-4F1D-A182-C890293A5A4D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
