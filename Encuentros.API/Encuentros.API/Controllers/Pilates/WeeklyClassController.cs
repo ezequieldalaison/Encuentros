@@ -6,7 +6,6 @@ using Encuentros.Logic.Entities.Pilates;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Encuentros.API.Controllers.Pilates
 {

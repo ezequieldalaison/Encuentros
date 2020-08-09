@@ -5,9 +5,9 @@ namespace Encuentros.Logic.Entities.Pilates
 {
     public class Fee : EntityBase
     {
-        public Student Student { get; set; }
-        public FeeType FeeType { get; set; }
-        public Month Month { get; set; }
-        public Movement Movement { get; set; }
+        public virtual Student Student { get; set; }
+        public virtual FeeType FeeType { get; set; }
+        public virtual Month Month { get; set; }
+        public virtual Movement Movement { get; set; }
     }
 }
