@@ -6,6 +6,6 @@ namespace Encuentros.Logic.Entities.Common
     {
         public virtual string Name { get; set; }
         public virtual Area Area { get; set; }
-        public virtual virtual JournalSide JournalSide { get; set; }
+        public virtual JournalSide JournalSide { get; set; }
     }
 }

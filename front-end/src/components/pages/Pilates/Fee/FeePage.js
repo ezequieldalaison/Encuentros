@@ -2,12 +2,17 @@ import React, { useEffect } from "react";
 import PageBase from "../../../base/PageBase";
 import { FEES_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
+import * as FeeActions from "../../../../redux/actions/Pilates/FeeActions";
 
-const FeePage = () => {
+const FeePage = ({ fees, getFeesPerMonth }) => {
+  useEffect(() => {
+    getFeesPerMonth(1).then(x => console.log(x));
+  }, [getFeesPerMonth]);
+
   const columns = React.useMemo(() => FEES_GRID, []);
 
   const grid = {
-    data: [],
+    data: fees,
     columns: columns
   };
 
@@ -15,10 +20,14 @@ const FeePage = () => {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    fees: state.fees
+  };
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getFeesPerMonth: FeeActions.getFeesPerMonth
+};
 
 export default connect(
   mapStateToProps,

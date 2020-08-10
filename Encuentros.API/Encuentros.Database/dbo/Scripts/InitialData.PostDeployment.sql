@@ -10,5 +10,9 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+:r .\InitialData\Areas.sql
 :r .\InitialData\Days.sql
 :r .\InitialData\Months.sql
+:r .\InitialData\JournalSides.sql
+
+:r .\InitialData\Concepts.sql

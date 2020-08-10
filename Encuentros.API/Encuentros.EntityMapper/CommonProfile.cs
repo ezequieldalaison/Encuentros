@@ -9,6 +9,9 @@ namespace Encuentros.EntityMapper
         public CommonProfile()
         {
             CreateMap<Entity.Day, DTO.DayDto>().ReverseMap();
+            CreateMap<Entity.Month, DTO.MonthDto>().ReverseMap();
+            CreateMap<Entity.MovementStatus, DTO.MovementStatusDto>().ReverseMap();
+            CreateMap<Entity.Movement, DTO.MovementDto>().ReverseMap();
         }
     }
 }

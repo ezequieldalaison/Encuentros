@@ -89,16 +89,31 @@ export const CLASSES_GRID = [
 export const FEES_GRID = [
   {
     Header: "Alumno",
-    accessor: "fullName"
+    accessor: "student.fullName"
+  },
+  {
+    Header: "Mes",
+    accessor: "month.name",
+    canSort: false
+  },
+  {
+    Header: "Modalidad",
+    accessor: "feeType.name",
+    canSort: false
   },
   {
     Header: "Fecha de Pago",
-    accessor: "paymentDate",
+    accessor: "movement.date",
     canSort: false
   },
   {
     Header: "Importe",
-    accessor: "amount",
+    accessor: "movement.amount",
+    canSort: false
+  },
+  {
+    Header: "Estado",
+    accessor: "movement.movementStatus.name",
     canSort: false
   }
 ];

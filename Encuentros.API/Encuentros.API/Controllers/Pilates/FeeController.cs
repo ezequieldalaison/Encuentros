@@ -4,6 +4,8 @@ using Encuentros.Data.Interfaces;
 using Encuentros.DTOs.Pilates;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Encuentros.API.Controllers.Pilates
 {
@@ -15,6 +17,21 @@ namespace Encuentros.API.Controllers.Pilates
                                      IMapper mapper)
             : base(repository, mapper)
         {
+        }
+
+        [HttpGet("month/{monthId}")]
+        public ActionResult<IEnumerable<FeeDto>> GetByMonth(long monthId)
+        {
+            var fees = _repository.GetByQueryInclude(x => x.Month.Id == monthId,
+                                                     x => x.Month,
+                                                     x => x.FeeType,
+                                                     x => x.Student,
+                                                     x => x.Movement,
+                                                     x => x.Movement.MovementStatus);
+
+            var response = _mapper.Map<IEnumerable<FeeDto>>(fees);
+
+            return Ok(response);
         }
     }
 }
