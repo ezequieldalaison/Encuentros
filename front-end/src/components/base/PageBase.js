@@ -33,7 +33,7 @@ const PageBase = ({
     setShowGridState(false);
     setShowFormState(true);
 
-    setEntityUnderUpdate();
+    if (setEntityUnderUpdate) setEntityUnderUpdate();
   };
 
   const onUpdate = id => {

@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import AsyncSelect from "react-select/async";
 import { connect } from "react-redux";
 import * as StudentActions from "../../redux/actions/Pilates/StudentActions";
-import Button from "react-bootstrap/Button";
-import { AiFillDelete } from "react-icons/ai";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
-const StudentSelect = ({
-  searchStudents,
-  student,
-  index,
-  onChangeStudent,
-  cleanStudent
-}) => {
+const StudentSelect = forwardRef((props, ref) => {
   const [value, setValue] = useState();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setFreeStudent() {
+        setValue({ value: 0, label: "LIBRE" });
+      }
+    }),
+    []
+  );
+
+  const promiseOptions = inputValue =>
+    inputValue
+      ? props.searchStudents({ fullName: inputValue }).then(students => {
+          const mappedStudents = mapStudents(students);
+          return mappedStudents;
+        })
+      : [];
 
   const mapStudents = students => {
     return students.map(s => {
@@ -22,46 +30,29 @@ const StudentSelect = ({
     });
   };
 
-  const promiseOptions = inputValue =>
-    inputValue
-      ? searchStudents({ fullName: inputValue }).then(students => {
-          const mappedStudents = mapStudents(students);
-          return mappedStudents;
-        })
-      : [];
-
-  const clean = () => {
-    cleanStudent(index);
-    setValue({ value: 0, label: "LIBRE" });
-  };
-
   const onChange = selectedOption => {
-    onChangeStudent(selectedOption, index);
+    if (props.customOnChange) props.customOnChange(selectedOption);
     setValue(selectedOption);
   };
 
   return (
-    <Row style={{ marginBottom: "5px" }}>
-      <Col xs={11} style={{ paddingRight: "10px" }}>
-        <AsyncSelect
-          defaultValue={{
-            label: `${student.fullName}`,
-            value: student.id
-          }}
-          loadOptions={promiseOptions}
-          noOptionsMessage={() => "No se encontraron resultados"}
-          onChange={onChange}
-          value={value}
-        />
-      </Col>
-      <Col style={{ padding: "0px" }}>
-        <Button variant="link" style={{ padding: "0" }} onClick={clean}>
-          <AiFillDelete style={{ verticalAlign: "middle" }} />
-        </Button>
-      </Col>
-    </Row>
+    <AsyncSelect
+      defaultValue={
+        props.student
+          ? {
+              label: `${props.student.fullName}`,
+              value: props.student.id
+            }
+          : null
+      }
+      loadOptions={promiseOptions}
+      onChange={onChange}
+      value={value}
+      noOptionsMessage={() => "No se encontraron resultados"}
+      placeholder="Seleccione..."
+    />
   );
-};
+});
 
 function mapStateToProps(state) {
   return {};
@@ -73,5 +64,7 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  null,
+  { forwardRef: true }
 )(StudentSelect);

@@ -3,6 +3,7 @@ import PageBase from "../../../base/PageBase";
 import { FEES_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
 import * as FeeActions from "../../../../redux/actions/Pilates/FeeActions";
+import FeeForm from "./FeeForm";
 
 const FeePage = ({ fees, getFeesPerMonth }) => {
   useEffect(() => {
@@ -16,7 +17,7 @@ const FeePage = ({ fees, getFeesPerMonth }) => {
     columns: columns
   };
 
-  return <PageBase grid={grid} title="Cuotas" />;
+  return <PageBase grid={grid} title="Cuotas" form={FeeForm} />;
 };
 
 function mapStateToProps(state) {

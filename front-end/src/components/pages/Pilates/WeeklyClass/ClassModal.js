@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
 import { connect } from "react-redux";
-import StudentSelect from "../../../selects/StudentSelect";
+import WeeklyClassStudentSelect from "../../../selects/WeeklyClassStudentSelect";
 
 const ClassModal = ({
   weeklyClassId,
@@ -23,7 +23,6 @@ const ClassModal = ({
   }, [getWeeklyClass, show, weeklyClassId]);
 
   const onChange = (optionSelected, index) => {
-    console.log(index);
     var students = Object.assign([], weeklyClass.students, {
       [index]: { id: optionSelected.value, fullName: optionSelected.label }
     });
@@ -55,7 +54,7 @@ const ClassModal = ({
           <b>Alumnos</b>
         </h6>
         {weeklyClass.students.map((s, i) => (
-          <StudentSelect
+          <WeeklyClassStudentSelect
             key={i}
             index={i}
             student={s}
