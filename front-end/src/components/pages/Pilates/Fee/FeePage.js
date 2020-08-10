@@ -16,7 +16,7 @@ const FeePage = ({ fees, getFeesPerMonth }) => {
     columns: columns
   };
 
-  return <PageBase grid={grid} title="Coutas" />;
+  return <PageBase grid={grid} title="Cuotas" />;
 };
 
 function mapStateToProps(state) {

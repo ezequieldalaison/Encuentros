@@ -103,12 +103,20 @@ export const FEES_GRID = [
   },
   {
     Header: "Fecha de Pago",
-    accessor: "movement.date",
+    accessor: data => {
+      var d = new Date(data.movement.date);
+      const ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
+      const mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(d);
+      const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
+      return `${da}/${mo}/${ye}`;
+    },
     canSort: false
   },
   {
     Header: "Importe",
-    accessor: "movement.amount",
+    accessor: data => {
+      return `$${data.movement.amount}`;
+    },
     canSort: false
   },
   {

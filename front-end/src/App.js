@@ -47,7 +47,7 @@ class App extends Component {
             path="/Pilates/ClasesSemanales"
             component={WeeklyClassPage}
           />
-          <PrivateRoute path="/Pilates/Coutas" component={FeePage} />
+          <PrivateRoute path="/Pilates/Cuotas" component={FeePage} />
 
           <Route component={PageNotFound} />
         </Switch>

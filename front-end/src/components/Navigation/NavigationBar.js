@@ -23,7 +23,7 @@ const NavigationBar = props => {
                 <NavDropdown.Item href="/Pilates/ClasesSemanales">
                   Clases Semanales
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/Pilates/Coutas">
+                <NavDropdown.Item href="/Pilates/Cuotas">
                   Cuotas
                 </NavDropdown.Item>
               </NavDropdown>
