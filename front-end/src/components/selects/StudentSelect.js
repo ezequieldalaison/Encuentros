@@ -25,6 +25,11 @@ const StudentSelect = forwardRef((props, ref) => {
     () => ({
       setFreeStudent() {
         setSelectValue({ value: 0, label: "LIBRE" });
+      },
+      setValue(student) {
+        if (student)
+          setSelectValue({ value: student.id, label: student.fullName });
+        else setSelectValue(null);
       }
     }),
     []

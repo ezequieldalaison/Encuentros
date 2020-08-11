@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,10 +9,25 @@ import InputValidated from "../../../common/InputValidated";
 import { connect } from "react-redux";
 import * as FeeTypeActions from "../../../../redux/actions/Pilates/FeeTypeActions";
 
-const FeeForm = ({ register, errors, setFormValue, students, getFeeType }) => {
+const FeeForm = forwardRef((props, ref) => {
+  const { register, errors, setFormValue, students, getFeeType } = props;
   const childFeeTypeRef = useRef();
+  const childMonthRef = useRef();
+  const childStudentRef = useRef();
 
-  const onChange = selectedOption => {
+  useImperativeHandle(
+    ref,
+    () => ({
+      cleanSelects() {
+        childFeeTypeRef.current.setValue(null);
+        childMonthRef.current.setValue(null);
+        childStudentRef.current.setValue(null);
+      }
+    }),
+    []
+  );
+
+  const onStudentChange = selectedOption => {
     var student = students.filter(x => x.id === selectedOption.value)[0];
     if (student.feeTypeId > 0) {
       getFeeType(student.feeTypeId).then(feeType => {
@@ -31,11 +46,15 @@ const FeeForm = ({ register, errors, setFormValue, students, getFeeType }) => {
         <Row>
           <Col xs={3}>
             <Form.Label>Alumno</Form.Label>
-            <StudentSelect register={register} customOnChange={onChange} />
+            <StudentSelect
+              ref={childStudentRef}
+              register={register}
+              customOnChange={onStudentChange}
+            />
           </Col>
           <Col xs={3}>
             <Form.Label>Modalidad</Form.Label>
-            <FeeTypeSelect ref={childFeeTypeRef} />
+            <FeeTypeSelect ref={childFeeTypeRef} register={register} />
           </Col>
           <Col xs={3}>
             <Form.Label>Importe</Form.Label>
@@ -49,13 +68,24 @@ const FeeForm = ({ register, errors, setFormValue, students, getFeeType }) => {
           </Col>
           <Col xs={3}>
             <Form.Label>Mes</Form.Label>
-            <MonthSelect />
+            <MonthSelect ref={childMonthRef} register={register} />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={1}>
+            <Form.Check
+              type="checkbox"
+              name="isPaid"
+              label="Pagado"
+              ref={register}
+              defaultChecked={true}
+            />
           </Col>
         </Row>
       </Form.Group>
     </>
   );
-};
+});
 
 function mapStateToProps(state) {
   return {
@@ -69,5 +99,7 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  null,
+  { forwardRef: true }
 )(FeeForm);

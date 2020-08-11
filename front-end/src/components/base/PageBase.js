@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -27,6 +27,7 @@ const PageBase = ({
   const [showFormState, setShowFormState] = useState(false);
   const addUpdateForm = useForm();
   const searchForm = useForm();
+  const childRef = useRef();
 
   const onAdd = () => {
     setShowSearchState(false);
@@ -50,7 +51,8 @@ const PageBase = ({
   };
 
   const onCancelForm = () => {
-    addUpdateForm.reset();
+    if (childRef.current) childRef.current.cleanSelects();
+    addUpdateForm.reset({});
     setShowSearchState(false);
     setShowGridState(true);
     setShowFormState(false);
@@ -66,7 +68,8 @@ const PageBase = ({
 
   const onSubmitForm = data => {
     props.onSubmit(data);
-    addUpdateForm.reset();
+    if (childRef.current) childRef.current.cleanSelects();
+    addUpdateForm.reset({});
     setShowSearchState(false);
     setShowGridState(true);
     setShowFormState(false);
@@ -78,7 +81,7 @@ const PageBase = ({
   };
 
   const onCancelSearch = () => {
-    searchForm.reset();
+    searchForm.reset({});
   };
 
   return (
@@ -175,6 +178,7 @@ const PageBase = ({
                         showCancelButton={true}
                         elements={() => (
                           <FormComponent
+                            ref={childRef}
                             onSubmit={onSubmitForm}
                             register={addUpdateForm.register}
                             errors={addUpdateForm.errors}

@@ -42,11 +42,11 @@ const StudentPage = ({
   };
 
   const onSubmit = data => {
-    saveStudent(data).then(() => {
-      if (studentUnderUpdate) {
-        data = { ...studentUnderUpdate, ...data };
-      }
+    if (studentUnderUpdate) {
+      data = { ...studentUnderUpdate, ...data };
+    }
 
+    saveStudent(data).then(() => {
       toast.success("El alumno se guardó correctamente");
     });
   };

@@ -1,11 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle
+} from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
 import * as MonthActions from "../../redux/actions/Common/MonthActions";
 
-const MonthSelect = ({ register, getMonths }) => {
+const MonthSelect = forwardRef((props, ref) => {
+  const { register, getMonths } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setValue(month) {
+        if (month) setSelectValue({ value: month.id, label: month.name });
+        else {
+          const monthId = new Intl.DateTimeFormat("en", {
+            month: "numeric"
+          }).format(new Date());
+          month = options.filter(x => x.value === parseInt(monthId));
+          setSelectValue(month[0]);
+        }
+      }
+    }),
+    [options]
+  );
 
   useEffect(() => {
     if (register)
@@ -19,6 +42,7 @@ const MonthSelect = ({ register, getMonths }) => {
     getMonths().then(months => {
       const mappedMonths = mapMonths(months);
       setOptions(mappedMonths);
+
       const monthId = new Intl.DateTimeFormat("en", {
         month: "numeric"
       }).format(new Date());
@@ -44,9 +68,10 @@ const MonthSelect = ({ register, getMonths }) => {
       value={selectValue}
       noOptionsMessage={() => "No se encontraron resultados"}
       placeholder="Seleccione..."
+      defaultValue={null}
     />
   );
-};
+});
 
 function mapStateToProps(state) {
   return { months: state.months };
@@ -58,5 +83,7 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  null,
+  { forwardRef: true }
 )(MonthSelect);
