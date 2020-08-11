@@ -39,5 +39,12 @@ namespace Encuentros.Logic.Entities.Pilates
                 }
             }
         }
+        public string FullName
+        {
+            get
+            {
+                return Name + (string.IsNullOrEmpty(LastName) ? "" : " " + LastName);
+            }
+        }
     }
 }

@@ -9,3 +9,13 @@ export function getFeesPerMonth(monthId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function saveFee(fee) {
+  return fetch(baseUrl + (fee.id || ""), {
+    method: fee.id ? "PUT" : "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(fee)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

@@ -29,7 +29,7 @@ const ProfessionalPage = ({
     if (professionalUnderUpdate) {
       data = { ...professionalUnderUpdate, ...data };
     }
-    saveProfessional(data).then(() =>
+    return saveProfessional(data).then(() =>
       toast.success("El profesional se guardó correctamente")
     );
   };

@@ -19,6 +19,7 @@ export function getFeeTypes() {
         return feeTypes;
       })
       .catch(error => {
+        debugger;
         throw error;
       });
   };

@@ -67,12 +67,16 @@ const PageBase = ({
   };
 
   const onSubmitForm = data => {
-    props.onSubmit(data);
-    if (childRef.current) childRef.current.cleanSelects();
-    addUpdateForm.reset({});
-    setShowSearchState(false);
-    setShowGridState(true);
-    setShowFormState(false);
+    props
+      .onSubmit(data)
+      .then(() => {
+        if (childRef.current) childRef.current.cleanSelects();
+        addUpdateForm.reset({});
+        setShowSearchState(false);
+        setShowGridState(true);
+        setShowFormState(false);
+      })
+      .catch(e => console.log(e));
   };
 
   const onSubmitSearch = data => {

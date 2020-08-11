@@ -46,7 +46,7 @@ const StudentPage = ({
       data = { ...studentUnderUpdate, ...data };
     }
 
-    saveStudent(data).then(() => {
+    return saveStudent(data).then(() => {
       toast.success("El alumno se guardó correctamente");
     });
   };

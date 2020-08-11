@@ -61,7 +61,9 @@ namespace Encuentros.Data
                 x.Property(x => x.Amount);
                 x.Property(x => x.Comments);
                 x.HasOne(x => x.Concept);
+                x.Property(x => x.ConceptId);
                 x.HasOne(x => x.MovementStatus);
+                x.Property(x => x.MovementStatusId);
             });
         }
 
