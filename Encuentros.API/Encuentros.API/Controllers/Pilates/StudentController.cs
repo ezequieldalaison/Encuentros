@@ -21,11 +21,12 @@ namespace Encuentros.API.Controllers.Pilates
         [HttpPost("search")]
         public virtual ActionResult GetByQuery(StudentSearchDto searchDto)
         {
-            var entities = _repository.GetByQuery(x =>
+            var entities = _repository.GetByQueryInclude(x =>
                     (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.Name) ? string.Empty : searchDto.Name.ToUpper())) &&
                     (x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.LastName) ? string.Empty : searchDto.LastName.ToUpper())) &&
                     (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper()) ||
-                     x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper())));
+                     x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper())), 
+                     x => x.WeeklyClassStudents);
 
             var response = _mapper.Map<IEnumerable<StudentDto>>(entities);
             return Ok(response);

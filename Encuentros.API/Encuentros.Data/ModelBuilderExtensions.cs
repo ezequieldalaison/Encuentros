@@ -134,6 +134,7 @@ namespace Encuentros.Data
                 x.ToTable("FeeTypes");
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+                x.Property(x => x.Amount);
             });
 
             modelBuilder.Entity<Fee>(x =>

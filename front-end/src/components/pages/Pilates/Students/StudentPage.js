@@ -42,13 +42,13 @@ const StudentPage = ({
   };
 
   const onSubmit = data => {
-    if (studentUnderUpdate) {
-      data = { ...studentUnderUpdate, ...data };
-    }
+    saveStudent(data).then(() => {
+      if (studentUnderUpdate) {
+        data = { ...studentUnderUpdate, ...data };
+      }
 
-    saveStudent(data).then(() =>
-      toast.success("El alumno se guardó correctamente")
-    );
+      toast.success("El alumno se guardó correctamente");
+    });
   };
 
   const getEntity = studentId => {

@@ -3,5 +3,7 @@ export default {
   professionals: [],
   students: [],
   weeklyClasses: [],
-  fees: []
+  fees: [],
+  months: [],
+  feeTypes: []
 };

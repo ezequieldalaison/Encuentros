@@ -1,5 +1,4 @@
 ﻿using Encuentros.Logic.Base;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Encuentros.Logic.Entities.Pilates
@@ -20,5 +19,25 @@ namespace Encuentros.Logic.Entities.Pilates
         public virtual string PhoneNumber { get; private set; }
         public virtual string Email { get; private set; }
         public virtual ICollection<WeeklyClassStudent> WeeklyClassStudents { get; private set; }
+        public long? FeeTypeId
+        {
+            get
+            {
+                if (WeeklyClassStudents == null)
+                    return null;
+
+                switch (WeeklyClassStudents.Count)
+                {
+                    case 1:
+                        return FeeType.OnceId;
+                    case 2:
+                        return FeeType.TwiceId;
+                    case 3:
+                        return FeeType.ThreeTimesId;
+                    default:
+                        return null;
+                }
+            }
+        }
     }
 }

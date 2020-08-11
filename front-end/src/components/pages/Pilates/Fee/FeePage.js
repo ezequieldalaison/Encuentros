@@ -7,7 +7,7 @@ import FeeForm from "./FeeForm";
 
 const FeePage = ({ fees, getFeesPerMonth }) => {
   useEffect(() => {
-    getFeesPerMonth(1).then(x => console.log(x));
+    getFeesPerMonth(1);
   }, [getFeesPerMonth]);
 
   const columns = React.useMemo(() => FEES_GRID, []);
@@ -17,7 +17,13 @@ const FeePage = ({ fees, getFeesPerMonth }) => {
     columns: columns
   };
 
-  return <PageBase grid={grid} title="Cuotas" form={FeeForm} />;
+  const onSubmit = data => {
+    console.log(data);
+  };
+
+  return (
+    <PageBase grid={grid} title="Cuotas" form={FeeForm} onSubmit={onSubmit} />
+  );
 };
 
 function mapStateToProps(state) {

@@ -14,5 +14,7 @@ Post-Deployment Script Template
 :r .\InitialData\Days.sql
 :r .\InitialData\Months.sql
 :r .\InitialData\JournalSides.sql
+:r .\InitialData\FeeTypes.sql
+:r .\InitialData\MovementStatuses.sql
 
 :r .\InitialData\Concepts.sql

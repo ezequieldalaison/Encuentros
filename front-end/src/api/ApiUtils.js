@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export async function handleResponse(response) {
   if (response.ok) return response.json();
   if (response.status === 400) {
@@ -12,6 +14,6 @@ export async function handleResponse(response) {
 // In a real app, would likely call an error logging service.
 export function handleError(error) {
   // eslint-disable-next-line no-console
-  console.error("API call failed. " + error);
+  toast.error("No se pudo establecer conexión con el servidor.");
   throw error;
 }

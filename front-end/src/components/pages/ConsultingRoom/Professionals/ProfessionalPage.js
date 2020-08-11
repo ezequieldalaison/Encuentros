@@ -15,7 +15,7 @@ const ProfessionalPage = ({
 }) => {
   const [professionalUnderUpdate, setProfessionalUnderUpdate] = useState();
   useEffect(() => {
-    getProfessionals().catch(error => console.log("ERROR: " + error));
+    getProfessionals();
   }, [getProfessionals]);
 
   const columns = React.useMemo(() => PROFESSIONALS_GRID, []);

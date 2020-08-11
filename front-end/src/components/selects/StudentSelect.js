@@ -1,16 +1,30 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect
+} from "react";
 import AsyncSelect from "react-select/async";
 import { connect } from "react-redux";
 import * as StudentActions from "../../redux/actions/Pilates/StudentActions";
 
 const StudentSelect = forwardRef((props, ref) => {
-  const [value, setValue] = useState();
+  const { register, searchStudents, customOnChange } = props;
+  const [selectValue, setSelectValue] = useState();
+
+  useEffect(() => {
+    if (register)
+      register({
+        name: "studentId",
+        value: selectValue ? selectValue.value : null
+      });
+  }, [register, selectValue]);
 
   useImperativeHandle(
     ref,
     () => ({
       setFreeStudent() {
-        setValue({ value: 0, label: "LIBRE" });
+        setSelectValue({ value: 0, label: "LIBRE" });
       }
     }),
     []
@@ -18,7 +32,7 @@ const StudentSelect = forwardRef((props, ref) => {
 
   const promiseOptions = inputValue =>
     inputValue
-      ? props.searchStudents({ fullName: inputValue }).then(students => {
+      ? searchStudents({ fullName: inputValue }).then(students => {
           const mappedStudents = mapStudents(students);
           return mappedStudents;
         })
@@ -31,12 +45,21 @@ const StudentSelect = forwardRef((props, ref) => {
   };
 
   const onChange = selectedOption => {
-    if (props.customOnChange) props.customOnChange(selectedOption);
-    setValue(selectedOption);
+    if (customOnChange) customOnChange(selectedOption);
+    setSelectValue(selectedOption);
+  };
+
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      zIndex: "9999 !important",
+      position: "relative"
+    })
   };
 
   return (
     <AsyncSelect
+      styles={customStyles}
       defaultValue={
         props.student
           ? {
@@ -47,7 +70,7 @@ const StudentSelect = forwardRef((props, ref) => {
       }
       loadOptions={promiseOptions}
       onChange={onChange}
-      value={value}
+      value={selectValue}
       noOptionsMessage={() => "No se encontraron resultados"}
       placeholder="Seleccione..."
     />

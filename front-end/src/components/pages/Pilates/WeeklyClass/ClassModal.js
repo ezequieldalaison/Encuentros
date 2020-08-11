@@ -31,7 +31,6 @@ const ClassModal = ({
   };
 
   const onSave = () => {
-    console.log(weeklyClass);
     saveWeeklyClass(weeklyClass).then(x => handleClose());
   };
 

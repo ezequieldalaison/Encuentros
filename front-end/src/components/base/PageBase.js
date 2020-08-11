@@ -178,6 +178,7 @@ const PageBase = ({
                             onSubmit={onSubmitForm}
                             register={addUpdateForm.register}
                             errors={addUpdateForm.errors}
+                            setFormValue={addUpdateForm.setValue}
                           />
                         )}
                       ></FormBase>

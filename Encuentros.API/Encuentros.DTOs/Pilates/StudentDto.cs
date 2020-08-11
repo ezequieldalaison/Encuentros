@@ -9,7 +9,8 @@ namespace Encuentros.DTOs.Pilates
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool IsUpToDate { get; set; }
-
+        public long FeeTypeId { get; set; }
+        
         public string FullName
         {
             get
