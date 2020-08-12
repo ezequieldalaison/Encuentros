@@ -12,7 +12,7 @@ namespace Encuentros.API.Controllers.Pilates
     [ApiController]
     public class StudentController : ControllerCRUAIBase<Student, StudentDto>
     {
-        public StudentController(IGenericRepository<Student> repository, IMapper mapper)
+        public StudentController(IGenericAIRepository<Student> repository, IMapper mapper)
             : base(repository, mapper)
         {
         }
@@ -21,7 +21,7 @@ namespace Encuentros.API.Controllers.Pilates
         [HttpPost("search")]
         public virtual ActionResult GetByQuery(StudentSearchDto searchDto)
         {
-            var entities = _repository.GetByQueryInclude(x =>
+            var entities = _repository.GetByQueryInclude(x => (x.IsActive || searchDto.showInactives) &&
                     (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.Name) ? string.Empty : searchDto.Name.ToUpper())) &&
                     (x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.LastName) ? string.Empty : searchDto.LastName.ToUpper())) &&
                     (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper()) ||

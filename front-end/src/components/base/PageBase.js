@@ -10,6 +10,7 @@ import FormBase from "../base/FormBase";
 import { useForm } from "react-hook-form";
 
 const PageBase = ({
+  isUsingRef,
   grid,
   title,
   form: FormComponent,
@@ -28,7 +29,7 @@ const PageBase = ({
   const [showFormState, setShowFormState] = useState(false);
   const addUpdateForm = useForm();
   const searchForm = useForm();
-  const childRef = useRef();
+  const childFormRef = useRef();
 
   const onAdd = () => {
     setShowSearchState(false);
@@ -52,7 +53,7 @@ const PageBase = ({
   };
 
   const onCancelForm = () => {
-    if (childRef.current) childRef.current.cleanSelects();
+    if (childFormRef.current) childFormRef.current.cleanSelects();
     addUpdateForm.reset({});
     setShowSearchState(false);
     setShowGridState(true);
@@ -71,7 +72,7 @@ const PageBase = ({
     props
       .onSubmit(data)
       .then(() => {
-        if (childRef.current) childRef.current.cleanSelects();
+        if (childFormRef.current) childFormRef.current.cleanSelects();
         addUpdateForm.reset({});
         setShowSearchState(false);
         setShowGridState(true);
@@ -88,6 +89,8 @@ const PageBase = ({
   const onCancelSearch = () => {
     searchForm.reset({});
   };
+
+  console.log();
 
   return (
     <Container style={{ fontSize: "small" }}>
@@ -183,7 +186,7 @@ const PageBase = ({
                         showCancelButton={true}
                         elements={() => (
                           <FormComponent
-                            ref={childRef}
+                            {...(isUsingRef && { ref: childFormRef })}
                             onSubmit={onSubmitForm}
                             register={addUpdateForm.register}
                             errors={addUpdateForm.errors}

@@ -58,6 +58,7 @@ const StudentPage = ({
   };
 
   const search = data => {
+    debugger;
     if (Object.keys(data).length === 0 && data.constructor === Object) {
       getStudents();
     } else {

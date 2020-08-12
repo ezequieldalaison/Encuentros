@@ -19,6 +19,7 @@ namespace Encuentros.Data.IoCExtensions
         {
             //services.AddScoped<IGenericRepository<Professional>, GenericRepository<Professional>>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IGenericAIRepository<>), typeof(GenericAIRepository<>));
         }
 
         private static string GetConnectionString()

@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 namespace Encuentros.Data
 {
@@ -22,22 +21,22 @@ namespace Encuentros.Data
             _dbSet = context.Set<TEntity>();
         }
         
-        public DbContext GetContext()
+        public virtual DbContext GetContext()
         {
             return _context;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.AsNoTracking().ToList();
         }
 
-        public IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+        public virtual IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return GetAllIncluding(includeProperties).ToList();
         }
 
-        public IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,
+        public virtual IEnumerable<TEntity> GetByQueryInclude(Expression<Func<TEntity, bool>> predicate,
           params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = GetAllIncluding(includeProperties);
@@ -56,41 +55,38 @@ namespace Encuentros.Data
               });
         }
 
-        public IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate)
+        public virtual IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate)
         {
             IEnumerable<TEntity> results = _dbSet.AsNoTracking().Where(predicate).ToList();
             return results;
         }
 
-        public TEntity GetById(long id)
+        public virtual TEntity GetById(long id)
         {
             return _dbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
         }
 
-        public TEntity GetByIdIncluding(long id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public virtual TEntity GetByIdIncluding(long id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = GetAllIncluding(includeProperties);
             TEntity result = query.SingleOrDefault(x => x.Id == id);
             return result;
         }
 
-        public void Create(TEntity entity)
+        public virtual void Create(TEntity entity)
         {
-            if (entity as EntityAIBase != null)
-                (entity as EntityAIBase).Activate();
-
             _dbSet.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public void Delete(long id)
+        public virtual void Delete(long id)
         {
             var entity = GetById(id);
             _dbSet.Remove(entity);

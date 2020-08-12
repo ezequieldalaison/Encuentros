@@ -19,6 +19,17 @@ const StudentForm = props => {
             <Form.Control name="lastName" type="text" ref={register} />
           </Col>
         </Row>
+        <Row style={{ marginTop: "5px" }}>
+          <Col xs={3}>
+            <Form.Check
+              type="checkbox"
+              name="showInactives"
+              label="Mostrar Inactivos"
+              ref={register}
+              defaultChecked={false}
+            />
+          </Col>
+        </Row>
       </Form.Group>
     </>
   );

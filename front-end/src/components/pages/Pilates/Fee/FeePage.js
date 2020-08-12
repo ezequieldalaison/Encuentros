@@ -32,6 +32,7 @@ const FeePage = ({ fees, getFeesPerMonth, saveFee }) => {
 
   return (
     <PageBase
+      isUsingRef
       grid={grid}
       title="Cuotas"
       form={FeeForm}
