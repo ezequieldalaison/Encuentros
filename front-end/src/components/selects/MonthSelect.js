@@ -7,6 +7,7 @@ import React, {
 import Select from "react-select";
 import { connect } from "react-redux";
 import * as MonthActions from "../../redux/actions/Common/MonthActions";
+import { getCurrentMonth } from "../helpers/DateHelper";
 
 const MonthSelect = forwardRef((props, ref) => {
   const { register, getMonths } = props;
@@ -19,10 +20,7 @@ const MonthSelect = forwardRef((props, ref) => {
       setValue(month) {
         if (month) setSelectValue({ value: month.id, label: month.name });
         else {
-          const monthId = new Intl.DateTimeFormat("en", {
-            month: "numeric"
-          }).format(new Date());
-          month = options.filter(x => x.value === parseInt(monthId));
+          month = options.filter(x => x.value === getCurrentMonth());
           setSelectValue(month[0]);
         }
       }
@@ -43,10 +41,7 @@ const MonthSelect = forwardRef((props, ref) => {
       const mappedMonths = mapMonths(months);
       setOptions(mappedMonths);
 
-      const monthId = new Intl.DateTimeFormat("en", {
-        month: "numeric"
-      }).format(new Date());
-      var month = mappedMonths.filter(x => x.value === parseInt(monthId));
+      var month = mappedMonths.filter(x => x.value === getCurrentMonth());
       setSelectValue(month[0]);
     });
   }, [getMonths]);

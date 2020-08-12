@@ -40,6 +40,17 @@ const FeeForm = forwardRef((props, ref) => {
     }
   };
 
+  const onFeeTypeChange = selectedOption => {
+    if (selectedOption && selectedOption.value > 0) {
+      getFeeType(selectedOption.value).then(feeType => {
+        childFeeTypeRef.current.setValue(feeType);
+        setFormValue("amount", feeType.amount, { shouldValidate: true });
+      });
+    } else {
+      setFormValue("amount", 0, { shouldValidate: true });
+    }
+  };
+
   return (
     <>
       <Form.Group>
@@ -54,7 +65,11 @@ const FeeForm = forwardRef((props, ref) => {
           </Col>
           <Col xs={3}>
             <Form.Label>Modalidad</Form.Label>
-            <FeeTypeSelect ref={childFeeTypeRef} register={register} />
+            <FeeTypeSelect
+              ref={childFeeTypeRef}
+              register={register}
+              customOnChange={onFeeTypeChange}
+            />
           </Col>
           <Col xs={3}>
             <Form.Label>Importe</Form.Label>

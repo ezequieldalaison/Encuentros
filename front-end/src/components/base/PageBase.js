@@ -19,6 +19,7 @@ const PageBase = ({
   getEntity,
   onSearch,
   setEntityUnderUpdate,
+  hideCleanButton,
   ...props
 }) => {
   const { data, columns } = grid;
@@ -111,7 +112,7 @@ const PageBase = ({
                         cancel={onCancelSearch}
                         submit={searchForm.handleSubmit(onSubmitSearch)}
                         submitButtonText="Buscar"
-                        showCancelButton={true}
+                        showCancelButton={!hideCleanButton}
                         cancelButtonText="Limpiar"
                         elements={() => (
                           <SearchComponent

@@ -13,7 +13,11 @@ export async function handleResponse(response) {
 
 // In a real app, would likely call an error logging service.
 export function handleError(error) {
-  var parsedError = JSON.parse(error.message);
+  var parsedError;
+  try {
+    parsedError = JSON.parse(error.message);
+  } catch (e) {}
+
   if (parsedError && parsedError.status === 400 && parsedError.detail)
     toast.error(parsedError.detail);
   else {

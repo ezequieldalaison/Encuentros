@@ -13,28 +13,19 @@ export function getFeeTypeSuccess(feeType) {
 export function getFeeTypes() {
   return function(dispatch) {
     dispatch(beginApiCall());
-    return FeeTypeApi.getFeeTypes()
-      .then(feeTypes => {
-        dispatch(getFeeTypesSuccess(feeTypes));
-        return feeTypes;
-      })
-      .catch(error => {
-        debugger;
-        throw error;
-      });
+    return FeeTypeApi.getFeeTypes().then(feeTypes => {
+      dispatch(getFeeTypesSuccess(feeTypes));
+      return feeTypes;
+    });
   };
 }
 
 export function getFeeType(feeTypeId) {
   return function(dispatch) {
     dispatch(beginApiCall());
-    return FeeTypeApi.getFeeType(feeTypeId)
-      .then(feeType => {
-        dispatch(getFeeTypeSuccess(feeType));
-        return feeType;
-      })
-      .catch(error => {
-        throw error;
-      });
+    return FeeTypeApi.getFeeType(feeTypeId).then(feeType => {
+      dispatch(getFeeTypeSuccess(feeType));
+      return feeType;
+    });
   };
 }

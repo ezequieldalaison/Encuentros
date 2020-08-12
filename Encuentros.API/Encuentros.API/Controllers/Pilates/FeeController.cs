@@ -64,7 +64,7 @@ namespace Encuentros.API.Controllers.Pilates
             if (feeType == null)
                 return NotFound(new { Message = "FeeType not found" });
 
-            var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId && x.MonthId == feeDto.MonthId);
+            var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId && x.MonthId == feeDto.MonthId && x.FeeTypeId != FeeType.IndividualId);
             if (feeRepeted != null && feeRepeted.Count() > 0)
                 return ValidationProblem("El alumno ya tiene el mes abonado.");
 

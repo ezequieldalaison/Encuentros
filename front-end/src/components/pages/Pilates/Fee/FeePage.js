@@ -5,10 +5,12 @@ import { connect } from "react-redux";
 import * as FeeActions from "../../../../redux/actions/Pilates/FeeActions";
 import FeeForm from "./FeeForm";
 import { toast } from "react-toastify";
+import FeeSearch from "./FeeSearch";
+import { getCurrentMonth } from "../../../helpers/DateHelper";
 
 const FeePage = ({ fees, getFeesPerMonth, saveFee }) => {
   useEffect(() => {
-    getFeesPerMonth(1);
+    getFeesPerMonth(getCurrentMonth());
   }, [getFeesPerMonth]);
 
   const columns = React.useMemo(() => FEES_GRID, []);
@@ -24,8 +26,20 @@ const FeePage = ({ fees, getFeesPerMonth, saveFee }) => {
     });
   };
 
+  const search = data => {
+    getFeesPerMonth(data.monthId);
+  };
+
   return (
-    <PageBase grid={grid} title="Cuotas" form={FeeForm} onSubmit={onSubmit} />
+    <PageBase
+      grid={grid}
+      title="Cuotas"
+      form={FeeForm}
+      onSubmit={onSubmit}
+      search={FeeSearch}
+      onSearch={search}
+      hideCleanButton
+    />
   );
 };
 

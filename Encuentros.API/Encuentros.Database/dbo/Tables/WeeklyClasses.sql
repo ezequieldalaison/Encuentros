@@ -5,11 +5,6 @@
     [InstructorId] BIGINT        NULL,
     CONSTRAINT [PK_WeeklyClasses] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_WeeklyClasses_Days_DayId] FOREIGN KEY ([DayId]) REFERENCES [dbo].[Days] ([Id]),
-    CONSTRAINT [FK_WeeklyClasses_Instructors_InstructorId] FOREIGN KEY ([InstructorId]) REFERENCES [dbo].[Instructors] ([Id])
+    CONSTRAINT [FK_WeeklyClasses_Instructors_InstructorId] FOREIGN KEY ([InstructorId]) REFERENCES [dbo].[Instructors] ([Id]) 
 );
-
-
 GO
-CREATE NONCLUSTERED INDEX [IX_WeeklyClasses_InstructorId]
-    ON [dbo].[WeeklyClasses]([InstructorId] ASC);
-

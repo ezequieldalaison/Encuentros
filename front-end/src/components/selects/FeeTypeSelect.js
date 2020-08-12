@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as FeeTypeActions from "../../redux/actions/Pilates/FeeTypeActions";
 
 const FeeTypeSelect = forwardRef((props, ref) => {
-  const { register, getFeeTypes } = props;
+  const { register, getFeeTypes, customOnChange } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -46,6 +46,7 @@ const FeeTypeSelect = forwardRef((props, ref) => {
   };
 
   const onChange = selectedOption => {
+    if (customOnChange) customOnChange(selectedOption);
     setSelectValue(selectedOption);
   };
 
@@ -61,7 +62,9 @@ const FeeTypeSelect = forwardRef((props, ref) => {
 });
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    feeTypes: state.feeTypes
+  };
 }
 
 const mapDispatchToProps = {

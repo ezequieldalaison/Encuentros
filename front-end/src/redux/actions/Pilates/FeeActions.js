@@ -6,12 +6,12 @@ export function getFeesPerMonthSuccess(fees) {
   return { type: Types.GET_FEES_PER_MONTH_SUCCESS, fees };
 }
 
-export function createFeeSuccess(fees) {
-  return { type: Types.CREATE_FEE_SUCCESS, fees };
+export function createFeeSuccess(fee) {
+  return { type: Types.CREATE_FEE_SUCCESS, fee };
 }
 
-export function updateFeeSuccess(fees) {
-  return { type: Types.UPDATE_FEE_SUCCESS, fees };
+export function updateFeeSuccess(fee) {
+  return { type: Types.UPDATE_FEE_SUCCESS, fee };
 }
 
 export function getFeesPerMonth(monthId) {
