@@ -69,16 +69,13 @@ const PageBase = ({
   };
 
   const onSubmitForm = data => {
-    props
-      .onSubmit(data)
-      .then(() => {
-        if (childFormRef.current) childFormRef.current.cleanSelects();
-        addUpdateForm.reset({});
-        setShowSearchState(false);
-        setShowGridState(true);
-        setShowFormState(false);
-      })
-      .catch(e => console.log(e));
+    props.onSubmit(data).then(() => {
+      if (childFormRef.current) childFormRef.current.cleanSelects();
+      addUpdateForm.reset({});
+      setShowSearchState(false);
+      setShowGridState(true);
+      setShowFormState(false);
+    });
   };
 
   const onSubmitSearch = data => {
@@ -90,7 +87,13 @@ const PageBase = ({
     searchForm.reset({});
   };
 
-  console.log();
+  const inactivateBase = studentId => {
+    inactivate(studentId).catch(e => console.log(e));
+  };
+
+  const activateBase = studentId => {
+    activate(studentId).catch(e => console.log(e));
+  };
 
   return (
     <Container style={{ fontSize: "small" }}>
@@ -150,8 +153,8 @@ const PageBase = ({
                   <GridBase
                     columns={columns}
                     data={data}
-                    activate={activate}
-                    inactivate={inactivate}
+                    activate={activateBase}
+                    inactivate={inactivateBase}
                     onUpdate={onUpdate}
                   />
                   <Row>

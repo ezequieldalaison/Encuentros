@@ -16,7 +16,9 @@ export function handleError(error) {
   var parsedError;
   try {
     parsedError = JSON.parse(error.message);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 
   if (parsedError && parsedError.status === 400 && parsedError.detail)
     toast.error(parsedError.detail);

@@ -30,13 +30,13 @@ const StudentPage = ({
   };
 
   const inactivate = studentId => {
-    inactivateStudent(studentId).then(() =>
+    return inactivateStudent(studentId).then(() =>
       toast.success("El alumno se inactivó correctamente")
     );
   };
 
   const activate = studentId => {
-    activateStudent(studentId).then(() =>
+    return activateStudent(studentId).then(() =>
       toast.success("El alumno se activó correctamente")
     );
   };
@@ -58,7 +58,6 @@ const StudentPage = ({
   };
 
   const search = data => {
-    debugger;
     if (Object.keys(data).length === 0 && data.constructor === Object) {
       getStudents();
     } else {

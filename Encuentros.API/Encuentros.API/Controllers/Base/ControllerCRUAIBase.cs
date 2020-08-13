@@ -21,7 +21,7 @@ namespace Encuentros.API.Controllers.Base
         }
 
         [HttpPut("activate/{id}")]
-        public ActionResult Activate(long id)
+        public virtual ActionResult Activate(long id)
         {
             var entityRepo = _repository.GetById(id);
             if (entityRepo == null)
@@ -35,7 +35,7 @@ namespace Encuentros.API.Controllers.Base
         }
 
         [HttpPut("inactivate/{id}")]
-        public ActionResult Inactivate(long id)
+        public virtual ActionResult Inactivate(long id)
         {
             var entityRepo = _repository.GetById(id);
             if (entityRepo == null)
