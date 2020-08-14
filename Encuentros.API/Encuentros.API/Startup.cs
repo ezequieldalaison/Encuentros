@@ -36,6 +36,7 @@ namespace Encuentros.API
                 .AddNewtonsoftJson(a =>
                 {
                     a.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    a.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 }); ;
 
             services.AddDbContext();

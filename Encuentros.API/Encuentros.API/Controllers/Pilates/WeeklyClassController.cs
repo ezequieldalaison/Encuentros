@@ -28,6 +28,8 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var weeklyClasses = _repository.GetAllInclude(x => x.WeeklyClassStudents,
                                                           x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                          x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
+                                                          x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
                                                           x => x.Instructor,
                                                           x => x.Day);
 
@@ -43,6 +45,8 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var weeklyClass = _repository.GetByIdIncluding(id, x => x.WeeklyClassStudents,
                                                                x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                               x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
+                                                               x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
                                                                x => x.Instructor,
                                                                x => x.Day);
             if (weeklyClass == null)
@@ -61,11 +65,16 @@ namespace Encuentros.API.Controllers.Pilates
             {
                 var weeklyClass = _repository.GetByIdIncluding(dto.Id, x => x.WeeklyClassStudents,
                                                                        x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                                       x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
+                                                                       x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
                                                                        x => x.Instructor,
                                                                        x => x.Day);
 
                 if (weeklyClass == null)
                     return NotFound();
+
+                if (dto.Students.GroupBy(x => x.Id).Any(x => x.Count() > 1))
+                    return ValidationProblem("No puede haber alumnos repetidos la clase.");
 
                 context.Attach(weeklyClass);
 
@@ -75,6 +84,8 @@ namespace Encuentros.API.Controllers.Pilates
 
                 weeklyClass = _repository.GetByIdIncluding(dto.Id, x => x.WeeklyClassStudents,
                                                                    x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                                   x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
+                                                                   x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
                                                                    x => x.Instructor,
                                                                    x => x.Day);
                 weeklyClass.Fill();

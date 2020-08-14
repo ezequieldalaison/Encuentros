@@ -2,6 +2,7 @@
 using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlTypes;
 
 namespace Encuentros.Data
 {
@@ -92,6 +93,7 @@ namespace Encuentros.Data
                 x.Property(x => x.Email).HasMaxLength(50);
                 x.Property(x => x.PhoneNumber);
                 x.Property(x => x.IsActive).IsRequired();
+                x.HasMany(x => x.Fees).WithOne(x => x.Student);
             });
 
             modelBuilder.Entity<Instructor>(x =>
@@ -143,7 +145,8 @@ namespace Encuentros.Data
             {
                 x.ToTable("Fees");
                 x.HasKey(x => x.Id);
-                x.HasOne(x => x.Student);
+                x.HasOne(x => x.Student)
+                    .WithMany(x => x.Fees);
                 x.HasOne(x => x.FeeType);
                 x.HasOne(x => x.Month);
                 x.HasOne(x => x.Movement);

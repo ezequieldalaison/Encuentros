@@ -50,8 +50,17 @@ const FeeTypeSelect = forwardRef((props, ref) => {
     setSelectValue(selectedOption);
   };
 
+  const customStyles = {
+    menuPortal: provided => ({
+      ...provided,
+      fontSize: "small"
+    })
+  };
+
   return (
     <Select
+      menuPortalTarget={document.body}
+      styles={customStyles}
       options={options}
       onChange={onChange}
       value={selectValue}

@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
 import { connect } from "react-redux";
 import WeeklyClassStudentSelect from "../../../selects/WeeklyClassStudentSelect";
+import { toast } from "react-toastify";
 
 const ClassModal = ({
   weeklyClassId,
@@ -15,6 +16,7 @@ const ClassModal = ({
   const [weeklyClass, setWeeklyClass] = useState();
 
   useEffect(() => {
+    debugger;
     if (show) {
       getWeeklyClass(weeklyClassId).then(wc => {
         setWeeklyClass(wc);
@@ -31,7 +33,12 @@ const ClassModal = ({
   };
 
   const onSave = () => {
-    saveWeeklyClass(weeklyClass).then(x => handleClose());
+    saveWeeklyClass(weeklyClass)
+      .then(x => {
+        handleClose();
+        toast.success("La clase se guardó correctamente");
+      })
+      .catch(e => console.log(e));
   };
 
   const cleanStudent = index => {

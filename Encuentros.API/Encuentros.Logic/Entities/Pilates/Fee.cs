@@ -12,7 +12,7 @@ namespace Encuentros.Logic.Entities.Pilates
             StudentId = studentId;
             FeeTypeId = feeTypeId;
             MonthId = monthId;
-            Movement = new Movement(DateTime.UtcNow, amount, comments, 1, isPaid ? 2 : 1);
+            Movement = new Movement(DateTime.Now, amount, comments, 1, isPaid ? 2 : 1);
         }
 
         public virtual long StudentId { get; set; }

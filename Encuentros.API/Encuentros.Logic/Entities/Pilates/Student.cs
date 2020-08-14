@@ -1,5 +1,8 @@
 ﻿using Encuentros.Logic.Base;
+using Encuentros.Logic.Entities.Common;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Encuentros.Logic.Entities.Pilates
 {
@@ -19,6 +22,19 @@ namespace Encuentros.Logic.Entities.Pilates
         public virtual string PhoneNumber { get; private set; }
         public virtual string Email { get; private set; }
         public virtual ICollection<WeeklyClassStudent> WeeklyClassStudents { get; private set; }
+        public virtual ICollection<Fee> Fees { get; private set; }
+        public bool IsUpToDate
+        {
+            get
+            {
+                if (Fees == null)
+                    return false;
+
+                var lastFeePaid = Fees.Where(x => x.Movement.MovementStatusId == MovementStatus.PaidId).OrderByDescending(x => x.MonthId).FirstOrDefault();
+                return lastFeePaid != null && lastFeePaid.MonthId == DateTime.Now.Month;
+            }
+        }
+
         public long? FeeTypeId
         {
             get
