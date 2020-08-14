@@ -40,7 +40,10 @@ class App extends Component {
 
           <PrivateRoute path="/Profile" component={Profile} />
           <PrivateRoute path="/Configuration" component={Configuration} />
-          <PrivateRoute path="/Professionals" component={Professionals} />
+          <PrivateRoute
+            path="/General/Profesionales"
+            component={Professionals}
+          />
 
           <PrivateRoute path="/Pilates/Alumnos" component={StudentPage} />
           <PrivateRoute

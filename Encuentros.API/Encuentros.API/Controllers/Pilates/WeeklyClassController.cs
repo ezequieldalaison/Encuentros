@@ -73,7 +73,7 @@ namespace Encuentros.API.Controllers.Pilates
                 if (weeklyClass == null)
                     return NotFound();
 
-                if (dto.Students.GroupBy(x => x.Id).Any(x => x.Count() > 1))
+                if (dto.Students.Where(x => x.Id > 0).GroupBy(x => x.Id).Any(x => x.Count() > 1))
                     return ValidationProblem("No puede haber alumnos repetidos la clase.");
 
                 context.Attach(weeklyClass);

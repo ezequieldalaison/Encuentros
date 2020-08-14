@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
-import ProfessionalReducer from "./ProfessionalReducer";
+import ProfessionalReducer from "./Common/ProfessionalReducer";
+import MonthReducer from "./Common/MonthReducer";
 import StudentReducer from "./Pilates/StudentReducer";
 import WeeklyClassReducer from "./Pilates/WeeklyClassReducer";
 import ApiStatusReducer from "./ApiStatus/ApiStatusReducer";
@@ -12,7 +13,8 @@ const RootReducer = combineReducers({
   weeklyClasses: WeeklyClassReducer,
   apiCallsInProgress: ApiStatusReducer,
   fees: FeeReducer,
-  feeTypes: FeeTypeReducer
+  feeTypes: FeeTypeReducer,
+  months: MonthReducer
 });
 
 export default RootReducer;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageBase from "../../../base/PageBase";
-import * as ProfessionalActions from "../../../../redux/actions/ProfessionalActions";
+import * as ProfessionalActions from "../../../../redux/actions/Common/ProfessionalActions";
 import { connect } from "react-redux";
 import ProfessionalForm from "./ProfessionalForm";
 import { PROFESSIONALS_GRID } from "../../../helpers/GridHelper";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 const ProfessionalPage = ({
   professionals,
   getProfessionals,
+  getProfessional,
   saveProfessional,
   inactivateProfessional,
   activateProfessional
@@ -35,15 +36,21 @@ const ProfessionalPage = ({
   };
 
   const inactivate = professionalId => {
-    inactivateProfessional(professionalId).then(() =>
+    return inactivateProfessional(professionalId).then(() =>
       toast.success("El profesional se inactivó correctamente")
     );
   };
 
   const activate = professionalId => {
-    activateProfessional(professionalId).then(() =>
+    return activateProfessional(professionalId).then(() =>
       toast.success("El profesional se activó correctamente")
     );
+  };
+
+  const getEntity = professionalId => {
+    return getProfessional(professionalId).then(student => {
+      return student;
+    });
   };
 
   return (
@@ -55,6 +62,7 @@ const ProfessionalPage = ({
       activate={activate}
       inactivate={inactivate}
       setEntityUnderUpdate={setProfessionalUnderUpdate}
+      getEntity={getEntity}
     />
   );
 };
@@ -67,6 +75,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   getProfessionals: ProfessionalActions.getProfessionals,
+  getProfessional: ProfessionalActions.getProfessional,
   saveProfessional: ProfessionalActions.saveProfessional,
   inactivateProfessional: ProfessionalActions.inactivateProfessional,
   activateProfessional: ProfessionalActions.activateProfessional

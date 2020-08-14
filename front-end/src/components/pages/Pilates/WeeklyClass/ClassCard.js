@@ -39,9 +39,7 @@ const ClassCard = ({ weeklyClassId, students, hour, instructor }) => {
             <GridBase columns={columns} data={data} />
             <p style={{ fontSize: "small", margin: "0" }}>
               <b>Profesor:</b>{" "}
-              {instructor
-                ? `${instructor.name} ${instructor.lastName}`
-                : "No Asignado"}
+              {instructor ? instructor.fullName : "No Asignado"}
             </p>
           </Card.Body>
         </Accordion.Collapse>

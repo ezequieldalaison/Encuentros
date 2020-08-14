@@ -51,7 +51,7 @@ const ProfessionalForm = props => {
             <InputValidated
               register={register}
               name="email"
-              type="text"
+              type="email"
               error={errors.email}
             ></InputValidated>
           </Col>
@@ -61,7 +61,9 @@ const ProfessionalForm = props => {
               register={register}
               name="phoneNumber"
               type="text"
+              pattern="[0-9]*"
               error={errors.phoneNumber}
+              onlyNumbers
             ></InputValidated>
           </Col>
           <Col xs={4}>
@@ -70,7 +72,6 @@ const ProfessionalForm = props => {
               register={register}
               name="percentage"
               type="number"
-              isRequired
               error={errors.percentage}
             ></InputValidated>
           </Col>

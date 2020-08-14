@@ -16,7 +16,6 @@ const ClassModal = ({
   const [weeklyClass, setWeeklyClass] = useState();
 
   useEffect(() => {
-    debugger;
     if (show) {
       getWeeklyClass(weeklyClassId).then(wc => {
         setWeeklyClass(wc);
@@ -35,7 +34,7 @@ const ClassModal = ({
   const onSave = () => {
     saveWeeklyClass(weeklyClass)
       .then(x => {
-        handleClose();
+        close();
         toast.success("La clase se guardó correctamente");
       })
       .catch(e => console.log(e));
@@ -48,8 +47,13 @@ const ClassModal = ({
     setWeeklyClass({ ...weeklyClass, students });
   };
 
+  const close = () => {
+    setWeeklyClass(null);
+    handleClose();
+  };
+
   return weeklyClass ? (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal show={show} onHide={close} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
         <Modal.Title>
           {`${weeklyClass.day.name} ${weeklyClass.hour}`}
@@ -73,7 +77,7 @@ const ClassModal = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={close}>
           Cancelar
         </Button>
         <Button variant="primary" onClick={() => onSave()}>

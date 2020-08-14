@@ -68,7 +68,6 @@
     <Build Include="dbo\Tables\Students.sql" />
     <Build Include="dbo\Tables\WeeklyClasses.sql" />
     <Build Include="dbo\Tables\WeeklyClassStudents.sql" />
-    <Build Include="dbo\Tables\Instructors.sql" />
     <Build Include="dbo\Tables\Days.sql" />
     <Build Include="dbo\Tables\Areas.sql" />
     <Build Include="dbo\Tables\JournalSides.sql" />
@@ -91,6 +90,8 @@
     <None Include="dbo\Scripts\InitialData\Areas.sql" />
     <None Include="dbo\Scripts\InitialData\MovementStatuses.sql" />
     <None Include="dbo\Scripts\InitialData\FeeTypes.sql" />
+    <None Include="dbo\Scripts\InitialData\WeeklyClasses.sql" />
+    <None Include="dbo\Scripts\InitialData\Professionals.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Encuentros.Database.refactorlog" />

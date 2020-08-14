@@ -17,5 +17,9 @@
     <ProjectReference Include="..\Encuentros.Logic\Encuentros.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\ConsultingRoom\" />
+  </ItemGroup>
+
 
 </Project>

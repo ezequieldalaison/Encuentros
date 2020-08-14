@@ -14,7 +14,7 @@ namespace Encuentros.API.Controllers.Base
         where ENT : EntityAIBase
         where DTO : DtoAIBase
     {
-        public ControllerCRUAIBase(IGenericRepository<ENT> repository,
+        public ControllerCRUAIBase(IGenericAIRepository<ENT> repository,
                                   IMapper mapper)
             : base(repository, mapper)
         {

@@ -5,7 +5,7 @@
     [DocumentNumber] NVARCHAR (10)  NOT NULL,
     [Email]          NVARCHAR (50)  NULL,
     [PhoneNumber]    NVARCHAR (MAX) NULL,
-    [Percentage]     INT            NOT NULL,
+    [Percentage]     INT            NULL,
     [IsActive]       BIT            NOT NULL,
     CONSTRAINT [PK_Professionals] PRIMARY KEY CLUSTERED ([Id] ASC)
 );

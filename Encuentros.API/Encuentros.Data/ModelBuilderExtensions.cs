@@ -96,15 +96,6 @@ namespace Encuentros.Data
                 x.HasMany(x => x.Fees).WithOne(x => x.Student);
             });
 
-            modelBuilder.Entity<Instructor>(x =>
-            {
-                x.ToTable("Instructors");
-                x.HasKey(x => x.Id);
-                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
-                x.Property(x => x.LastName).IsRequired().HasMaxLength(50);
-                x.Property(x => x.IsActive).IsRequired();
-            });
-
             modelBuilder.Entity<WeeklyClassStudent>(x =>
             {
                 x.ToTable("WeeklyClassStudents");

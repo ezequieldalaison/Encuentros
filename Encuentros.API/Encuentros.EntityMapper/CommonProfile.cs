@@ -12,6 +12,7 @@ namespace Encuentros.EntityMapper
             CreateMap<Entity.Month, DTO.MonthDto>().ReverseMap();
             CreateMap<Entity.MovementStatus, DTO.MovementStatusDto>().ReverseMap();
             CreateMap<Entity.Movement, DTO.MovementDto>().ReverseMap();
+            CreateMap<Entity.Professional, DTO.ProfessionalDto>().ReverseMap();
         }
     }
 }

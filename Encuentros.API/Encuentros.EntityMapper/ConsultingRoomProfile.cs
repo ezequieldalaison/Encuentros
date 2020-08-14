@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Entity = Encuentros.Logic.Entities;
-using DTO = Encuentros.DTOs.ConsultingRoom;
 
 namespace Encuentros.EntityMapper
 {
@@ -8,7 +6,6 @@ namespace Encuentros.EntityMapper
     {
         public ConsultingRoomProfile()
         {
-            CreateMap<Entity.Professional, DTO.ProfessionalDto>().ReverseMap();
         }
     }
 }

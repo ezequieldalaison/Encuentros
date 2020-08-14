@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Entities\ConsultingRoom\" />
     <Folder Include="Extensions\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
