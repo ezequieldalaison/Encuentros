@@ -27,6 +27,8 @@ const ProfessionalPage = ({
   };
 
   const onSubmit = data => {
+    console.log(data);
+
     if (professionalUnderUpdate) {
       data = { ...professionalUnderUpdate, ...data };
     }
@@ -48,13 +50,14 @@ const ProfessionalPage = ({
   };
 
   const getEntity = professionalId => {
-    return getProfessional(professionalId).then(student => {
-      return student;
+    return getProfessional(professionalId).then(professional => {
+      return professional;
     });
   };
 
   return (
     <PageBase
+      isUsingRef
       grid={grid}
       title="Profesionales"
       form={ProfessionalForm}

@@ -46,6 +46,10 @@ const PageBase = ({
 
     getEntity(id).then(entity => {
       setEntityUnderUpdate(entity);
+
+      if (childFormRef.current && childFormRef.current.setSelectValue)
+        childFormRef.current.setSelectValue(entity);
+
       for (var key in entity) {
         addUpdateForm.setValue(key, entity[key], { shouldValidate: true });
       }
@@ -53,7 +57,8 @@ const PageBase = ({
   };
 
   const onCancelForm = () => {
-    if (childFormRef.current) childFormRef.current.cleanSelects();
+    if (childFormRef.current && childFormRef.current.cleanSelects)
+      childFormRef.current.cleanSelects();
     addUpdateForm.reset({});
     setShowSearchState(false);
     setShowGridState(true);

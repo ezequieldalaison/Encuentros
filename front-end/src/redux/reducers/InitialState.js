@@ -5,5 +5,6 @@ export default {
   weeklyClasses: [],
   fees: [],
   months: [],
-  feeTypes: []
+  feeTypes: [],
+  areas: []
 };

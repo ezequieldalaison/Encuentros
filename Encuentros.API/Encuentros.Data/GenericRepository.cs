@@ -44,7 +44,7 @@ namespace Encuentros.Data
             return results;
         }
 
-        private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        protected virtual IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> queryable = _dbSet.AsNoTracking();
 

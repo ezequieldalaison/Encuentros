@@ -66,10 +66,7 @@ namespace Encuentros.Data
                 x.HasOne(x => x.MovementStatus);
                 x.Property(x => x.MovementStatusId);
             });
-        }
 
-        public static void AddPilatesEntities(this ModelBuilder modelBuilder)
-        {
             modelBuilder.Entity<Professional>(x =>
             {
                 x.ToTable("Professionals");
@@ -84,6 +81,20 @@ namespace Encuentros.Data
                 x.Property(x => x.IsActive).IsRequired();
             });
 
+            modelBuilder.Entity<ProfessionalArea>(x =>
+            {
+                x.ToTable("ProfessionalAreas");
+                x.HasKey(x => x.Id);
+                x.HasIndex(x => new { x.ProfessionalId, x.AreaId }).IsUnique();
+                x.HasOne(x => x.Professional)
+                    .WithMany(x => x.ProfessionalAreas)
+                    .HasForeignKey(x => x.ProfessionalId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+        }
+
+        public static void AddPilatesEntities(this ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Student>(x =>
             {
                 x.ToTable("Students");

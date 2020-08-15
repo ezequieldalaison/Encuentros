@@ -1,8 +1,11 @@
-﻿using Encuentros.Data.Interfaces;
+﻿using Encuentros.Data.Extensions;
+using Encuentros.Data.Interfaces;
 using Encuentros.Logic.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Encuentros.Data
 {
@@ -24,6 +27,17 @@ namespace Encuentros.Data
 
             _dbSet.Add(entity);
             _context.SaveChanges();
+        }
+
+        protected override IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> queryable = _dbSet.AsNoTracking().Where(x => x.IsActive);
+
+            return includeProperties.Aggregate
+              (queryable, (current, includeProperty) =>
+              {
+                  return current.Include(includeProperty.AsPath());
+              });
         }
     }
 }

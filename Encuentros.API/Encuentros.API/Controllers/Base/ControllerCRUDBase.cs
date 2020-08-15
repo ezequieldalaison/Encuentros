@@ -34,7 +34,7 @@ namespace Encuentros.API.Controllers.Base
         [HttpGet("{id}")]
         public virtual ActionResult<DTO> GetById(long id)
         {
-            var entity = _repository.GetById(id);
+            var entity = GetEntityById(id);
             if (entity == null)
                 return NotFound();
 
@@ -61,7 +61,7 @@ namespace Encuentros.API.Controllers.Base
         [HttpPut("{id}")]
         public virtual ActionResult Update(DTO dto)
         {
-            var entityRepo = _repository.GetById(dto.Id);
+            var entityRepo = GetEntityById(dto.Id);
             if (entityRepo == null)
                 return NotFound();
 
@@ -84,6 +84,11 @@ namespace Encuentros.API.Controllers.Base
         protected virtual bool IsValidForCreate(DTO dto)
         {
             return true;
+        }
+
+        protected virtual ENT GetEntityById(long id)
+        {
+            return _repository.GetById(id);
         }
     }
 }

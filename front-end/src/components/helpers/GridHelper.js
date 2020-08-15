@@ -62,6 +62,11 @@ export const PROFESSIONALS_GRID = [
     canSort: false
   },
   {
+    Header: "Áreas",
+    accessor: "areasNames",
+    canSort: false
+  },
+  {
     Header: "Activo",
     accessor: "isActive",
     canSort: false
