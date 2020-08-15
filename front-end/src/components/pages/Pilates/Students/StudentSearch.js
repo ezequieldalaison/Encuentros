@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const StudentForm = props => {
+const StudentSearch = props => {
   const { register } = props;
 
   return (
@@ -35,4 +35,4 @@ const StudentForm = props => {
   );
 };
 
-export default StudentForm;
+export default StudentSearch;

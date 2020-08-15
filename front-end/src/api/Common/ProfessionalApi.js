@@ -16,6 +16,16 @@ export function getProfessional(professionalId) {
     .catch(handleError);
 }
 
+export function searchProfessionals(criteria) {
+  return fetch(baseUrl + "search", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(criteria)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function saveProfessional(professional) {
   return fetch(baseUrl + (professional.id || ""), {
     method: professional.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.

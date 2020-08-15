@@ -44,17 +44,6 @@ namespace Encuentros.Data
             return results;
         }
 
-        protected virtual IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> queryable = _dbSet.AsNoTracking();
-
-            return includeProperties.Aggregate
-              (queryable, (current, includeProperty) =>
-              {
-                  return current.Include(includeProperty.AsPath());
-              });
-        }
-
         public virtual IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate)
         {
             IEnumerable<TEntity> results = _dbSet.AsNoTracking().Where(predicate).ToList();
@@ -66,7 +55,7 @@ namespace Encuentros.Data
             return _dbSet.AsNoTracking().SingleOrDefault(x => x.Id == id);
         }
 
-        public virtual TEntity GetByIdIncluding(long id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public virtual TEntity GetByIdInclude(long id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = GetAllIncluding(includeProperties);
             TEntity result = query.SingleOrDefault(x => x.Id == id);
@@ -91,6 +80,17 @@ namespace Encuentros.Data
             var entity = GetById(id);
             _dbSet.Remove(entity);
             _context.SaveChanges();
+        }
+
+        private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> queryable = _dbSet.AsNoTracking();
+
+            return includeProperties.Aggregate
+              (queryable, (current, includeProperty) =>
+              {
+                  return current.Include(includeProperty.AsPath());
+              });
         }
     }
 }

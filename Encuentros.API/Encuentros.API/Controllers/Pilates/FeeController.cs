@@ -71,7 +71,7 @@ namespace Encuentros.API.Controllers.Pilates
             Fee fee = new Fee(feeDto.StudentId, feeDto.FeeTypeId, feeDto.MonthId, feeDto.Amount, feeDto.IsPaid, student.FullName + " | " + month.Name);
             _repository.Create(fee);
 
-            var response = _repository.GetByIdIncluding(fee.Id,
+            var response = _repository.GetByIdInclude(fee.Id,
                                                         x => x.Month,
                                                         x => x.FeeType,
                                                         x => x.Student,

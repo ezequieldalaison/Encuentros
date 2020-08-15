@@ -19,6 +19,6 @@ namespace Encuentros.Data.Interfaces
         void Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(long id);
-        TEntity GetByIdIncluding(long id, params Expression<Func<TEntity, object>>[] includeProperties);
+        TEntity GetByIdInclude(long id, params Expression<Func<TEntity, object>>[] includeProperties);
     }
 }

@@ -26,7 +26,7 @@ namespace Encuentros.API.Controllers.Pilates
 
 
         [HttpPost("search")]
-        public virtual ActionResult GetByQuery(StudentSearchDto searchDto)
+        public ActionResult GetByQuery(StudentSearchDto searchDto)
         {
             var entities = _repository.GetByQueryInclude(x => (x.IsActive || searchDto.showInactives) &&
                     (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.Name) ? string.Empty : searchDto.Name.ToUpper())) &&

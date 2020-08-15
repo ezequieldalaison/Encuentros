@@ -6,6 +6,7 @@ using Encuentros.Logic.Entities.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Encuentros.API.Controllers.Common
 {
@@ -77,9 +78,23 @@ namespace Encuentros.API.Controllers.Common
             }
         }
 
+        [HttpPost("search")]
+        public ActionResult GetByQuery(ProfessionalSearchDto searchDto)
+        {
+            var entities = _repository.GetByQueryInclude(x => (x.IsActive || searchDto.showInactives) &&
+                    (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.Name) ? string.Empty : searchDto.Name.ToUpper())) &&
+                    (x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.LastName) ? string.Empty : searchDto.LastName.ToUpper())) &&
+                    (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper()) ||
+                     x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper())),
+                     x => x.ProfessionalAreas, x => x.ProfessionalAreas.Select(x => x.Area));
+
+            var response = _mapper.Map<IEnumerable<ProfessionalDto>>(entities);
+            return Ok(response);
+        }
+
         protected override Professional GetEntityById(long id)
         {
-            return _repository.GetByIdIncluding(id, x => x.ProfessionalAreas,
+            return _repository.GetByIdInclude(id, x => x.ProfessionalAreas,
                                                     x => x.ProfessionalAreas.Select(pa => pa.Area));
         }
     }

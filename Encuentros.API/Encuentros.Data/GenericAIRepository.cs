@@ -29,7 +29,7 @@ namespace Encuentros.Data
             _context.SaveChanges();
         }
 
-        protected override IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        public override IEnumerable<TEntity> GetAllInclude(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> queryable = _dbSet.AsNoTracking().Where(x => x.IsActive);
 

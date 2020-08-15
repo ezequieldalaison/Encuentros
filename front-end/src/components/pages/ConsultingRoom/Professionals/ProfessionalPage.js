@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import ProfessionalForm from "./ProfessionalForm";
 import { PROFESSIONALS_GRID } from "../../../helpers/GridHelper";
 import { toast } from "react-toastify";
+import ProfessionalSearch from "./ProfessionalSearch";
 
 const ProfessionalPage = ({
   professionals,
@@ -12,7 +13,8 @@ const ProfessionalPage = ({
   getProfessional,
   saveProfessional,
   inactivateProfessional,
-  activateProfessional
+  activateProfessional,
+  searchProfessionals
 }) => {
   const [professionalUnderUpdate, setProfessionalUnderUpdate] = useState();
   useEffect(() => {
@@ -55,6 +57,14 @@ const ProfessionalPage = ({
     });
   };
 
+  const search = data => {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      getProfessionals();
+    } else {
+      searchProfessionals(data);
+    }
+  };
+
   return (
     <PageBase
       isUsingRef
@@ -66,6 +76,8 @@ const ProfessionalPage = ({
       inactivate={inactivate}
       setEntityUnderUpdate={setProfessionalUnderUpdate}
       getEntity={getEntity}
+      search={ProfessionalSearch}
+      onSearch={search}
     />
   );
 };
@@ -81,7 +93,8 @@ const mapDispatchToProps = {
   getProfessional: ProfessionalActions.getProfessional,
   saveProfessional: ProfessionalActions.saveProfessional,
   inactivateProfessional: ProfessionalActions.inactivateProfessional,
-  activateProfessional: ProfessionalActions.activateProfessional
+  activateProfessional: ProfessionalActions.activateProfessional,
+  searchProfessionals: ProfessionalActions.searchProfessionals
 };
 
 export default connect(

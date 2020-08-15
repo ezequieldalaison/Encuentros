@@ -6,6 +6,10 @@ export function getProfessionalsSuccess(professionals) {
   return { type: Types.GET_PROFESSIONALS_SUCCESS, professionals };
 }
 
+export function searchProfessionalsSuccess(professionals) {
+  return { type: Types.SEARCH_PROFESSIONALS_SUCCESS, professionals };
+}
+
 export function getProfessionalSuccess(professional) {
   return { type: Types.GET_PROFESSIONAL_SUCCESS, professional };
 }
@@ -87,6 +91,20 @@ export function activateProfessional(professionalId) {
     return ProfessionalApi.activateProfessional(professionalId)
       .then(professional => {
         dispatch(activateProfessionalSuccess(professional));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function searchProfessionals(criteria) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalApi.searchProfessionals(criteria)
+      .then(professionals => {
+        dispatch(searchProfessionalsSuccess(professionals));
+        return professionals;
       })
       .catch(error => {
         throw error;

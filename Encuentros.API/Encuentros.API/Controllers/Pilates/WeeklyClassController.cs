@@ -43,7 +43,7 @@ namespace Encuentros.API.Controllers.Pilates
         [HttpGet("{id}")]
         public override ActionResult<WeeklyClassDto> GetById(long id)
         {
-            var weeklyClass = _repository.GetByIdIncluding(id, x => x.WeeklyClassStudents,
+            var weeklyClass = _repository.GetByIdInclude(id, x => x.WeeklyClassStudents,
                                                                x => x.WeeklyClassStudents.Select(w => w.Student),
                                                                x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
                                                                x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
@@ -63,7 +63,7 @@ namespace Encuentros.API.Controllers.Pilates
             WeeklyClassDto response;
             using (var context = _repository.GetContext())
             {
-                var weeklyClass = _repository.GetByIdIncluding(dto.Id, x => x.WeeklyClassStudents,
+                var weeklyClass = _repository.GetByIdInclude(dto.Id, x => x.WeeklyClassStudents,
                                                                        x => x.WeeklyClassStudents.Select(w => w.Student),
                                                                        x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
                                                                        x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
@@ -82,7 +82,7 @@ namespace Encuentros.API.Controllers.Pilates
 
                 _repository.Update(weeklyClass);
 
-                weeklyClass = _repository.GetByIdIncluding(dto.Id, x => x.WeeklyClassStudents,
+                weeklyClass = _repository.GetByIdInclude(dto.Id, x => x.WeeklyClassStudents,
                                                                    x => x.WeeklyClassStudents.Select(w => w.Student),
                                                                    x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
                                                                    x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
