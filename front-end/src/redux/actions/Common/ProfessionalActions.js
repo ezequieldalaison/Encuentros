@@ -6,6 +6,10 @@ export function getProfessionalsSuccess(professionals) {
   return { type: Types.GET_PROFESSIONALS_SUCCESS, professionals };
 }
 
+export function getProfessionalsByAreaSuccess(professionals) {
+  return { type: Types.GET_PROFESSIONALS_BY_AREA_SUCCESS, professionals };
+}
+
 export function searchProfessionalsSuccess(professionals) {
   return { type: Types.SEARCH_PROFESSIONALS_SUCCESS, professionals };
 }
@@ -49,6 +53,20 @@ export function getProfessional(professionalId) {
     return ProfessionalApi.getProfessional(professionalId)
       .then(professional => {
         dispatch(getProfessionalSuccess(professional));
+        return professional;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getProfessionalsByArea(areaId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalApi.getProfessionalsByArea(areaId)
+      .then(professional => {
+        dispatch(getProfessionalsByAreaSuccess(professional));
         return professional;
       })
       .catch(error => {

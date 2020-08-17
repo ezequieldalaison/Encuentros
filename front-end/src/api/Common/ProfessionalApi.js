@@ -26,6 +26,14 @@ export function searchProfessionals(criteria) {
     .catch(handleError);
 }
 
+export function getProfessionalsByArea(areaId) {
+  return fetch(baseUrl + "area/" + areaId, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function saveProfessional(professional) {
   return fetch(baseUrl + (professional.id || ""), {
     method: professional.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.

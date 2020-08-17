@@ -131,6 +131,7 @@ namespace Encuentros.Data
                 x.ToTable("WeeklyClasses");
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
+                x.Property(x => x.InstructorId);
                 x.HasOne(x => x.Instructor);
                 x.HasOne(x => x.Day);
             });

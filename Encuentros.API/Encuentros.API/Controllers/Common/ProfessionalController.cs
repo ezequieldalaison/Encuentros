@@ -92,6 +92,16 @@ namespace Encuentros.API.Controllers.Common
             return Ok(response);
         }
 
+        [HttpGet("area/{areaId}")]
+        public ActionResult GetByQuery(long areaId)
+        {
+            var entities = _repository.GetByQuery(x => x.IsActive &&
+                                                       x.ProfessionalAreas.Select(pa => pa.AreaId).Contains(areaId));
+
+            var response = _mapper.Map<IEnumerable<ProfessionalDto>>(entities);
+            return Ok(response);
+        }
+
         protected override Professional GetEntityById(long id)
         {
             return _repository.GetByIdInclude(id, x => x.ProfessionalAreas,

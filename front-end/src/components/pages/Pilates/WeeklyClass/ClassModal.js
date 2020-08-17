@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
 import { connect } from "react-redux";
 import WeeklyClassStudentSelect from "../../../selects/WeeklyClassStudentSelect";
 import { toast } from "react-toastify";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ProfessionalSelect from "../../../selects/ProfessionalSelect";
 
 const ClassModal = ({
   weeklyClassId,
@@ -14,6 +17,7 @@ const ClassModal = ({
   saveWeeklyClass
 }) => {
   const [weeklyClass, setWeeklyClass] = useState();
+  const childProfessionalRef = useRef();
 
   useEffect(() => {
     if (show) {
@@ -23,12 +27,25 @@ const ClassModal = ({
     }
   }, [getWeeklyClass, show, weeklyClassId]);
 
-  const onChange = (optionSelected, index) => {
+  useEffect(() => {
+    if (childProfessionalRef.current)
+      childProfessionalRef.current.setValue(weeklyClass.instructor);
+  }, [childProfessionalRef, weeklyClass]);
+
+  const onChangeStudent = (optionSelected, index) => {
     var students = Object.assign([], weeklyClass.students, {
       [index]: { id: optionSelected.value, fullName: optionSelected.label }
     });
 
     setWeeklyClass({ ...weeklyClass, students });
+  };
+
+  const onChangeInstructor = optionSelected => {
+    setWeeklyClass({
+      ...weeklyClass,
+      instructor: { id: optionSelected.value, fullName: optionSelected.label },
+      instructorId: optionSelected.value
+    });
   };
 
   const onSave = () => {
@@ -45,6 +62,7 @@ const ClassModal = ({
       [index]: { id: 0, fullName: "LIBRE" }
     });
     setWeeklyClass({ ...weeklyClass, students });
+    childProfessionalRef.current.setValue(1);
   };
 
   const close = () => {
@@ -60,21 +78,28 @@ const ClassModal = ({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6>
+        <Row style={{ marginLeft: "10px", marginBottom: "5px" }}>
           <b>Alumnos</b>
-        </h6>
+        </Row>
         {weeklyClass.students.map((s, i) => (
           <WeeklyClassStudentSelect
             key={i}
             index={i}
             student={s}
-            onChangeStudent={onChange}
+            onChangeStudent={onChangeStudent}
             cleanStudent={cleanStudent}
           />
         ))}
-        <div>
-          <b>Profesor:</b> {weeklyClass.instructor.fullName}
-        </div>
+        <Row style={{ marginLeft: "10px", marginBottom: "5px" }}>
+          <b>Profesor: </b>
+          <Col>
+            <ProfessionalSelect
+              areaId={1}
+              ref={childProfessionalRef}
+              onChange={onChangeInstructor}
+            />
+          </Col>
+        </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={close}>

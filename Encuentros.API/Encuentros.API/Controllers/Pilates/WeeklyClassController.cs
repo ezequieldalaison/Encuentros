@@ -79,6 +79,7 @@ namespace Encuentros.API.Controllers.Pilates
                 context.Attach(weeklyClass);
 
                 weeklyClass.UpdateStudents(dto.Students.Select(x => x.Id));
+                weeklyClass.SetInstructor(dto.InstructorId);
 
                 _repository.Update(weeklyClass);
 

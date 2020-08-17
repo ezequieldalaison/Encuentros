@@ -9,6 +9,7 @@ namespace Encuentros.Logic.Entities.Pilates
     public class WeeklyClass : EntityBase
     {
         public virtual string Hour { get; private set; }
+        public virtual long InstructorId { get; private set; }
         public virtual Professional Instructor { get; private set; }
         public virtual Day Day { get; private set; }
         public virtual ICollection<WeeklyClassStudent> WeeklyClassStudents { get; private set; }
@@ -36,6 +37,11 @@ namespace Encuentros.Logic.Entities.Pilates
                 if (wcs == null)
                     WeeklyClassStudents.Add(new WeeklyClassStudent(this, studentId));
             }
+        }
+
+        public void SetInstructor(long id)
+        {
+            InstructorId = id;
         }
     }
 }

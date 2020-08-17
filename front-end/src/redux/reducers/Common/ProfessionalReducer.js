@@ -10,6 +10,7 @@ export default function ProfessionalReducer(
       return [...state, { ...action.professional }];
     case Types.GET_PROFESSIONALS_SUCCESS:
     case Types.SEARCH_PROFESSIONALS_SUCCESS:
+    case Types.GET_PROFESSIONALS_BY_AREA_SUCCESS:
       return action.professionals;
     case Types.GET_PROFESSIONAL_SUCCESS: {
       return state.map(professional =>
