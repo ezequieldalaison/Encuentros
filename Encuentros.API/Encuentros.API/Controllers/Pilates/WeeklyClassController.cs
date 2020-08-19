@@ -11,16 +11,12 @@ namespace Encuentros.API.Controllers.Pilates
 {
     [Route("api/weeklyClass")]
     [ApiController]
-    public class WeeklyClassController : ControllerCRUDBase<WeeklyClass, WeeklyClassDto>
+    public class WeeklyClassController : ControllerCRUAIBase<WeeklyClass, WeeklyClassDto>
     {
-        private readonly IGenericRepository<Student> _studentRepo;
-
-        public WeeklyClassController(IGenericRepository<WeeklyClass> repository,
-                                     IGenericRepository<Student> studentRepo,
+        public WeeklyClassController(IGenericAIRepository<WeeklyClass> repository,
                                      IMapper mapper)
             : base(repository, mapper)
         {
-            _studentRepo = studentRepo;
         }
 
         [HttpGet]
@@ -40,15 +36,26 @@ namespace Encuentros.API.Controllers.Pilates
             return Ok(response);
         }
 
+        [HttpPost("search")]
+        public ActionResult GetByQuery(WeeklyClassSearchDto searchDto)
+        {
+            var entities = _repository.GetByQueryInclude(x => x.IsActive || searchDto.ShowInactives,
+                                                         x => x.WeeklyClassStudents,
+                                                         x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                         x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
+                                                         x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
+                                                         x => x.Instructor,
+                                                         x => x.Day);
+
+            var response = _mapper.Map<IEnumerable<WeeklyClassDto>>(entities);
+            return Ok(response);
+        }
+
         [HttpGet("{id}")]
         public override ActionResult<WeeklyClassDto> GetById(long id)
         {
-            var weeklyClass = _repository.GetByIdInclude(id, x => x.WeeklyClassStudents,
-                                                               x => x.WeeklyClassStudents.Select(w => w.Student),
-                                                               x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
-                                                               x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
-                                                               x => x.Instructor,
-                                                               x => x.Day);
+            var weeklyClass = GetEntityById(id);
+
             if (weeklyClass == null)
                 return NotFound();
 
@@ -63,12 +70,7 @@ namespace Encuentros.API.Controllers.Pilates
             WeeklyClassDto response;
             using (var context = _repository.GetContext())
             {
-                var weeklyClass = _repository.GetByIdInclude(dto.Id, x => x.WeeklyClassStudents,
-                                                                       x => x.WeeklyClassStudents.Select(w => w.Student),
-                                                                       x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
-                                                                       x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
-                                                                       x => x.Instructor,
-                                                                       x => x.Day);
+                var weeklyClass = GetEntityById(dto.Id);
 
                 if (weeklyClass == null)
                     return NotFound();
@@ -83,18 +85,35 @@ namespace Encuentros.API.Controllers.Pilates
 
                 _repository.Update(weeklyClass);
 
-                weeklyClass = _repository.GetByIdInclude(dto.Id, x => x.WeeklyClassStudents,
-                                                                   x => x.WeeklyClassStudents.Select(w => w.Student),
-                                                                   x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
-                                                                   x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
-                                                                   x => x.Instructor,
-                                                                   x => x.Day);
+                weeklyClass = GetEntityById(dto.Id);
+
                 weeklyClass.Fill();
 
                 response = _mapper.Map<WeeklyClassDto>(weeklyClass);
             }
 
             return Ok(response);
+        }
+
+        protected override WeeklyClass GetEntityById(long id)
+        {
+            return _repository.GetByIdInclude(id, x => x.WeeklyClassStudents,
+                                                  x => x.WeeklyClassStudents.Select(w => w.Student),
+                                                  x => x.WeeklyClassStudents.Select(w => w.Student.Fees),
+                                                  x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)),
+                                                  x => x.Instructor,
+                                                  x => x.Day);
+        }
+
+        protected override bool IsValidForInactivate(WeeklyClass entityRepo)
+        {
+            if(entityRepo.WeeklyClassStudents.Count > 0)
+            {
+                ValidationMessage = "La clase no se puede inactivar por que tiene alumnos.";
+                return false;
+            }
+
+            return true;
         }
     }
 }

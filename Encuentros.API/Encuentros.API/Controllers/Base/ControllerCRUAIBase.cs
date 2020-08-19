@@ -41,6 +41,9 @@ namespace Encuentros.API.Controllers.Base
             if (entityRepo == null)
                 return NotFound();
 
+            if (!IsValidForInactivate(entityRepo))
+                return ValidationProblem(ValidationMessage);
+
             entityRepo.Inactivate();
             _repository.Update(entityRepo);
 
@@ -51,6 +54,11 @@ namespace Encuentros.API.Controllers.Base
         public override ActionResult Delete(long id)
         {
             throw new NotImplementedException("This entity could not be deleted.");
+        }
+
+        protected virtual bool IsValidForInactivate(ENT entityRepo)
+        {
+            return true;
         }
     }
 }

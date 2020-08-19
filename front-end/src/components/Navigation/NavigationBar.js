@@ -19,6 +19,9 @@ const NavigationBar = props => {
                 <NavDropdown.Item href="/Pilates/Alumnos">
                   Alumnos
                 </NavDropdown.Item>
+                <NavDropdown.Item href="/Pilates/GestionClasesSemanales">
+                  Gestión Clases Semanales
+                </NavDropdown.Item>
                 <NavDropdown.Item href="/Pilates/ClasesSemanales">
                   Clases Semanales
                 </NavDropdown.Item>
@@ -27,6 +30,9 @@ const NavigationBar = props => {
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="General" id="ddlGeneral">
+                <NavDropdown.Item href="/General/Movimientos">
+                  Movimientos
+                </NavDropdown.Item>
                 <NavDropdown.Item href="/General/Profesionales">
                   Profesionales
                 </NavDropdown.Item>

@@ -37,7 +37,7 @@ namespace Encuentros.Data
               (queryable, (current, includeProperty) =>
               {
                   return current.Include(includeProperty.AsPath());
-              });
+              }).ToList();
         }
     }
 }

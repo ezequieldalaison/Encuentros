@@ -16,7 +16,10 @@ export default function WeeklyClassReducer(
       );
     }
     case Types.GET_WEEKLY_CLASSES_SUCCESS:
+    case Types.SEARCH_WEEKLY_CLASSES_SUCCESS:
       return action.weeklyClasses;
+    case Types.INACTIVATE_WEEKLY_CLASS_SUCCESS:
+    case Types.ACTIVATE_WEEKLY_CLASS_SUCCESS:
     case Types.GET_WEEKLY_CLASS_SUCCESS: {
       return state.map(weeklyClass =>
         weeklyClass.id === action.weeklyClass.id

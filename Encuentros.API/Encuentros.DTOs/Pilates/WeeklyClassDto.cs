@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Encuentros.DTOs.Pilates
 {
-    public class WeeklyClassDto : DtoBase
+    public class WeeklyClassDto : DtoAIBase
     {
         public string Hour { get; set; }
         public long InstructorId { get; set; }

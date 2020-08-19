@@ -25,3 +25,31 @@ export function saveWeeklyClass(weeklyClass) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function inactivateWeeklyClass(weeklyClassId) {
+  return fetch(baseUrl + "inactivate/" + weeklyClassId, {
+    method: "PUT",
+    headers: { "content-type": "application/json" }
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function activateWeeklyClass(weeklyClassId) {
+  return fetch(baseUrl + "activate/" + weeklyClassId, {
+    method: "PUT",
+    headers: { "content-type": "application/json" }
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function searchWeeklyClasses(criteria) {
+  return fetch(baseUrl + "search", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(criteria)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

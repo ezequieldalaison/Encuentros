@@ -130,3 +130,46 @@ export const FEES_GRID = [
     canSort: false
   }
 ];
+
+export const MOVEMENTS_GRID = [
+  {
+    Header: "Fecha",
+    accessor: "movement.date"
+  },
+  {
+    Header: "Concepto",
+    accessor: "movement.concept.name"
+  },
+  {
+    Header: "Monto",
+    accessor: "movement.amount"
+  },
+  {
+    Header: "Estado",
+    accessor: "movement.movementStatus.name"
+  }
+];
+
+export const WEEKLY_CLASSES_GRID = [
+  {
+    Header: "id",
+    accessor: "id"
+  },
+  {
+    Header: "Día",
+    accessor: "day.name"
+  },
+  {
+    Header: "Hora",
+    accessor: "hour"
+  },
+  {
+    Header: "Activa",
+    accessor: "isActive"
+  },
+  {
+    Header: "-",
+    accessor: "",
+    canSort: false
+  }
+];

@@ -11,13 +11,15 @@ import AuthContext from "./contexts/AuthContext";
 import Configuration from "./components/pages/General/Configuration";
 import PageNotFound from "./components/pages/PageNotFound";
 import { Route, Switch } from "react-router-dom";
-import Professionals from "./components/pages/ConsultingRoom/Professionals/ProfessionalPage";
+import Professionals from "./components/pages/General/Professional/ProfessionalPage";
+import Movements from "./components/pages/General/Movement/MovementPage";
 import StudentPage from "./components/pages/Pilates/Students/StudentPage";
 import WeeklyClassPage from "./components/pages/Pilates/WeeklyClass/WeeklyClassPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import FeePage from "./components/pages/Pilates/Fee/FeePage";
+import ClassManagementPage from "./components/pages/Pilates/ClassManagement/ClassManagementPage";
 
 class App extends Component {
   constructor(props) {
@@ -44,8 +46,13 @@ class App extends Component {
             path="/General/Profesionales"
             component={Professionals}
           />
+          <PrivateRoute path="/General/Movimientos" component={Movements} />
 
           <PrivateRoute path="/Pilates/Alumnos" component={StudentPage} />
+          <PrivateRoute
+            path="/Pilates/GestionClasesSemanales"
+            component={ClassManagementPage}
+          />
           <PrivateRoute
             path="/Pilates/ClasesSemanales"
             component={WeeklyClassPage}

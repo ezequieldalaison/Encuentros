@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Encuentros.Logic.Entities.Pilates
 {
-    public class WeeklyClass : EntityBase
+    public class WeeklyClass : EntityAIBase
     {
         public virtual string Hour { get; private set; }
         public virtual long InstructorId { get; private set; }

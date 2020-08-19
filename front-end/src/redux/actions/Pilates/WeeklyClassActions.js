@@ -18,6 +18,18 @@ export function updateWeeklyClassSuccess(weeklyClass) {
   return { type: Types.UPDATE_WEEKLY_CLASS_SUCCESS, weeklyClass };
 }
 
+export function inactivateWeeklyClassSuccess(weeklyClass) {
+  return { type: Types.INACTIVATE_WEEKLY_CLASS_SUCCESS, weeklyClass };
+}
+
+export function activateWeeklyClassSuccess(weeklyClass) {
+  return { type: Types.ACTIVATE_WEEKLY_CLASS_SUCCESS, weeklyClass };
+}
+
+export function searchWeeklyClassesSuccess(weeklyClasses) {
+  return { type: Types.SEARCH_WEEKLY_CLASSES_SUCCESS, weeklyClasses };
+}
+
 export function getWeeklyClasses() {
   return function(dispatch) {
     dispatch(beginApiCall());
@@ -53,6 +65,46 @@ export function saveWeeklyClass(weeklyClass) {
         weeklyClass.id
           ? dispatch(updateWeeklyClassSuccess(savedWeeklyClass))
           : dispatch(createWeeklyClassSuccess(savedWeeklyClass));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function inactivateWeeklyClass(weeklyClassId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return WeeklyClassApi.inactivateWeeklyClass(weeklyClassId)
+      .then(weeklyClass => {
+        dispatch(inactivateWeeklyClassSuccess(weeklyClass));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function activateWeeklyClass(weeklyClassId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return WeeklyClassApi.activateWeeklyClass(weeklyClassId)
+      .then(weeklyClass => {
+        dispatch(activateWeeklyClassSuccess(weeklyClass));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function searchWeeklyClasses(criteria) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return WeeklyClassApi.searchWeeklyClasses(criteria)
+      .then(weeklyClasses => {
+        dispatch(searchWeeklyClassesSuccess(weeklyClasses));
+        return weeklyClasses;
       })
       .catch(error => {
         throw error;
