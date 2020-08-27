@@ -4,8 +4,10 @@ using Encuentros.Data.Interfaces;
 using Encuentros.DTOs.Common;
 using Encuentros.Logic.Entities.Common;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Encuentros.API.Controllers.Common
@@ -19,16 +21,29 @@ namespace Encuentros.API.Controllers.Common
         {
         }
 
-        [HttpGet]
-        public override ActionResult<IEnumerable<ProfessionalDto>> GetAll()
+        protected override Expression<Func<Professional, object>>[] IncludeExpressions
         {
-            var professionals = _repository.GetAllInclude(x => x.ProfessionalAreas,
-                                                          x => x.ProfessionalAreas.Select(pa => pa.Area));
+            get
+            {
+                var expressions = new List<Expression<Func<Professional, object>>>();
 
+                expressions.Add(x => x.ProfessionalAreas);
+                expressions.Add(x => x.ProfessionalAreas.Select(pa => pa.Area));
 
-            var response = _mapper.Map<IEnumerable<ProfessionalDto>>(professionals);
-            return Ok(response);
+                return expressions.ToArray();
+            }
         }
+
+        //[HttpGet]
+        //public override ActionResult<IEnumerable<ProfessionalDto>> GetAll()
+        //{
+        //    var professionals = _repository.GetAllInclude(x => x.ProfessionalAreas,
+        //                                                  x => x.ProfessionalAreas.Select(pa => pa.Area));
+
+
+        //    var response = _mapper.Map<IEnumerable<ProfessionalDto>>(professionals);
+        //    return Ok(response);
+        //}
 
         [HttpPost]
         public override ActionResult Create(ProfessionalDto dto)
@@ -48,7 +63,7 @@ namespace Encuentros.API.Controllers.Common
 
             _repository.Create(entity);
 
-            var entityCreated = GetEntityById(entity.Id);
+            var entityCreated = _repository.GetByIdInclude(entity.Id, IncludeExpressions);
             var response = _mapper.Map<ProfessionalDto>(entityCreated);
 
             return Ok(response);
@@ -59,7 +74,7 @@ namespace Encuentros.API.Controllers.Common
         {
             using (var context = _repository.GetContext())
             {
-                var entityRepo = GetEntityById(dto.Id);
+                var entityRepo = _repository.GetByIdInclude(dto.Id, IncludeExpressions);
                 if (entityRepo == null)
                     return NotFound();
 
@@ -72,7 +87,7 @@ namespace Encuentros.API.Controllers.Common
 
                 _repository.Update(professional);
 
-                var entityUpdated = GetEntityById(dto.Id);
+                var entityUpdated = _repository.GetByIdInclude(dto.Id, IncludeExpressions);
                 var response = _mapper.Map<ProfessionalDto>(entityUpdated);
                 return Ok(response);
             }
@@ -86,7 +101,7 @@ namespace Encuentros.API.Controllers.Common
                     (x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.LastName) ? string.Empty : searchDto.LastName.ToUpper())) &&
                     (x.Name.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper()) ||
                      x.LastName.ToUpper().Contains(string.IsNullOrEmpty(searchDto.FullName) ? string.Empty : searchDto.FullName.ToUpper())),
-                     x => x.ProfessionalAreas, x => x.ProfessionalAreas.Select(x => x.Area));
+                     IncludeExpressions);
 
             var response = _mapper.Map<IEnumerable<ProfessionalDto>>(entities);
             return Ok(response);
@@ -102,10 +117,10 @@ namespace Encuentros.API.Controllers.Common
             return Ok(response);
         }
 
-        protected override Professional GetEntityById(long id)
-        {
-            return _repository.GetByIdInclude(id, x => x.ProfessionalAreas,
-                                                    x => x.ProfessionalAreas.Select(pa => pa.Area));
-        }
+        //protected override Professional GetEntityById(long id)
+        //{
+        //    return _repository.GetByIdInclude(id, x => x.ProfessionalAreas,
+        //                                            x => x.ProfessionalAreas.Select(pa => pa.Area));
+        //}
     }
 }

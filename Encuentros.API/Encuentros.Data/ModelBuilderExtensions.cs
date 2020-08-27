@@ -137,6 +137,15 @@ namespace Encuentros.Data
                 x.HasOne(x => x.Day);
             });
 
+            modelBuilder.Entity<IndividualClassStudent>(x =>
+            {
+                x.ToTable("IndividualClassStudents");
+                x.HasKey(x => x.Id);
+                x.HasOne(x => x.WeeklyClass);
+                x.HasOne(x => x.Student);
+                x.HasIndex(x => new { x.WeeklyClassId, x.StudentId }).IsUnique();
+            });
+
             modelBuilder.Entity<FeeType>(x =>
             {
                 x.ToTable("FeeTypes");

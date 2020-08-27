@@ -6,5 +6,6 @@ export default {
   fees: [],
   months: [],
   feeTypes: [],
-  areas: []
+  areas: [],
+  classes: []
 };

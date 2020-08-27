@@ -4,6 +4,13 @@ namespace Encuentros.DTOs.Pilates
 {
     public class StudentDto : DtoAIBase
     {
+        public static StudentDto StudentFree = new StudentDto("LIBRE");
+
+        public StudentDto(string name)
+        {
+            Name = name;
+        }
+
         public string Name { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }

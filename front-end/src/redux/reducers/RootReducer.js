@@ -7,6 +7,7 @@ import ApiStatusReducer from "./ApiStatus/ApiStatusReducer";
 import FeeReducer from "./Pilates/FeeReducer";
 import FeeTypeReducer from "./Pilates/FeeTypeReducer";
 import AreaReducer from "./Common/AreaReducer";
+import ClassReducer from "./Pilates/ClassReducer";
 
 const RootReducer = combineReducers({
   professional: ProfessionalReducer,
@@ -16,7 +17,8 @@ const RootReducer = combineReducers({
   fees: FeeReducer,
   feeTypes: FeeTypeReducer,
   months: MonthReducer,
-  areas: AreaReducer
+  areas: AreaReducer,
+  classes: ClassReducer
 });
 
 export default RootReducer;

@@ -4,12 +4,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { connect } from "react-redux";
 import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
+import * as ClassActions from "../../../../redux/actions/Pilates/ClassActions";
 import DayClassCard from "./DayClassCard";
 
-const WeeklyClassPage = ({ weeklyClasses, getWeeklyClasses }) => {
+const WeeklyClassPage = ({
+  weeklyClasses,
+  getWeeklyClasses,
+  getClassesByWeek
+}) => {
   useEffect(() => {
     getWeeklyClasses();
-  }, [getWeeklyClasses]);
+    getClassesByWeek(0).then(classes => console.log(classes));
+  }, [getWeeklyClasses, getClassesByWeek]);
 
   return (
     <Container
@@ -58,7 +64,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getWeeklyClasses: WeeklyClassActions.getWeeklyClasses
+  getWeeklyClasses: WeeklyClassActions.getWeeklyClasses,
+  getClassesByWeek: ClassActions.getClassesByWeek
 };
 
 export default connect(

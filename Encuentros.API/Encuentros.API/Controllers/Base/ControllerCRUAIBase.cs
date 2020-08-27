@@ -10,7 +10,7 @@ namespace Encuentros.API.Controllers.Base
     /// <summary>
     /// CRUDAI: Create, Read, Update, Activate, Inactivate
     /// </summary>
-    public class ControllerCRUAIBase<ENT, DTO> : ControllerCRUDBase<ENT, DTO>
+    public abstract class ControllerCRUAIBase<ENT, DTO> : ControllerCRUDBase<ENT, DTO>
         where ENT : EntityAIBase
         where DTO : DtoAIBase
     {
@@ -23,7 +23,7 @@ namespace Encuentros.API.Controllers.Base
         [HttpPut("activate/{id}")]
         public virtual ActionResult Activate(long id)
         {
-            var entityRepo = GetEntityById(id);
+            var entityRepo = _repository.GetByIdInclude(id, IncludeExpressions);
             if (entityRepo == null)
                 return NotFound();
 
@@ -37,7 +37,7 @@ namespace Encuentros.API.Controllers.Base
         [HttpPut("inactivate/{id}")]
         public virtual ActionResult Inactivate(long id)
         {
-            var entityRepo = GetEntityById(id);
+            var entityRepo = _repository.GetByIdInclude(id, IncludeExpressions);
             if (entityRepo == null)
                 return NotFound();
 

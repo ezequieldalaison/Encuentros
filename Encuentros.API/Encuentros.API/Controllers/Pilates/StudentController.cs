@@ -24,7 +24,6 @@ namespace Encuentros.API.Controllers.Pilates
             _weeklyClassRepo = weeklyClassRepo;
         }
 
-
         [HttpPost("search")]
         public ActionResult GetByQuery(StudentSearchDto searchDto)
         {
