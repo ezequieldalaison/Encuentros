@@ -111,6 +111,7 @@ namespace Encuentros.Data
             {
                 x.ToTable("WeeklyClassStudents");
                 x.HasKey(x => x.Id);
+                x.Property(x => x.DateFrom);
                 x.HasIndex(x => new { x.WeeklyClassId, x.StudentId }).IsUnique();
             });
 

@@ -1,3 +1,5 @@
+import { formatFullDate } from "./DateHelper";
+
 export const STUDENTS_GRID = [
   {
     Header: "id",
@@ -81,12 +83,17 @@ export const PROFESSIONALS_GRID = [
 export const CLASSES_GRID = [
   {
     Header: "Alumno",
-    accessor: "fullName",
+    accessor: "student.fullName",
     canSort: false
   },
   {
     Header: "Al día",
-    accessor: "isUpToDate",
+    accessor: "student.isUpToDate",
+    canSort: false
+  },
+  {
+    Header: "Ind.",
+    accessor: "isIndividualClass",
     canSort: false
   }
 ];
@@ -108,13 +115,7 @@ export const FEES_GRID = [
   },
   {
     Header: "Fecha de Pago",
-    accessor: data => {
-      var d = new Date(data.movement.date);
-      const ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
-      const mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(d);
-      const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
-      return `${da}/${mo}/${ye}`;
-    },
+    accessor: data => formatFullDate(data.movement.date),
     canSort: false
   },
   {

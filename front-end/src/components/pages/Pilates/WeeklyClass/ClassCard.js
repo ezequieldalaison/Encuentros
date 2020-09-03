@@ -7,9 +7,9 @@ import Button from "react-bootstrap/Button";
 import { FaPencilAlt } from "react-icons/fa";
 import ClassModal from "./ClassModal";
 
-const ClassCard = ({ weeklyClassId, students, hour, instructor }) => {
+const ClassCard = ({ date, classStudents, hour, instructor }) => {
   const columns = React.useMemo(() => CLASSES_GRID, []);
-  const data = React.useMemo(() => students, [students]);
+  const data = React.useMemo(() => classStudents, [classStudents]);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -45,7 +45,8 @@ const ClassCard = ({ weeklyClassId, students, hour, instructor }) => {
         </Accordion.Collapse>
       </Card>
       <ClassModal
-        weeklyClassId={weeklyClassId}
+        date={date}
+        hour={hour}
         show={show}
         handleClose={handleClose}
       />

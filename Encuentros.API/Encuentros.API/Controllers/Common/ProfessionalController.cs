@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Encuentros.API.Controllers.Common
 {
@@ -33,17 +32,6 @@ namespace Encuentros.API.Controllers.Common
                 return expressions.ToArray();
             }
         }
-
-        //[HttpGet]
-        //public override ActionResult<IEnumerable<ProfessionalDto>> GetAll()
-        //{
-        //    var professionals = _repository.GetAllInclude(x => x.ProfessionalAreas,
-        //                                                  x => x.ProfessionalAreas.Select(pa => pa.Area));
-
-
-        //    var response = _mapper.Map<IEnumerable<ProfessionalDto>>(professionals);
-        //    return Ok(response);
-        //}
 
         [HttpPost]
         public override ActionResult Create(ProfessionalDto dto)
@@ -116,11 +104,5 @@ namespace Encuentros.API.Controllers.Common
             var response = _mapper.Map<IEnumerable<ProfessionalDto>>(entities);
             return Ok(response);
         }
-
-        //protected override Professional GetEntityById(long id)
-        //{
-        //    return _repository.GetByIdInclude(id, x => x.ProfessionalAreas,
-        //                                            x => x.ProfessionalAreas.Select(pa => pa.Area));
-        //}
     }
 }

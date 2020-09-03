@@ -7,6 +7,15 @@ namespace Encuentros.Logic.Entities.Pilates
 {
     public class IndividualClassStudent : EntityBase
     {
+        private IndividualClassStudent() { }
+
+        public IndividualClassStudent(DateTime date, long weeklyClassId, long studentId)
+        {
+            Date = date;
+            WeeklyClassId = weeklyClassId;
+            StudentId = studentId;
+        }
+
         public DateTime Date { get; set; }
         public long WeeklyClassId { get; set; }
         public WeeklyClass WeeklyClass { get; set; }

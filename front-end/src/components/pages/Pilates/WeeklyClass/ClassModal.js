@@ -1,55 +1,72 @@
 import React, { useEffect, useState, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
+import * as ClassActions from "../../../../redux/actions/Pilates/ClassActions";
 import { connect } from "react-redux";
-import WeeklyClassStudentSelect from "../../../selects/WeeklyClassStudentSelect";
+import ClassStudentSelect from "../../../selects/ClassStudentSelect";
 import { toast } from "react-toastify";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProfessionalSelect from "../../../selects/ProfessionalSelect";
 
 const ClassModal = ({
-  weeklyClassId,
+  date,
+  hour,
   show,
   handleClose,
-  getWeeklyClass,
-  saveWeeklyClass
+  getClassByDateAndHour,
+  saveClass
 }) => {
-  const [weeklyClass, setWeeklyClass] = useState();
+  const [_class, setClass] = useState();
   const childProfessionalRef = useRef();
 
   useEffect(() => {
     if (show) {
-      getWeeklyClass(weeklyClassId).then(wc => {
-        setWeeklyClass(wc);
+      getClassByDateAndHour({ date, hour }).then(c => {
+        setClass(c);
       });
     }
-  }, [getWeeklyClass, show, weeklyClassId]);
+  }, [getClassByDateAndHour, show, date, hour]);
 
   useEffect(() => {
     if (childProfessionalRef.current)
-      childProfessionalRef.current.setValue(weeklyClass.instructor);
-  }, [childProfessionalRef, weeklyClass]);
+      childProfessionalRef.current.setValue(_class.instructor);
+  }, [childProfessionalRef, _class]);
 
-  const onChangeStudent = (optionSelected, index) => {
-    var students = Object.assign([], weeklyClass.students, {
-      [index]: { id: optionSelected.value, fullName: optionSelected.label }
+  const onChangeClassStudent = (optionSelected, isIndividualClass, index) => {
+    var classStudents = Object.assign([], _class.classStudents, {
+      [index]: {
+        ..._class.classStudents[index],
+        student: {
+          id: optionSelected.value,
+          fullName: optionSelected.label
+        },
+        isIndividualClass
+      }
     });
 
-    setWeeklyClass({ ...weeklyClass, students });
+    setClass({ ..._class, classStudents });
+  };
+
+  const onChangeIsIndividualClass = (isIndividualClass, index) => {
+    var classStudents = Object.assign([], _class.classStudents, {
+      [index]: { ..._class.classStudents[index], isIndividualClass }
+    });
+
+    setClass({ ..._class, classStudents });
   };
 
   const onChangeInstructor = optionSelected => {
-    setWeeklyClass({
-      ...weeklyClass,
+    setClass({
+      ..._class,
       instructor: { id: optionSelected.value, fullName: optionSelected.label },
       instructorId: optionSelected.value
     });
   };
 
   const onSave = () => {
-    saveWeeklyClass(weeklyClass)
+    console.log(_class);
+    saveClass(_class)
       .then(x => {
         close();
         toast.success("La clase se guardó correctamente");
@@ -58,36 +75,38 @@ const ClassModal = ({
   };
 
   const cleanStudent = index => {
-    var students = Object.assign([], weeklyClass.students, {
-      [index]: { id: 0, fullName: "LIBRE" }
+    var classStudents = Object.assign([], _class.classStudents, {
+      [index]: {
+        student: { id: 0, fullName: "LIBRE" },
+        isIndividualClass: false
+      }
     });
-    setWeeklyClass({ ...weeklyClass, students });
+    setClass({ ..._class, classStudents });
     childProfessionalRef.current.setValue(1);
   };
 
   const close = () => {
-    setWeeklyClass(null);
+    setClass(null);
     handleClose();
   };
 
-  return weeklyClass ? (
+  return _class ? (
     <Modal show={show} onHide={close} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
-        <Modal.Title>
-          {`${weeklyClass.day.name} ${weeklyClass.hour}`}
-        </Modal.Title>
+        <Modal.Title>{`${_class.day.name} ${_class.hour}`}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row style={{ marginLeft: "10px", marginBottom: "5px" }}>
           <b>Alumnos</b>
         </Row>
-        {weeklyClass.students.map((s, i) => (
-          <WeeklyClassStudentSelect
+        {_class.classStudents.map((cs, i) => (
+          <ClassStudentSelect
             key={i}
             index={i}
-            student={s}
-            onChangeStudent={onChangeStudent}
+            classStudent={cs}
+            onChangeClassStudent={onChangeClassStudent}
             cleanStudent={cleanStudent}
+            onChangeIsIndividualClass={onChangeIsIndividualClass}
           />
         ))}
         <Row style={{ marginLeft: "10px", marginBottom: "5px" }}>
@@ -118,8 +137,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getWeeklyClass: WeeklyClassActions.getWeeklyClass,
-  saveWeeklyClass: WeeklyClassActions.saveWeeklyClass
+  getClassByDateAndHour: ClassActions.getClassByDateAndHour,
+  saveClass: ClassActions.saveClass
 };
 
 export default connect(

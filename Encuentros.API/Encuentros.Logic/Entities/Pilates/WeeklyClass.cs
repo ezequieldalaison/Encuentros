@@ -15,7 +15,7 @@ namespace Encuentros.Logic.Entities.Pilates
         public virtual Day Day { get; private set; }
         public virtual ICollection<WeeklyClassStudent> WeeklyClassStudents { get; private set; }
 
-        public void UpdateStudents(IEnumerable<long> studentIds)
+        public void UpdateStudents(IEnumerable<long> studentIds, DateTime dateFrom)
         {
             var toRemove = WeeklyClassStudents.Where(x => !studentIds.Contains(x.StudentId)).ToList();
             foreach (var item in toRemove)
@@ -28,7 +28,7 @@ namespace Encuentros.Logic.Entities.Pilates
                 var wcs = WeeklyClassStudents.SingleOrDefault(x => x.StudentId == studentId);
 
                 if (wcs == null)
-                    WeeklyClassStudents.Add(new WeeklyClassStudent(this, studentId));
+                    WeeklyClassStudents.Add(new WeeklyClassStudent(this, studentId, dateFrom));
             }
         }
 
