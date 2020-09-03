@@ -1,8 +1,6 @@
-﻿using Encuentros.Logic.Entities;
-using Encuentros.Logic.Entities.Common;
+﻿using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlTypes;
 
 namespace Encuentros.Data
 {
@@ -132,8 +130,8 @@ namespace Encuentros.Data
                 x.ToTable("WeeklyClasses");
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
-                x.Property(x => x.InstructorId);
                 x.Property(x => x.IsActive);
+                x.Property(x => x.InstructorId);
                 x.HasOne(x => x.Instructor);
                 x.HasOne(x => x.Day);
             });
@@ -164,6 +162,16 @@ namespace Encuentros.Data
                 x.HasOne(x => x.FeeType);
                 x.HasOne(x => x.Month);
                 x.HasOne(x => x.Movement);
+            });
+
+            modelBuilder.Entity<ProfessionalWorkDay>(x =>
+            {
+                x.ToTable("ProfessionalWorkDays");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Date);
+                x.Property(x => x.QuantityHours);
+                x.Property(x => x.InstructorId);
+                x.HasOne(x => x.Instructor);
             });
         }
     }

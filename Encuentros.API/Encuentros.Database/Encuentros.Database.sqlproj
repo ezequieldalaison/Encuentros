@@ -79,6 +79,7 @@
     <Build Include="dbo\Tables\Fees.sql" />
     <Build Include="dbo\Tables\ProfessionalAreas.sql" />
     <Build Include="dbo\Tables\IndividualClassStudents.sql" />
+    <Build Include="dbo\Tables\ProfessionalWorkDays.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Scripts\InitialData.PostDeployment.sql" />

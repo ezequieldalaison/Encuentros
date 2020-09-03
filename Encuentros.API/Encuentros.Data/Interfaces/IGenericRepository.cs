@@ -20,5 +20,7 @@ namespace Encuentros.Data.Interfaces
         void Update(TEntity entity);
         void Delete(long id);
         TEntity GetByIdInclude(long id, params Expression<Func<TEntity, object>>[] includeProperties);
+        public void AddEntiy(TEntity entity);
+        public void SaveChanges();
     }
 }

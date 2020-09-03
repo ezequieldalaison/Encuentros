@@ -19,14 +19,17 @@ namespace Encuentros.API.Controllers.Pilates
     {
         private readonly IGenericRepository<WeeklyClass> _weeklyClassRepo;
         private readonly IGenericRepository<IndividualClassStudent> _individualClassStudentRepo;
+        private readonly IGenericRepository<ProfessionalWorkDay> _professionalWorkDayRepo;
         private readonly IMapper _mapper;
 
         public ClassController(IGenericAIRepository<WeeklyClass> weeklyClassRepo,
-                                     IGenericRepository<IndividualClassStudent> individualClassStudentRepo,
-                                     IMapper mapper)
+                               IGenericRepository<IndividualClassStudent> individualClassStudentRepo,
+                               IGenericRepository<ProfessionalWorkDay> professionalWorkDayRepo,
+                               IMapper mapper)
         {
             _weeklyClassRepo = weeklyClassRepo;
             _individualClassStudentRepo = individualClassStudentRepo;
+            _professionalWorkDayRepo = professionalWorkDayRepo;
             _mapper = mapper;
         }
 
@@ -88,7 +91,7 @@ namespace Encuentros.API.Controllers.Pilates
 
                 foreach (var wc in wcs)
                 {
-                    var classStudents = _mapper.Map<IList<StudentDto>>(wc.WeeklyClassStudents.Where(x=>x.DateFrom <= startDate).Select(x => x.Student));
+                    var classStudents = _mapper.Map<IList<StudentDto>>(wc.WeeklyClassStudents.Where(x => x.DateFrom <= startDate).Select(x => x.Student));
 
                     var classDto = new ClassDto
                     {
@@ -206,14 +209,6 @@ namespace Encuentros.API.Controllers.Pilates
 
                 return Get(new GetClassDto { Date = dto.Date, Hour = dto.Hour });
             }
-        }
-
-        [HttpPost]
-        public ActionResult SaveClassDay(ClassDayDto dto)
-        {
-
-
-            return Ok();
         }
     }
 }

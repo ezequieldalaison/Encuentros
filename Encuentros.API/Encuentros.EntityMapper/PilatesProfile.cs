@@ -22,6 +22,9 @@ namespace Encuentros.EntityMapper
 
             CreateMap<Entity.Fee, DTO.FeeDto>()
                 .ReverseMap();
+
+            CreateMap<Entity.ProfessionalWorkDay, DTO.ProfessionalWorkDayDto>()
+                .ReverseMap();
         }
     }
 }

@@ -92,5 +92,15 @@ namespace Encuentros.Data
                   return current.Include(includeProperty.AsPath());
               });
         }
+
+        public void AddEntiy(TEntity entity)
+        {
+            _dbSet.Add(entity);
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

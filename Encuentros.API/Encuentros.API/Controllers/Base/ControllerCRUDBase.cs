@@ -60,6 +60,29 @@ namespace Encuentros.API.Controllers.Base
             return Ok(response);
         }
 
+
+        [HttpPost("list")]
+        public virtual ActionResult CreateList(List<DTO> dtos)
+        {
+            foreach (var dto in dtos)
+            {
+                if (dto.Id > 0)
+                    return BadRequest();
+
+                if (!IsValidForCreate(dto))
+                    return ValidationProblem(ValidationMessage);
+
+                var entity = _mapper.Map<ENT>(dto);
+                _repository.AddEntiy(entity);
+
+                var response = _mapper.Map<DTO>(entity);
+            }
+
+            _repository.SaveChanges();
+
+            return Ok(new { Message = "Ok" });
+        }
+
         [HttpPut("{id}")]
         public virtual ActionResult Update(DTO dto)
         {
