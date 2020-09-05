@@ -85,6 +85,8 @@ namespace Encuentros.API.Controllers.Pilates
 
             IList<ClassDto> response = new List<ClassDto>();
 
+            var workDays = _professionalWorkDayRepo.GetByQuery(x => x.Date >= startDate && x.Date <= endDate);
+
             while (startDate < endDate)
             {
                 var wcs = weeklyClasses.Where(x => x.Day.Id == (long)startDate.DayOfWeek);
@@ -101,6 +103,7 @@ namespace Encuentros.API.Controllers.Pilates
                         Instructor = _mapper.Map<ProfessionalDto>(wc.Instructor),
                         InstructorId = wc.Instructor.Id,
                         ClassStudents = classStudents.Select(s => new ClassStudentDto(s, false)).ToList(),
+                        IsClosed = workDays.Any(x => x.Date == startDate)
                     };
 
                     var students = individualClassStudents.Where(x => x.WeeklyClassId == wc.Id).Select(x => x.Student);
@@ -123,7 +126,6 @@ namespace Encuentros.API.Controllers.Pilates
         }
 
         [HttpPost("getByCriteria")]
-
         public ActionResult<ClassDto> Get(GetClassDto criteria)
         {
             var weeklyClass = _weeklyClassRepo.GetByQueryInclude(x => x.Day.Id == (long)criteria.Date.DayOfWeek && x.Hour == criteria.Hour,

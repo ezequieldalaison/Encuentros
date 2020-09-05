@@ -3,17 +3,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { connect } from "react-redux";
-import * as WeeklyClassActions from "../../../../redux/actions/Pilates/WeeklyClassActions";
 import * as ClassActions from "../../../../redux/actions/Pilates/ClassActions";
 import DayClassCard from "./DayClassCard";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
+import CustomSpinner from "../../../common/CustomSpinner";
 
 const WeeklyClassPage = ({ getClassesByWeek, classes }) => {
   const [week, setWeek] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getClassesByWeek(week);
+    setIsLoading(true);
+    getClassesByWeek(week).then(resp => setIsLoading(false));
   }, [getClassesByWeek, week]);
 
   const addWeek = () => {
@@ -24,7 +26,9 @@ const WeeklyClassPage = ({ getClassesByWeek, classes }) => {
     setWeek(week - 1);
   };
 
-  return (
+  return isLoading ? (
+    <CustomSpinner />
+  ) : (
     <Container
       style={{ maxWidth: "100%", marginTop: "5px", marginBottom: "25px" }}
     >
@@ -54,30 +58,35 @@ const WeeklyClassPage = ({ getClassesByWeek, classes }) => {
         <Col>
           <DayClassCard
             dayName="Lunes"
+            dayId={1}
             classes={classes.filter(c => c.day.id === 1)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Martes"
+            dayId={2}
             classes={classes.filter(c => c.day.id === 2)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Miércoles"
+            dayId={3}
             classes={classes.filter(c => c.day.id === 3)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Jueves"
+            dayId={4}
             classes={classes.filter(c => c.day.id === 4)}
           />
         </Col>
         <Col>
           <DayClassCard
             dayName="Viernes"
+            dayId={5}
             classes={classes.filter(c => c.day.id === 5)}
           />
         </Col>
@@ -93,7 +102,6 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getWeeklyClasses: WeeklyClassActions.getWeeklyClasses,
   getClassesByWeek: ClassActions.getClassesByWeek
 };
 

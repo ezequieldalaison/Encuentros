@@ -32,3 +32,11 @@ h6 {
 .Toastify__toast--success {
   background-color: limegreen !important;
 }
+
+.bg-danger {
+  background-color: #ff4545 !important;
+}
+
+.bg-secondary {
+  background-color: grey !important;
+}

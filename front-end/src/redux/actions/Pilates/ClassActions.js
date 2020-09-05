@@ -16,7 +16,7 @@ export function saveClassSuccess(_class) {
 
 export function getClassesByWeek(week) {
   return function(dispatch) {
-    dispatch(beginApiCall());
+    //dispatch(beginApiCall());
     return ClassApi.getClassesByWeek(week)
       .then(classes => {
         dispatch(getClassesByWeekSuccess(classes));

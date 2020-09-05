@@ -15,6 +15,7 @@ export function formatFullDate(date) {
 }
 
 export function formatDateWithoutYear(date) {
+  if (!date) return "";
   var d = new Date(date);
   const mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(d);
   const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
@@ -22,6 +23,8 @@ export function formatDateWithoutYear(date) {
 }
 
 export function isToday(date) {
+  if (!date) return false;
+
   var d = new Date(date);
   var d1 = new Date();
   const formatted = new Intl.DateTimeFormat("en", {
@@ -36,4 +39,13 @@ export function isToday(date) {
   }).format(d1);
 
   return formatted === formatted1;
+}
+
+export function isLowerThanToday(date) {
+  if (!date) return false;
+
+  var d = new Date(date);
+  var d1 = new Date();
+
+  return d1 > d;
 }

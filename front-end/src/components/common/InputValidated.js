@@ -9,7 +9,8 @@ const InputValidated = ({
   error,
   isRequired,
   minLength,
-  onlyNumbers
+  onlyNumbers,
+  defaultValue
 }) => {
   let validationModel = {};
 
@@ -36,7 +37,12 @@ const InputValidated = ({
 
   return (
     <>
-      <Form.Control name={name} type={type} ref={register(validationModel)} />
+      <Form.Control
+        name={name}
+        type={type}
+        ref={register(validationModel)}
+        defaultValue={defaultValue}
+      />
       <ValidationLabel error={error}></ValidationLabel>
     </>
   );

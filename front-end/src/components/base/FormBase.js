@@ -22,22 +22,20 @@ const BaseForm = ({
   }
 
   return (
-    <>
-      <Form onSubmit={handleSubmit} className={cssFormClass}>
-        {elements()}
+    <Form onSubmit={handleSubmit} className={cssFormClass}>
+      {elements()}
 
-        <Button variant="primary" type="submit" style={{ marginRight: "15px" }}>
-          {submitButtonText}
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={handleCancel}
-          style={{ visibility: showCancelButton ? "visible" : "hidden" }}
-        >
-          {cancelButtonText ? cancelButtonText : "Cancelar"}
-        </Button>
-      </Form>
-    </>
+      <Button variant="primary" type="submit" style={{ marginRight: "15px" }}>
+        {submitButtonText}
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={handleCancel}
+        style={{ visibility: showCancelButton ? "visible" : "hidden" }}
+      >
+        {cancelButtonText ? cancelButtonText : "Cancelar"}
+      </Button>
+    </Form>
   );
 };
 

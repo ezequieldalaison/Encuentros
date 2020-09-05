@@ -15,6 +15,7 @@ namespace Encuentros.DTOs.Pilates
         public ProfessionalDto Instructor { get; set; }
         public DayDto Day { get; set; }
         public IList<ClassStudentDto> ClassStudents { get; set; }
+        public bool IsClosed { get; set; }
 
         public void Fill()
         {
