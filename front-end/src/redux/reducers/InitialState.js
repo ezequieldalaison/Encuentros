@@ -8,5 +8,6 @@ export default {
   feeTypes: [],
   areas: [],
   classes: [],
-  professionalWorkDays: []
+  professionalWorkDays: [],
+  movements: []
 };

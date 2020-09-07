@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageBase from "../../../base/PageBase";
-import * as ProfessionalActions from "../../../../redux/actions/Common/ProfessionalActions";
+import * as ProfessionalActions from "../../../../redux/actions/General/ProfessionalActions";
 import { connect } from "react-redux";
 import ProfessionalForm from "./ProfessionalForm";
 import { PROFESSIONALS_GRID } from "../../../helpers/GridHelper";

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Encuentros.Data.Interfaces;
 using Encuentros.DTOs.Common;
+using Encuentros.DTOs.General;
 using Encuentros.DTOs.Pilates;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;

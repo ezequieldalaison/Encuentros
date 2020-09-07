@@ -15,6 +15,12 @@ export const GET_AREAS_SUCCESS = "GET_AREAS_SUCCESS";
 export const GET_PROFESSIONALS_BY_AREA_SUCCESS =
   "GET_PROFESSIONALS_BY_AREA_SUCCESS";
 
+//-------------GENERAL-------------//
+//Movements
+export const GET_MOVEMENTS_BY_MONTH_SUCCESS = "GET_MOVEMENTS_BY_MONTH_SUCCESS";
+//Concepts
+export const GET_COMMON_CONCEPTS_SUCCESS = "GET_COMMON_CONCEPTS_SUCCESS";
+
 //-------------PILATES-------------//
 //Students
 export const GET_STUDENTS_SUCCESS = "GET_STUDENTS_SUCCESS";

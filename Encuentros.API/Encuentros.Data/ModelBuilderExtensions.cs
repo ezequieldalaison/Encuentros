@@ -1,4 +1,5 @@
 ﻿using Encuentros.Logic.Entities.Common;
+using Encuentros.Logic.Entities.General;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,7 +48,8 @@ namespace Encuentros.Data
             {
                 x.ToTable("Concepts");
                 x.HasKey(x => x.Id);
-                x.Property(x => x.Name).IsRequired().HasMaxLength(50);
+                x.Property(x => x.Name);
+                x.Property(x => x.IsActive);
                 x.HasOne(x => x.Area);
                 x.HasOne(x => x.JournalSide);
             });

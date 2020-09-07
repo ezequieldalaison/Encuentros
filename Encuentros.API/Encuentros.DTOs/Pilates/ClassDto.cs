@@ -1,9 +1,9 @@
 ﻿using Encuentros.DTOs.Common;
+using Encuentros.DTOs.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 
 namespace Encuentros.DTOs.Pilates
 {

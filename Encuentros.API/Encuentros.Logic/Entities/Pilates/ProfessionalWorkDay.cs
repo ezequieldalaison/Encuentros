@@ -1,5 +1,5 @@
 ﻿using Encuentros.Logic.Base;
-using Encuentros.Logic.Entities.Common;
+using Encuentros.Logic.Entities.General;
 using System;
 
 namespace Encuentros.Logic.Entities.Pilates

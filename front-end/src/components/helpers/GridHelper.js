@@ -135,19 +135,23 @@ export const FEES_GRID = [
 export const MOVEMENTS_GRID = [
   {
     Header: "Fecha",
-    accessor: "movement.date"
+    accessor: data => formatFullDate(data.date)
   },
   {
     Header: "Concepto",
-    accessor: "movement.concept.name"
+    accessor: "concept.name"
   },
   {
     Header: "Monto",
-    accessor: "movement.amount"
+    accessor: "amount"
+  },
+  {
+    Header: "Comentarios",
+    accessor: "comments"
   },
   {
     Header: "Estado",
-    accessor: "movement.movementStatus.name"
+    accessor: "movementStatus.name"
   }
 ];
 

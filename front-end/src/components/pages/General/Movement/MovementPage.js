@@ -1,85 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PageBase from "../../../base/PageBase";
 import { MOVEMENTS_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
-//import * as StudentActions from "../../../../redux/actions/Pilates/StudentActions";
+import * as MovementActions from "../../../../redux/actions/General/MovementActions";
+import { getCurrentMonth } from "../../../helpers/DateHelper";
 //import StudentForm from "./StudentForm";
 //import StudentSearch from "./StudentSearch";
 //import { toast } from "react-toastify";
 
-const MovementPage = () => {
+const MovementPage = ({ movements, getMovementsByMonth }) => {
   const columns = React.useMemo(() => MOVEMENTS_GRID, []);
 
+  useEffect(() => {
+    getMovementsByMonth(getCurrentMonth())
+      .then(c => console.log(c))
+      .catch(d => {});
+  }, [getMovementsByMonth]);
+
   const grid = {
-    data: [], //students,
+    data: movements,
     columns: columns
   };
-
-  //   const inactivate = studentId => {
-  //     return inactivateStudent(studentId).then(() =>
-  //       toast.success("El alumno se inactivó correctamente")
-  //     );
-  //   };
-
-  //   const activate = studentId => {
-  //     return activateStudent(studentId).then(() =>
-  //       toast.success("El alumno se activó correctamente")
-  //     );
-  //   };
-
-  //   const onSubmit = data => {
-  //     if (studentUnderUpdate) {
-  //       data = { ...studentUnderUpdate, ...data };
-  //     }
-
-  //     return saveStudent(data).then(() => {
-  //       toast.success("El alumno se guardó correctamente");
-  //     });
-  //   };
-
-  //   const getEntity = studentId => {
-  //     return getStudent(studentId).then(student => {
-  //       return student;
-  //     });
-  //   };
-
-  //   const search = data => {
-  //     if (Object.keys(data).length === 0 && data.constructor === Object) {
-  //       getStudents();
-  //     } else {
-  //       searchStudents(data);
-  //     }
-  //   };
-
-  //<PageBase
-  //  grid={grid}
-  //  title="Alumnos"
-  //  activate={activate}
-  //  inactivate={inactivate}
-  //  onSubmit={onSubmit}
-  //  form={StudentForm}
-  //  search={StudentSearch}
-  //  getEntity={getEntity}
-  //  setEntityUnderUpdate={setStudentUnderUpdate}
-  //  onSearch={search}
-  ///>
 
   return <PageBase grid={grid} title="Movimientos" />;
 };
 
 function mapStateToProps(state) {
   return {
-    //students: state.students
+    movements: state.movements
   };
 }
 
 const mapDispatchToProps = {
-  //   getStudents: StudentActions.getStudents,
-  //   saveStudent: StudentActions.saveStudent,
-  //   inactivateStudent: StudentActions.inactivateStudent,
-  //   activateStudent: StudentActions.activateStudent,
-  //   getStudent: StudentActions.getStudent,
-  //   searchStudents: StudentActions.searchStudents
+  getMovementsByMonth: MovementActions.getMovementsByMonth
 };
 
 export default connect(

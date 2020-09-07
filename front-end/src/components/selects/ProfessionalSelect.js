@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
-import * as ProfessionalActions from "../../redux/actions/Common/ProfessionalActions";
+import * as ProfessionalActions from "../../redux/actions/General/ProfessionalActions";
 
 const ProfessionalSelect = forwardRef((props, ref) => {
   const { register, getProfessionalsByArea, areaId } = props;

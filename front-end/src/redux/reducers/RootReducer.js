@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import ProfessionalReducer from "./Common/ProfessionalReducer";
+import ProfessionalReducer from "./General/ProfessionalReducer";
 import MonthReducer from "./Common/MonthReducer";
 import StudentReducer from "./Pilates/StudentReducer";
 import WeeklyClassReducer from "./Pilates/WeeklyClassReducer";
@@ -9,6 +9,7 @@ import FeeTypeReducer from "./Pilates/FeeTypeReducer";
 import AreaReducer from "./Common/AreaReducer";
 import ClassReducer from "./Pilates/ClassReducer";
 import ProfessionalWorkDayReducer from "./Pilates/ProfessionalWorkDayReducer";
+import MovementReducer from "./General/MovementReducer";
 
 const RootReducer = combineReducers({
   professional: ProfessionalReducer,
@@ -20,7 +21,8 @@ const RootReducer = combineReducers({
   months: MonthReducer,
   areas: AreaReducer,
   classes: ClassReducer,
-  professionalWorkDays: ProfessionalWorkDayReducer
+  professionalWorkDays: ProfessionalWorkDayReducer,
+  movements: MovementReducer
 });
 
 export default RootReducer;

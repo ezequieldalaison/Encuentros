@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Encuentros.API.Controllers.Base;
 using Encuentros.Data.Interfaces;
-using Encuentros.DTOs.Common;
+using Encuentros.DTOs.General;
 using Encuentros.DTOs.Pilates;
-using Encuentros.Logic.Entities.Common;
+using Encuentros.Logic.Entities.General;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.AspNetCore.Mvc;
 using System;

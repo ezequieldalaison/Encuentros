@@ -1,5 +1,5 @@
 ﻿using Encuentros.DTOs.Base;
-using Encuentros.DTOs.Common;
+using Encuentros.DTOs.General;
 using System;
 
 namespace Encuentros.DTOs.Pilates
