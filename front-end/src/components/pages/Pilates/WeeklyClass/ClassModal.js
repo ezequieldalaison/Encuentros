@@ -30,7 +30,7 @@ const ClassModal = ({
 
   useEffect(() => {
     if (childProfessionalRef.current)
-      childProfessionalRef.current.setValue(_class.instructor);
+      childProfessionalRef.current.setValue(_class.professional);
   }, [childProfessionalRef, _class]);
 
   const onChangeClassStudent = (optionSelected, isIndividualClass, index) => {
@@ -56,11 +56,14 @@ const ClassModal = ({
     setClass({ ..._class, classStudents });
   };
 
-  const onChangeInstructor = optionSelected => {
+  const onChangeProfessional = optionSelected => {
     setClass({
       ..._class,
-      instructor: { id: optionSelected.value, fullName: optionSelected.label },
-      instructorId: optionSelected.value
+      professional: {
+        id: optionSelected.value,
+        fullName: optionSelected.label
+      },
+      professionalId: optionSelected.value
     });
   };
 
@@ -115,7 +118,7 @@ const ClassModal = ({
             <ProfessionalSelect
               areaId={1}
               ref={childProfessionalRef}
-              onChange={onChangeInstructor}
+              onChange={onChangeProfessional}
             />
           </Col>
         </Row>

@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import { FaPencilAlt } from "react-icons/fa";
 import ClassModal from "./ClassModal";
 
-const ClassCard = ({ date, classStudents, hour, instructor }) => {
+const ClassCard = ({ date, classStudents, hour, professional }) => {
   const columns = React.useMemo(() => CLASSES_GRID, []);
   const data = React.useMemo(() => classStudents, [classStudents]);
   const [show, setShow] = useState(false);
@@ -39,7 +39,7 @@ const ClassCard = ({ date, classStudents, hour, instructor }) => {
             <GridBase columns={columns} data={data} />
             <p style={{ fontSize: "small", margin: "0" }}>
               <b>Profesor:</b>{" "}
-              {instructor ? instructor.fullName : "No Asignado"}
+              {professional ? professional.fullName : "No Asignado"}
             </p>
           </Card.Body>
         </Accordion.Collapse>

@@ -77,7 +77,7 @@ const DayClassCard = ({ dayId, dayName, classes }) => {
                 date={c.date}
                 hour={c.hour}
                 classStudents={c.classStudents}
-                instructor={c.instructor}
+                professional={c.professional}
               />
             ))}
           </Card.Body>

@@ -71,17 +71,17 @@
 		(64, 5, '18:00', 1, 1),
 		(65, 5, '19:00', 1, 1),
 		(66, 5, '20:00', 1, 1)
-	) AS SOURCE([Id], [DayId], [Hour], [InstructorId], [IsActive])
+	) AS SOURCE([Id], [DayId], [Hour], [ProfessionalId], [IsActive])
 	ON TARGET.[Id] = SOURCE.[Id]
 	WHEN MATCHED THEN
 		UPDATE SET 
 			[DayId] = Source.[DayId],
 			[Hour] = Source.[Hour],
-			[InstructorId] = Source.[InstructorId],
+			[ProfessionalId] = Source.[ProfessionalId],
 			[IsActive] = Source.[IsActive]
 	WHEN NOT MATCHED BY TARGET THEN
-		INSERT([Id], [DayId], [Hour], [InstructorId], [IsActive])
-		VALUES(Source.[Id], Source.[DayId], Source.[Hour], Source.[InstructorId], Source.[IsActive])
+		INSERT([Id], [DayId], [Hour], [ProfessionalId], [IsActive])
+		VALUES(Source.[Id], Source.[DayId], Source.[Hour], Source.[ProfessionalId], Source.[IsActive])
 	WHEN NOT MATCHED BY SOURCE THEN DELETE;
 
 SET IDENTITY_INSERT [dbo].[WeeklyClasses] OFF

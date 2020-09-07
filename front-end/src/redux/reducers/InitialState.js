@@ -7,5 +7,6 @@ export default {
   months: [],
   feeTypes: [],
   areas: [],
-  classes: []
+  classes: [],
+  professionalWorkDays: []
 };

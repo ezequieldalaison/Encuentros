@@ -68,6 +68,6 @@
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[ProfessionalWorkDays]" />
     <Property Name="ParentElementType" Value="SqlTable" />
-    <Property Name="NewName" Value="InstructorId" />
+    <Property Name="NewName" Value="ProfessionalId" />
   </Operation>
 </Operations>

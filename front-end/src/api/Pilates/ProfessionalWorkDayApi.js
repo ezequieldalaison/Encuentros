@@ -29,3 +29,19 @@ export function saveProfessionalWorkDays(pwds) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getProfessionalWorkDaysByMonth(monthId) {
+  return fetch(baseUrl + "month/" + monthId, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function getProfessionalWorkDaysByYear(year) {
+  return fetch(baseUrl + "year/" + year, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

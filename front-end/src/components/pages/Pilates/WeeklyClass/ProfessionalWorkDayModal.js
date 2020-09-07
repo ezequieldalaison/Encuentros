@@ -24,8 +24,8 @@ const ProfessionalWorkDayModal = ({
   const { register, handleSubmit, errors } = useForm();
 
   function onSubmit(data) {
-    var request = Object.keys(data).map(instructorId => {
-      return { date, instructorId, quantityHours: data[instructorId] };
+    var request = Object.keys(data).map(professionalId => {
+      return { date, professionalId, quantityHours: data[professionalId] };
     });
     saveProfessionalWorkDays(request).then(resp => {
       toast.success("Se cerró el día correctamente");
@@ -50,17 +50,17 @@ const ProfessionalWorkDayModal = ({
         <Modal.Body>
           <Form.Group>
             {professionalWorkdays.map(pwd => (
-              <Row key={pwd.instructor.id} style={{ marginBottom: "5px" }}>
+              <Row key={pwd.professional.id} style={{ marginBottom: "5px" }}>
                 <Col xs="4">
-                  <Form.Label>{pwd.instructor.fullName}</Form.Label>
+                  <Form.Label>{pwd.professional.fullName}</Form.Label>
                 </Col>
                 <Col xs="6">
                   <InputValidated
                     register={register}
-                    name={pwd.instructor.id}
+                    name={pwd.professional.id}
                     type="number"
                     isRequired
-                    error={errors[pwd.instructor.id]}
+                    error={errors[pwd.professional.id]}
                     defaultValue={pwd.quantityHours}
                   ></InputValidated>
                 </Col>

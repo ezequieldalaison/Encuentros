@@ -43,7 +43,7 @@ namespace Encuentros.API.Controllers.Pilates
                 expressions.Add(x => x.WeeklyClassStudents.Select(w => w.Student));
                 expressions.Add(x => x.WeeklyClassStudents.Select(w => w.Student.Fees));
                 expressions.Add(x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)));
-                expressions.Add(x => x.Instructor);
+                expressions.Add(x => x.Professional);
                 expressions.Add(x => x.Day);
 
                 return expressions.ToArray();
@@ -100,8 +100,8 @@ namespace Encuentros.API.Controllers.Pilates
                         Date = startDate,
                         Day = _mapper.Map<DayDto>(wc.Day),
                         Hour = wc.Hour,
-                        Instructor = _mapper.Map<ProfessionalDto>(wc.Instructor),
-                        InstructorId = wc.Instructor.Id,
+                        Professional = _mapper.Map<ProfessionalDto>(wc.Professional),
+                        ProfessionalId = wc.Professional.Id,
                         ClassStudents = classStudents.Select(s => new ClassStudentDto(s, false)).ToList(),
                         IsClosed = workDays.Any(x => x.Date == startDate)
                     };
@@ -144,8 +144,8 @@ namespace Encuentros.API.Controllers.Pilates
                 Date = criteria.Date,
                 Day = _mapper.Map<DayDto>(weeklyClass.Day),
                 Hour = weeklyClass.Hour,
-                Instructor = _mapper.Map<ProfessionalDto>(weeklyClass.Instructor),
-                InstructorId = weeklyClass.Instructor.Id,
+                Professional = _mapper.Map<ProfessionalDto>(weeklyClass.Professional),
+                ProfessionalId = weeklyClass.Professional.Id,
                 ClassStudents = classStudents.Select(s => new ClassStudentDto(s, false)).ToList(),
             };
 
@@ -184,8 +184,8 @@ namespace Encuentros.API.Controllers.Pilates
 
                 //Firstable we update the students who are monthly suscribed
                 weeklyClass.UpdateStudents(dto.ClassStudents.Where(x => !x.IsIndividualClass).Select(x => x.Student).Select(x => x.Id), dto.Date);
-                //Then we update the instructor
-                weeklyClass.SetInstructor(dto.InstructorId);
+                //Then we update the Professional
+                weeklyClass.SetProfessional(dto.ProfessionalId);
 
                 _weeklyClassRepo.Update(weeklyClass);
 

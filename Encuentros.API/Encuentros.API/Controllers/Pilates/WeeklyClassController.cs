@@ -35,7 +35,7 @@ namespace Encuentros.API.Controllers.Pilates
                 expressions.Add(x => x.WeeklyClassStudents.Select(w => w.Student));
                 expressions.Add(x => x.WeeklyClassStudents.Select(w => w.Student.Fees));
                 expressions.Add(x => x.WeeklyClassStudents.Select(w => w.Student.Fees.Select(f => f.Movement)));
-                expressions.Add(x => x.Instructor);
+                expressions.Add(x => x.Professional);
                 expressions.Add(x => x.Day);
 
                 return expressions.ToArray();

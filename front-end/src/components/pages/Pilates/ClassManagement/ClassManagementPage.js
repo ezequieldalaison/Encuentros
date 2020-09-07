@@ -68,6 +68,7 @@ const ClassManagementPage = ({
       inactivate={inactivate}
       search={ClassManagementSearch}
       onSearch={search}
+      hideAddButton
     />
   );
 };

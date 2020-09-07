@@ -131,8 +131,8 @@ namespace Encuentros.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Hour).IsRequired().HasMaxLength(10);
                 x.Property(x => x.IsActive);
-                x.Property(x => x.InstructorId);
-                x.HasOne(x => x.Instructor);
+                x.Property(x => x.ProfessionalId);
+                x.HasOne(x => x.Professional);
                 x.HasOne(x => x.Day);
             });
 
@@ -170,8 +170,8 @@ namespace Encuentros.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Date);
                 x.Property(x => x.QuantityHours);
-                x.Property(x => x.InstructorId);
-                x.HasOne(x => x.Instructor);
+                x.Property(x => x.ProfessionalId);
+                x.HasOne(x => x.Professional);
             });
         }
     }

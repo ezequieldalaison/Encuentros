@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import FeePage from "./components/pages/Pilates/Fee/FeePage";
 import ClassManagementPage from "./components/pages/Pilates/ClassManagement/ClassManagementPage";
+import ProfessionalWorkDayPage from "./components/pages/Pilates/ProfessionalWorkDay/ProfessionalWorkDayPage";
 
 class App extends Component {
   constructor(props) {
@@ -53,9 +54,10 @@ class App extends Component {
             path="/Pilates/GestionClasesSemanales"
             component={ClassManagementPage}
           />
+          <PrivateRoute path="/Pilates/Clases" component={WeeklyClassPage} />
           <PrivateRoute
-            path="/Pilates/ClasesSemanales"
-            component={WeeklyClassPage}
+            path="/Pilates/Profesores"
+            component={ProfessionalWorkDayPage}
           />
           <PrivateRoute path="/Pilates/Cuotas" component={FeePage} />
 

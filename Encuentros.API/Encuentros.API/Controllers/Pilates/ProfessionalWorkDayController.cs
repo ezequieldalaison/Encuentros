@@ -40,10 +40,46 @@ namespace Encuentros.API.Controllers.Pilates
             {
                 response.Add(new ProfessionalWorkDayDto
                 {
-                    InstructorId = pro.Id,
-                    Instructor = _mapper.Map<ProfessionalDto>(pro),
-                    QuantityHours = weeklyClasses.Count(x => x.InstructorId == pro.Id)
+                    ProfessionalId = pro.Id,
+                    Professional = _mapper.Map<ProfessionalDto>(pro),
+                    QuantityHours = weeklyClasses.Count(x => x.ProfessionalId == pro.Id)
                 });
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("month/{monthId}")]
+        public ActionResult GetProfessionalWorkDaysByMonth(long monthId)
+        {
+            var pwds = _repository.GetByQueryInclude(x => x.Date.Month == monthId && x.QuantityHours > 0,
+                                                     x => x.Professional);
+            var response = _mapper.Map<IEnumerable<ProfessionalWorkDayDto>>(pwds);
+            return Ok(response);
+        }
+
+
+        [HttpGet("year/{year}")]
+        public ActionResult GetProfessionalWorkDaysByYear(int year)
+        {
+            List<ProfessionalWorkDayDto> response = new List<ProfessionalWorkDayDto>();
+
+            var pwds = _repository.GetByQueryInclude(x => x.Date.Year == year,
+                                                     x => x.Professional);
+
+            var grouped = pwds.GroupBy(x => new { x.Date.Month, x.Professional });
+
+            foreach (var g in grouped)
+            {
+                var pwd = new ProfessionalWorkDayDto
+                {
+                    Date = new DateTime(year, g.Key.Month, 1),
+                    Professional = _mapper.Map<ProfessionalDto>(g.Key.Professional),
+                    ProfessionalId = g.Key.Professional.Id,
+                    QuantityHours = g.Sum(x => x.QuantityHours)
+                };
+
+                response.Add(pwd);
             }
 
             return Ok(response);

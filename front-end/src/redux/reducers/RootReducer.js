@@ -8,6 +8,7 @@ import FeeReducer from "./Pilates/FeeReducer";
 import FeeTypeReducer from "./Pilates/FeeTypeReducer";
 import AreaReducer from "./Common/AreaReducer";
 import ClassReducer from "./Pilates/ClassReducer";
+import ProfessionalWorkDayReducer from "./Pilates/ProfessionalWorkDayReducer";
 
 const RootReducer = combineReducers({
   professional: ProfessionalReducer,
@@ -18,7 +19,8 @@ const RootReducer = combineReducers({
   feeTypes: FeeTypeReducer,
   months: MonthReducer,
   areas: AreaReducer,
-  classes: ClassReducer
+  classes: ClassReducer,
+  professionalWorkDays: ProfessionalWorkDayReducer
 });
 
 export default RootReducer;

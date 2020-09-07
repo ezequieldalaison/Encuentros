@@ -11,8 +11,8 @@ namespace Encuentros.DTOs.Pilates
     {
         public string Hour { get; set; }
         public DateTime Date { get; set; }
-        public long InstructorId { get; set; }
-        public ProfessionalDto Instructor { get; set; }
+        public long ProfessionalId { get; set; }
+        public ProfessionalDto Professional { get; set; }
         public DayDto Day { get; set; }
         public IList<ClassStudentDto> ClassStudents { get; set; }
         public bool IsClosed { get; set; }

@@ -16,16 +16,20 @@ const NavigationBar = props => {
                 id="ddlConsultingRoom"
               ></NavDropdown>
               <NavDropdown title="Pilates" id="ddPilates">
-                <NavDropdown.Item href="/Pilates/ClasesSemanales">
+                <NavDropdown.Item href="/Pilates/Clases">
                   Clases
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/Pilates/Cuotas">
                   Cuotas
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
+                <NavDropdown.Item href="/Pilates/Profesores">
+                  Profesores
+                </NavDropdown.Item>
                 <NavDropdown.Item href="/Pilates/Alumnos">
                   Alumnos
                 </NavDropdown.Item>
+                <NavDropdown.Divider />
                 <NavDropdown.Item href="/Pilates/GestionClasesSemanales">
                   Gestión Clases Semanales
                 </NavDropdown.Item>

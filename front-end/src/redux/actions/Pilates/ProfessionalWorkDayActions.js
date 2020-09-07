@@ -14,13 +14,27 @@ export function saveProfessionalWorkDaysSuccess(pwd) {
   return { type: Types.SAVE_PROFESSIONAL_WORK_DAYS, pwd };
 }
 
+export function getProfessionalWorkDaysByMonthSuccess(professionalWorkDays) {
+  return {
+    type: Types.GET_PROFESSIONAL_WORK_DAY_BY_MONTH,
+    professionalWorkDays
+  };
+}
+
+export function getProfessionalWorkDaysByYearSuccess(professionalWorkDays) {
+  return {
+    type: Types.GET_PROFESSIONAL_WORK_DAY_BY_YEAR,
+    professionalWorkDays
+  };
+}
+
 export function getSuggestedProfessionals(dayId) {
   return function(dispatch) {
     dispatch(beginApiCall());
     return ProfessionalWorkDayApi.getSuggestedProfessionals(dayId)
-      .then(pwd => {
-        dispatch(getSuggestedProfessionalsSuccess(pwd));
-        return pwd;
+      .then(professionalWorkDay => {
+        dispatch(getSuggestedProfessionalsSuccess(professionalWorkDay));
+        return professionalWorkDay;
       })
       .catch(error => {
         throw error;
@@ -28,13 +42,13 @@ export function getSuggestedProfessionals(dayId) {
   };
 }
 
-export function saveProfessionalWorkDay(pwd) {
+export function saveProfessionalWorkDay(professionalWorkDay) {
   return function(dispatch) {
     dispatch(beginApiCall());
-    return ProfessionalWorkDayApi.saveProfessionalWorkDay(pwd)
-      .then(pwd => {
-        dispatch(saveProfessionalWorkDaySuccess(pwd));
-        return pwd;
+    return ProfessionalWorkDayApi.saveProfessionalWorkDay(professionalWorkDay)
+      .then(professionalWorkDay => {
+        dispatch(saveProfessionalWorkDaySuccess(professionalWorkDay));
+        return professionalWorkDay;
       })
       .catch(error => {
         throw error;
@@ -42,13 +56,41 @@ export function saveProfessionalWorkDay(pwd) {
   };
 }
 
-export function saveProfessionalWorkDays(pwds) {
+export function saveProfessionalWorkDays(professionalWorkDays) {
   return function(dispatch) {
     dispatch(beginApiCall());
-    return ProfessionalWorkDayApi.saveProfessionalWorkDays(pwds)
-      .then(pwds => {
-        dispatch(saveProfessionalWorkDaysSuccess(pwds));
-        return pwds;
+    return ProfessionalWorkDayApi.saveProfessionalWorkDays(professionalWorkDays)
+      .then(professionalWorkDays => {
+        dispatch(saveProfessionalWorkDaysSuccess(professionalWorkDays));
+        return professionalWorkDays;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getProfessionalWorkDaysByMonth(monthId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalWorkDayApi.getProfessionalWorkDaysByMonth(monthId)
+      .then(professionalWorkDays => {
+        dispatch(getProfessionalWorkDaysByMonthSuccess(professionalWorkDays));
+        return professionalWorkDays;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getProfessionalWorkDaysByYear(year) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalWorkDayApi.getProfessionalWorkDaysByYear(year)
+      .then(professionalWorkDays => {
+        dispatch(getProfessionalWorkDaysByYearSuccess(professionalWorkDays));
+        return professionalWorkDays;
       })
       .catch(error => {
         throw error;

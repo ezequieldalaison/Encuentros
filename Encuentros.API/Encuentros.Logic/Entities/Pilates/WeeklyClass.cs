@@ -10,8 +10,8 @@ namespace Encuentros.Logic.Entities.Pilates
     public class WeeklyClass : EntityAIBase
     {
         public virtual string Hour { get; private set; }
-        public virtual long InstructorId { get; private set; }
-        public virtual Professional Instructor { get; private set; }
+        public virtual long ProfessionalId { get; private set; }
+        public virtual Professional Professional { get; private set; }
         public virtual Day Day { get; private set; }
         public virtual ICollection<WeeklyClassStudent> WeeklyClassStudents { get; private set; }
 
@@ -32,9 +32,9 @@ namespace Encuentros.Logic.Entities.Pilates
             }
         }
 
-        public void SetInstructor(long id)
+        public void SetProfessional(long id)
         {
-            InstructorId = id;
+            ProfessionalId = id;
         }
     }
 }

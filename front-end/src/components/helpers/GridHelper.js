@@ -1,4 +1,4 @@
-import { formatFullDate } from "./DateHelper";
+import { formatFullDate, getMonthName } from "./DateHelper";
 
 export const STUDENTS_GRID = [
   {
@@ -172,5 +172,25 @@ export const WEEKLY_CLASSES_GRID = [
     Header: "-",
     accessor: "",
     canSort: false
+  }
+];
+
+export const PWD_DAILY_GRID = [
+  {
+    Header: "id",
+    accessor: "id"
+  },
+  {
+    Header: "Profesor",
+    accessor: "professional.fullName"
+  },
+  {
+    Header: "Fecha",
+    accessor: data =>
+      data.id > 0 ? formatFullDate(data.date) : getMonthName(data.date)
+  },
+  {
+    Header: "Cantidad de horas",
+    accessor: "quantityHours"
   }
 ];

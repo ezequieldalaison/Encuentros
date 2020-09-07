@@ -21,6 +21,7 @@ const PageBase = ({
   onSearch,
   setEntityUnderUpdate,
   hideCleanButton,
+  hideAddButton,
   ...props
 }) => {
   const { data, columns } = grid;
@@ -165,11 +166,13 @@ const PageBase = ({
                     inactivate={inactivateBase}
                     onUpdate={onUpdate}
                   />
-                  <Row>
-                    <Col xs={1} style={{ marginBottom: "5px" }}>
-                      <Button onClick={onAdd}>Agregar</Button>
-                    </Col>
-                  </Row>
+                  {hideAddButton ? null : (
+                    <Row>
+                      <Col xs={1} style={{ marginBottom: "5px" }}>
+                        <Button onClick={onAdd}>Agregar</Button>
+                      </Col>
+                    </Row>
+                  )}
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
