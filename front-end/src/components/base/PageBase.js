@@ -205,6 +205,7 @@ const PageBase = ({
                             register={addUpdateForm.register}
                             errors={addUpdateForm.errors}
                             setFormValue={addUpdateForm.setValue}
+                            control={addUpdateForm.control}
                           />
                         )}
                       ></FormBase>

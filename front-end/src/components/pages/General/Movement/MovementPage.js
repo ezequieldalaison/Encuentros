@@ -4,7 +4,7 @@ import { MOVEMENTS_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
 import * as MovementActions from "../../../../redux/actions/General/MovementActions";
 import { getCurrentMonth } from "../../../helpers/DateHelper";
-//import StudentForm from "./StudentForm";
+import MovementForm from "./MovementForm";
 //import StudentSearch from "./StudentSearch";
 //import { toast } from "react-toastify";
 
@@ -12,9 +12,7 @@ const MovementPage = ({ movements, getMovementsByMonth }) => {
   const columns = React.useMemo(() => MOVEMENTS_GRID, []);
 
   useEffect(() => {
-    getMovementsByMonth(getCurrentMonth())
-      .then(c => console.log(c))
-      .catch(d => {});
+    getMovementsByMonth(getCurrentMonth()).catch(d => {});
   }, [getMovementsByMonth]);
 
   const grid = {
@@ -22,7 +20,19 @@ const MovementPage = ({ movements, getMovementsByMonth }) => {
     columns: columns
   };
 
-  return <PageBase grid={grid} title="Movimientos" />;
+  const onSubmit = data => {
+    console.log(data);
+    return getMovementsByMonth();
+  };
+
+  return (
+    <PageBase
+      grid={grid}
+      title="Movimientos"
+      form={MovementForm}
+      onSubmit={onSubmit}
+    />
+  );
 };
 
 function mapStateToProps(state) {

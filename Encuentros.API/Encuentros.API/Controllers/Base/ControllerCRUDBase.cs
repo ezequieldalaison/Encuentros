@@ -80,7 +80,7 @@ namespace Encuentros.API.Controllers.Base
 
             _repository.SaveChanges();
 
-            return Ok(new { Message = "Ok" });
+            return Ok(new { Message = "ok"});
         }
 
         [HttpPut("{id}")]

@@ -54,15 +54,15 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var student = _studentRepo.GetById(feeDto.StudentId);
             if (student == null)
-                return NotFound(new { Message = "Student not found" });
+                return NotFound("Student not found" );
 
             var month = _monthRepo.GetById(feeDto.MonthId);
             if (month == null)
-                return NotFound(new { Message = "Month not found" });
+                return NotFound("Month not found");
 
             var feeType = _studentRepo.GetById(feeDto.FeeTypeId);
             if (feeType == null)
-                return NotFound(new { Message = "FeeType not found" });
+                return NotFound("FeeType not found");
 
             var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId && x.MonthId == feeDto.MonthId && x.FeeTypeId != FeeType.IndividualId);
             if (feeRepeted != null && feeRepeted.Count() > 0)

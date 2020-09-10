@@ -5,8 +5,9 @@ namespace Encuentros.Logic.Entities.General
 {
     public class Concept : EntityAIBase
     {
-        public virtual string Name { get; set; }
-        public virtual Area Area { get; set; }
-        public virtual JournalSide JournalSide { get; set; }
+        public virtual string Name { get; private set; }
+        public virtual Area Area { get; private set; }
+        public virtual JournalSide JournalSide { get; private set; }
+        public virtual bool IsCommon { get; private set; }
     }
 }

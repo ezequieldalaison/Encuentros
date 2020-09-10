@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import InputValidated from "../../../common/InputValidated";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AreaMultiSelect from "../../../selects/AreaMultiSelect";
+import AreaSelect from "../../../selects/AreaSelect";
 import { connect } from "react-redux";
 
 const ProfessionalForm = forwardRef((props, ref) => {
@@ -15,10 +15,10 @@ const ProfessionalForm = forwardRef((props, ref) => {
     ref,
     () => ({
       cleanSelects() {
-        childAreaRef.current.setValue(null);
+        childAreaRef.current.setValues(null);
       },
       setSelectValue(professional) {
-        childAreaRef.current.setValue(professional.areas);
+        childAreaRef.current.setValues(professional.areas);
       }
     }),
     []
@@ -93,7 +93,7 @@ const ProfessionalForm = forwardRef((props, ref) => {
           </Col>
           <Col xs={3}>
             <Form.Label>Áreas</Form.Label>
-            <AreaMultiSelect ref={childAreaRef} register={register} />
+            <AreaSelect ref={childAreaRef} register={register} isMulti={true} />
           </Col>
         </Row>
       </Form.Group>

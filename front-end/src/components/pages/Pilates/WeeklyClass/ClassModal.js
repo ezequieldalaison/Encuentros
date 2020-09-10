@@ -68,7 +68,6 @@ const ClassModal = ({
   };
 
   const onSave = () => {
-    console.log(_class);
     saveClass(_class)
       .then(x => {
         close();

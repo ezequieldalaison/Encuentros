@@ -29,8 +29,6 @@ const ProfessionalPage = ({
   };
 
   const onSubmit = data => {
-    console.log(data);
-
     if (professionalUnderUpdate) {
       data = { ...professionalUnderUpdate, ...data };
     }

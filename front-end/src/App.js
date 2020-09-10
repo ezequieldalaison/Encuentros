@@ -18,6 +18,7 @@ import WeeklyClassPage from "./components/pages/Pilates/WeeklyClass/WeeklyClassP
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import "react-datepicker/dist/react-datepicker.css";
 import FeePage from "./components/pages/Pilates/Fee/FeePage";
 import ClassManagementPage from "./components/pages/Pilates/ClassManagement/ClassManagementPage";
 import ProfessionalWorkDayPage from "./components/pages/Pilates/ProfessionalWorkDay/ProfessionalWorkDayPage";

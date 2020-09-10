@@ -6,11 +6,10 @@ import React, {
 } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
-import * as MonthActions from "../../redux/actions/Common/MonthActions";
-import { getCurrentMonth } from "../helpers/DateHelper";
+import * as ConceptActions from "../../redux/actions/General/ConceptActions";
 
 const CommonConceptSelect = forwardRef((props, ref) => {
-  const { register, getCommonConcepts } = props;
+  const { register, getCommonConcepts, areaId } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -18,10 +17,11 @@ const CommonConceptSelect = forwardRef((props, ref) => {
     ref,
     () => ({
       setValue(concept) {
-        setSelectValue({ value: concept.id, label: concept.name });
+        if (concept) setSelectValue({ value: concept.id, label: concept.name });
+        else setSelectValue(null);
       }
     }),
-    [options]
+    []
   );
 
   useEffect(() => {
@@ -33,11 +33,12 @@ const CommonConceptSelect = forwardRef((props, ref) => {
   }, [register, selectValue]);
 
   useEffect(() => {
-    getCommonConcepts().then(concepts => {
-      const mappedConcepts = mapConcepts(concepts);
-      setOptions(mappedConcepts);
-    });
-  }, [getConcepts]);
+    if (areaId)
+      getCommonConcepts(areaId).then(concepts => {
+        const mappedConcepts = mapConcepts(concepts);
+        setOptions(mappedConcepts);
+      });
+  }, [getCommonConcepts, areaId]);
 
   const mapConcepts = concepts => {
     return concepts.map(c => {

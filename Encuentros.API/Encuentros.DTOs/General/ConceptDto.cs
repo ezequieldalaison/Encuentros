@@ -8,5 +8,6 @@ namespace Encuentros.DTOs.General
         public string Name { get; set; }
         public AreaDto Area { get; set; }
         public JournalSideDto JournalSide { get; set; }
+        public bool IsCommon { get; set; }
     }
 }

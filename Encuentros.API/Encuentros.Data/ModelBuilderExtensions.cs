@@ -50,6 +50,7 @@ namespace Encuentros.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Name);
                 x.Property(x => x.IsActive);
+                x.Property(x => x.IsCommon);
                 x.HasOne(x => x.Area);
                 x.HasOne(x => x.JournalSide);
             });
