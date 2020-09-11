@@ -17,6 +17,7 @@ const ProfessionalPaymentPage = () => {
 
   return (
     <PageBase
+      isUsingRef
       grid={grid}
       title="Pago Profesores"
       form={ProfessionalPaymentForm}

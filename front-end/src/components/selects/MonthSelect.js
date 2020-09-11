@@ -23,9 +23,12 @@ const MonthSelect = forwardRef((props, ref) => {
           month = options.filter(x => x.value === getCurrentMonth());
           setSelectValue(month[0]);
         }
+      },
+      getValue() {
+        return selectValue;
       }
     }),
-    [options]
+    [options, selectValue]
   );
 
   useEffect(() => {
@@ -54,6 +57,7 @@ const MonthSelect = forwardRef((props, ref) => {
 
   const onChange = selectedOption => {
     setSelectValue(selectedOption);
+    if (props.onChange) props.onChange(selectedOption);
   };
 
   const customStyles = {

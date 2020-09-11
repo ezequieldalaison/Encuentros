@@ -92,6 +92,14 @@ namespace Encuentros.Data
                     .HasForeignKey(x => x.ProfessionalId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
+
+            modelBuilder.Entity<Parameter>(x =>
+            {
+                x.ToTable("Parameters");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name);
+                x.Property(x => x.Value);
+            });
         }
 
         public static void AddPilatesEntities(this ModelBuilder modelBuilder)

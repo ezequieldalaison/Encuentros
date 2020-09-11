@@ -10,7 +10,8 @@ const InputValidated = ({
   isRequired,
   minLength,
   onlyNumbers,
-  defaultValue
+  defaultValue,
+  ...props
 }) => {
   let validationModel = {};
 
@@ -35,6 +36,10 @@ const InputValidated = ({
     };
   }
 
+  const onChange = value => {
+    if (props.onChange) props.onChange(value);
+  };
+
   return (
     <>
       <Form.Control
@@ -42,6 +47,7 @@ const InputValidated = ({
         type={type}
         ref={register(validationModel)}
         defaultValue={defaultValue}
+        onChange={onChange}
       />
       <ValidationLabel error={error}></ValidationLabel>
     </>

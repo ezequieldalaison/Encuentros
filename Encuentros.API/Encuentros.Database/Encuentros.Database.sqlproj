@@ -81,6 +81,7 @@
     <Build Include="dbo\Tables\IndividualClassStudents.sql" />
     <Build Include="dbo\Tables\ProfessionalWorkDays.sql" />
     <Build Include="dbo\Tables\ProfessionalPayments.sql" />
+    <Build Include="dbo\Tables\Parameters.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Scripts\InitialData.PostDeployment.sql" />
@@ -96,6 +97,7 @@
     <None Include="dbo\Scripts\InitialData\FeeTypes.sql" />
     <None Include="dbo\Scripts\InitialData\WeeklyClasses.sql" />
     <None Include="dbo\Scripts\InitialData\Professionals.sql" />
+    <None Include="dbo\Scripts\InitialData\Parameters.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Encuentros.Database.refactorlog" />

@@ -97,3 +97,17 @@ export function getProfessionalWorkDaysByYear(year) {
       });
   };
 }
+
+export function getProfessionalWorkedHoursByMonth(criteria) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalWorkDayApi.getProfessionalWorkedHoursByMonth(criteria)
+      .then(quantity => {
+        //dispatch(getProfessionalWorkedHoursByMonthSuccess(quantity));
+        return quantity;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}

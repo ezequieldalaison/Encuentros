@@ -206,6 +206,7 @@ const PageBase = ({
                             errors={addUpdateForm.errors}
                             setFormValue={addUpdateForm.setValue}
                             control={addUpdateForm.control}
+                            watch={addUpdateForm.watch}
                           />
                         )}
                       ></FormBase>

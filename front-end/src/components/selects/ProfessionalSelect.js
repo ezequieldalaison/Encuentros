@@ -23,9 +23,12 @@ const ProfessionalSelect = forwardRef((props, ref) => {
             label: professional.fullName
           });
         else setSelectValue(null);
+      },
+      getValue() {
+        return selectValue;
       }
     }),
-    []
+    [selectValue]
   );
 
   useEffect(() => {

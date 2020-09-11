@@ -11,6 +11,7 @@ namespace Encuentros.EntityMapper
             CreateMap<Entity.Day, DTO.DayDto>().ReverseMap();
             CreateMap<Entity.Area, DTO.AreaDto>().ReverseMap();
             CreateMap<Entity.Month, DTO.MonthDto>().ReverseMap();
+            CreateMap<Entity.Parameter, DTO.ParameterDto>().ReverseMap();
         }
     }
 }

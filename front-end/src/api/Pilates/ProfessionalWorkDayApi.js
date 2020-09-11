@@ -45,3 +45,13 @@ export function getProfessionalWorkDaysByYear(year) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getProfessionalWorkedHoursByMonth(criteria) {
+  return fetch(baseUrl + "workedHours", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(criteria)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

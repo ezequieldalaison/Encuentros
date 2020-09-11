@@ -84,5 +84,12 @@ namespace Encuentros.API.Controllers.Pilates
 
             return Ok(response);
         }
+
+        [HttpPost("workedHours")]
+        public ActionResult GetProfessionalWorkedHoursByMonth(SearchProfessionalWorkedHoursDto dto)
+        {
+            var quantityHours = _repository.GetByQuery(x => x.ProfessionalId == dto.ProfessionalId && x.Date.Month == dto.MonthId).Sum(x => x.QuantityHours);
+            return Ok(quantityHours);
+        }
     }
 }

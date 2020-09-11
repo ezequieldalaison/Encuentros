@@ -17,6 +17,7 @@ Post-Deployment Script Template
 :r .\InitialData\FeeTypes.sql
 :r .\InitialData\MovementStatuses.sql
 :r .\InitialData\Professionals.sql
+:r .\InitialData\Parameters.sql
 
 :r .\InitialData\Concepts.sql
 :r .\InitialData\WeeklyClasses.sql

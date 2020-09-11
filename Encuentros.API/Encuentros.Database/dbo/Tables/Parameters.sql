@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Parameters]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
+    [Name] VARCHAR(50) NOT NULL, 
+    [Value] VARCHAR(50) NOT NULL
+)
