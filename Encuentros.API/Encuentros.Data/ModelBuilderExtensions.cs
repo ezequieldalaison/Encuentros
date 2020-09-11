@@ -176,6 +176,20 @@ namespace Encuentros.Data
                 x.Property(x => x.ProfessionalId);
                 x.HasOne(x => x.Professional);
             });
+
+            modelBuilder.Entity<ProfessionalPayment>(x =>
+            {
+                x.ToTable("ProfessionalPayments");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.ProfessionalId);
+                x.HasOne(x => x.Professional);
+                x.Property(x => x.MonthId);
+                x.HasOne(x => x.Month);
+                x.Property(x => x.QuantityHours);
+                x.Property(x => x.ValueHour);
+                x.Property(x => x.MovementId);
+                x.HasOne(x => x.Movement);
+            });
         }
     }
 }

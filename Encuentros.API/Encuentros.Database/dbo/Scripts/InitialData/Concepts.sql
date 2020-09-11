@@ -4,7 +4,7 @@
 	USING(VALUES
 		(1,'Cuota Pilates', 1, 2, 0, 1),
 		(2,'Materiales', 1, 1, 1, 1),
-		(3,'Pago Profesor', 1, 1, 1, 1)
+		(3,'Pago Profesor', 1, 1, 0, 1)
 	) AS SOURCE([Id], [Name], [AreaId], [JournalSideId], [IsCommon], [IsActive])
 	ON TARGET.[Id] = SOURCE.[Id]
 	WHEN MATCHED THEN

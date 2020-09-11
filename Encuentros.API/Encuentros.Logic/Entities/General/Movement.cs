@@ -14,12 +14,12 @@ namespace Encuentros.Logic.Entities.General
             MovementStatusId = movementStatusId;
         }
 
-        public virtual DateTime Date { get; set; }
-        public virtual decimal Amount { get; set; }
-        public virtual string Comments { get; set; }
-        public virtual long ConceptId { get; set; }
-        public virtual Concept Concept { get; set; }
-        public virtual long MovementStatusId { get; set; }
-        public virtual MovementStatus MovementStatus { get; set; }
+        public virtual DateTime Date { get; private set; }
+        public virtual decimal Amount { get; private set; }
+        public virtual string Comments { get; private set; }
+        public virtual long ConceptId { get; private set; }
+        public virtual Concept Concept { get; private set; }
+        public virtual long MovementStatusId { get; private set; }
+        public virtual MovementStatus MovementStatus { get; private set; }
     }
 }

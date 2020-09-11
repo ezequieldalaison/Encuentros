@@ -9,3 +9,13 @@ export function getMovementsByMonth(monthId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function saveMovement(movement) {
+  return fetch(baseUrl + (movement.id || ""), {
+    method: movement.id ? "PUT" : "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(movement)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

@@ -60,7 +60,7 @@ namespace Encuentros.API.Controllers.Pilates
             if (month == null)
                 return NotFound("Month not found");
 
-            var feeType = _studentRepo.GetById(feeDto.FeeTypeId);
+            var feeType = _feeTypeRepo.GetById(feeDto.FeeTypeId);
             if (feeType == null)
                 return NotFound("FeeType not found");
 

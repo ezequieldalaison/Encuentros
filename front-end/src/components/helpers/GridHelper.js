@@ -198,3 +198,27 @@ export const PWD_DAILY_GRID = [
     accessor: "quantityHours"
   }
 ];
+
+export const PROFESSIONAL_PAYMENTS = [
+  {
+    Header: "id",
+    accessor: "id"
+  },
+  {
+    Header: "Profesor",
+    accessor: "professional.fullName"
+  },
+  {
+    Header: "Mes",
+    accessor: data =>
+      data.id > 0 ? formatFullDate(data.date) : getMonthName(data.date)
+  },
+  {
+    Header: "Cantidad de Horas",
+    accessor: "quantityHours"
+  },
+  {
+    Header: "Monto",
+    accessor: "movement.amount"
+  }
+];

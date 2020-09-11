@@ -8,7 +8,7 @@ import MovementForm from "./MovementForm";
 //import StudentSearch from "./StudentSearch";
 //import { toast } from "react-toastify";
 
-const MovementPage = ({ movements, getMovementsByMonth }) => {
+const MovementPage = ({ movements, getMovementsByMonth, saveMovement }) => {
   const columns = React.useMemo(() => MOVEMENTS_GRID, []);
 
   useEffect(() => {
@@ -21,12 +21,13 @@ const MovementPage = ({ movements, getMovementsByMonth }) => {
   };
 
   const onSubmit = data => {
-    console.log(data);
-    return getMovementsByMonth();
+    data.movementStatusId = data.isPaid ? 2 : 1;
+    return saveMovement(data).catch(e => console.log(e));
   };
 
   return (
     <PageBase
+      isUsingRef
       grid={grid}
       title="Movimientos"
       form={MovementForm}
@@ -42,7 +43,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getMovementsByMonth: MovementActions.getMovementsByMonth
+  getMovementsByMonth: MovementActions.getMovementsByMonth,
+  saveMovement: MovementActions.saveMovement
 };
 
 export default connect(

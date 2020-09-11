@@ -1,5 +1,6 @@
 ﻿using Encuentros.Logic.Base;
 using Encuentros.Logic.Entities.General;
+using Encuentros.Logic.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Encuentros.Logic.Entities.Pilates
                 if (Fees == null)
                     return false;
 
-                var lastFeePaid = Fees.Where(x => x.Movement.MovementStatusId == MovementStatus.PaidId).OrderByDescending(x => x.MonthId).FirstOrDefault();
+                var lastFeePaid = Fees.Where(x => x.Movement.MovementStatusId == (long)MovementStatusEnum.Paid).OrderByDescending(x => x.MonthId).FirstOrDefault();
                 return lastFeePaid != null && lastFeePaid.MonthId == DateTime.Now.Month;
             }
         }

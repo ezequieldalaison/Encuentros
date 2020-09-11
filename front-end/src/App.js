@@ -22,6 +22,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import FeePage from "./components/pages/Pilates/Fee/FeePage";
 import ClassManagementPage from "./components/pages/Pilates/ClassManagement/ClassManagementPage";
 import ProfessionalWorkDayPage from "./components/pages/Pilates/ProfessionalWorkDay/ProfessionalWorkDayPage";
+import ProfessionalPaymentPage from "./components/pages/Pilates/ProfessionalPayment/ProfessionalPaymentPage";
 
 class App extends Component {
   constructor(props) {
@@ -52,13 +53,17 @@ class App extends Component {
 
           <PrivateRoute path="/Pilates/Alumnos" component={StudentPage} />
           <PrivateRoute
-            path="/Pilates/GestionClasesSemanales"
+            path="/Pilates/Horarios"
             component={ClassManagementPage}
           />
           <PrivateRoute path="/Pilates/Clases" component={WeeklyClassPage} />
           <PrivateRoute
-            path="/Pilates/Profesores"
+            path="/Pilates/HorasProfesores"
             component={ProfessionalWorkDayPage}
+          />
+          <PrivateRoute
+            path="/Pilates/PagoProfesores"
+            component={ProfessionalPaymentPage}
           />
           <PrivateRoute path="/Pilates/Cuotas" component={FeePage} />
 

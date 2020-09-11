@@ -1,6 +1,7 @@
 ﻿using Encuentros.Logic.Base;
 using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.General;
+using Encuentros.Logic.Enums;
 using System;
 
 namespace Encuentros.Logic.Entities.Pilates
@@ -13,7 +14,7 @@ namespace Encuentros.Logic.Entities.Pilates
             StudentId = studentId;
             FeeTypeId = feeTypeId;
             MonthId = monthId;
-            Movement = new Movement(DateTime.Now, amount, comments, 1, isPaid ? 2 : 1);
+            Movement = new Movement(DateTime.Now, amount, comments, (long)ConceptEnum.Fee, isPaid ? (long)MovementStatusEnum.Paid : (long)MovementStatusEnum.Pending);
         }
 
         public virtual long StudentId { get; set; }

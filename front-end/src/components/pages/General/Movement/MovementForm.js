@@ -1,4 +1,9 @@
-import React, { useRef, forwardRef, useState } from "react";
+import React, {
+  useRef,
+  forwardRef,
+  useState,
+  useImperativeHandle
+} from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,11 +11,26 @@ import { connect } from "react-redux";
 import CommonConceptSelect from "../../../selects/CommonConceptSelect";
 import AreaSelect from "../../../selects/AreaSelect";
 import CustomDatePicker from "../../../common/CustomDatePicker";
+import InputValidated from "../../../common/InputValidated";
 
 const MovementForm = forwardRef((props, ref) => {
   const childConceptRef = useRef();
-  const { register, control } = props;
+  const childAreaRef = useRef();
+  const childDateRef = useRef();
+  const { register, control, errors } = props;
   const [areaId, setAreaId] = useState();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      cleanSelects() {
+        childConceptRef.current.setValue(null);
+        childAreaRef.current.setValue(null);
+        childDateRef.current.setValue(new Date());
+      }
+    }),
+    []
+  );
 
   const onAreaChange = areaId => {
     setAreaId(areaId);
@@ -27,6 +47,7 @@ const MovementForm = forwardRef((props, ref) => {
               register={register}
               isMulti={false}
               customOnChange={onAreaChange}
+              ref={childAreaRef}
             />
           </Col>
           <Col xs={3}>
@@ -37,9 +58,39 @@ const MovementForm = forwardRef((props, ref) => {
               ref={childConceptRef}
             />
           </Col>
+          <CustomDatePicker control={control} xs={3} ref={childDateRef} />
+          <Col xs={3}>
+            <Form.Label>Monto</Form.Label>
+            <InputValidated
+              register={register}
+              name="amount"
+              type="number"
+              isRequired
+              error={errors.amount}
+            ></InputValidated>
+          </Col>
         </Row>
         <Row>
-          <CustomDatePicker control={control} xs={3} />
+          <Col>
+            <Form.Label>Comentarios</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows="3"
+              ref={register}
+              name="comments"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={1}>
+            <Form.Check
+              type="checkbox"
+              name="isPaid"
+              label="Pagado"
+              ref={register}
+              defaultChecked={true}
+            />
+          </Col>
         </Row>
       </Form.Group>
     </>

@@ -8,7 +8,9 @@ namespace Encuentros.DTOs.General
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string Comments { get; set; }
+        public long ConceptId { get; set; }
         public ConceptDto Concept { get; set; }
+        public long MovementStatusId { get; set; }
         public MovementStatusDto MovementStatus { get; set; }
     }
 }

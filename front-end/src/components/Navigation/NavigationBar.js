@@ -23,17 +23,19 @@ const NavigationBar = props => {
                   Cuotas
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/Pilates/Profesores">
-                  Profesores
+                <NavDropdown.Item href="/Pilates/HorasProfesores">
+                  Horas Profesores
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/Pilates/PagoProfesores">
+                  Pago Profesores
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/Pilates/Alumnos">
                   Alumnos
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/Pilates/GestionClasesSemanales">
-                  Gestión Clases Semanales
+                <NavDropdown.Item href="/Pilates/Horarios">
+                  Horarios
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
               </NavDropdown>
               <NavDropdown title="General" id="ddlGeneral">
                 <NavDropdown.Item href="/General/Movimientos">

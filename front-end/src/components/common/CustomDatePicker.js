@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { Portal } from "react-overlays";
 import DatePicker from "react-datepicker";
 import es from "date-fns/locale/es";
@@ -6,8 +6,19 @@ import { Controller } from "react-hook-form";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
-const CustomDatePicker = ({ control, xs }) => {
+const CustomDatePicker = forwardRef((props, ref) => {
+  const { control, xs } = props;
   const [startDate, setStartDate] = useState(new Date());
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setValue(date) {
+        setStartDate(date);
+      }
+    }),
+    []
+  );
 
   const CalendarContainer = ({ children }) => {
     const el = document.getElementById("calendar-portal");
@@ -43,6 +54,6 @@ const CustomDatePicker = ({ control, xs }) => {
       />
     </Col>
   );
-};
+});
 
 export default CustomDatePicker;

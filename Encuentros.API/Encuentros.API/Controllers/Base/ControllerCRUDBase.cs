@@ -56,6 +56,8 @@ namespace Encuentros.API.Controllers.Base
             var entity = _mapper.Map<ENT>(dto);
             _repository.Create(entity);
 
+            entity = _repository.GetByIdInclude(entity.Id, IncludeExpressions);
+
             var response = _mapper.Map<DTO>(entity);
             return Ok(response);
         }
@@ -80,7 +82,7 @@ namespace Encuentros.API.Controllers.Base
 
             _repository.SaveChanges();
 
-            return Ok(new { Message = "ok"});
+            return Ok(new { Message = "ok" });
         }
 
         [HttpPut("{id}")]
