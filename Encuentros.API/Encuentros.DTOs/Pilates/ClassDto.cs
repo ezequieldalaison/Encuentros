@@ -17,20 +17,12 @@ namespace Encuentros.DTOs.Pilates
         public IList<ClassStudentDto> ClassStudents { get; set; }
         public bool IsClosed { get; set; }
 
-        public void Fill()
+        public void Fill(int quantityBeds)
         {
-            while (ClassStudents.Count() < 4)
+            while (ClassStudents.Count() < quantityBeds)
             {
                 ClassStudents.Add(new ClassStudentDto(StudentDto.StudentFree, false));
             }
-        }
-
-        public void AddStudent(StudentDto student, bool isIndividualClass)
-        {
-            if (ClassStudents.Count < 4)
-                ClassStudents.Add(new ClassStudentDto(student, isIndividualClass));
-            else
-                throw new ValidationException("No se puede agregar el alumno ya que la cantidad de alumnos en la clase supera la cantidad de lugares disponibles.");
         }
     }
 }

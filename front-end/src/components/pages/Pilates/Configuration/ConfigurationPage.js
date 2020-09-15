@@ -12,6 +12,7 @@ import InputValidated from "../../../common/InputValidated";
 import { useForm } from "react-hook-form";
 import FormBase from "../../../base/FormBase";
 import { toast } from "react-toastify";
+import ParameterCard from "../../../common/ParameterCard";
 
 const ConfigurationPage = ({ feeTypes, getFeeTypes, updateFeeTypes }) => {
   const { register, errors, handleSubmit } = useForm();
@@ -68,6 +69,11 @@ const ConfigurationPage = ({ feeTypes, getFeeTypes, updateFeeTypes }) => {
               </Accordion.Collapse>
             </Card>
           </Accordion>
+        </Col>
+      </Row>
+      <Row style={{ marginTop: "25px" }}>
+        <Col xs={12}>
+          <ParameterCard areaId={1} />
         </Col>
       </Row>
     </Container>

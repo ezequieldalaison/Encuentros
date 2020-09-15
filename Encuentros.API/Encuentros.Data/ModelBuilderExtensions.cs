@@ -99,6 +99,8 @@ namespace Encuentros.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Name);
                 x.Property(x => x.Value);
+                x.HasOne(x => x.Area);
+                x.Property(x => x.AreaId);
             });
         }
 

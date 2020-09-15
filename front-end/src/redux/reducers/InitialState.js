@@ -10,5 +10,6 @@ export default {
   classes: [],
   professionalWorkDays: [],
   movements: [],
-  professionalPayments: []
+  professionalPayments: [],
+  parameters: []
 };

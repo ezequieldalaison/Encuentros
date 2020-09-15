@@ -9,5 +9,6 @@ namespace Encuentros.DTOs.Common
     {
         public string Name { get; set; }
         public string Value { get; set; }
+        public long AreaId { get; set; }
     }
 }

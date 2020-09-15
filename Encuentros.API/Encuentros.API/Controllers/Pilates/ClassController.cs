@@ -3,7 +3,9 @@ using Encuentros.Data.Interfaces;
 using Encuentros.DTOs.Common;
 using Encuentros.DTOs.General;
 using Encuentros.DTOs.Pilates;
+using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.Pilates;
+using Encuentros.Logic.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,16 +22,19 @@ namespace Encuentros.API.Controllers.Pilates
         private readonly IGenericRepository<WeeklyClass> _weeklyClassRepo;
         private readonly IGenericRepository<IndividualClassStudent> _individualClassStudentRepo;
         private readonly IGenericRepository<ProfessionalWorkDay> _professionalWorkDayRepo;
+        private readonly IGenericRepository<Parameter> _parameterRepo;
         private readonly IMapper _mapper;
 
         public ClassController(IGenericAIRepository<WeeklyClass> weeklyClassRepo,
                                IGenericRepository<IndividualClassStudent> individualClassStudentRepo,
                                IGenericRepository<ProfessionalWorkDay> professionalWorkDayRepo,
+                               IGenericRepository<Parameter> parameterRepo,
                                IMapper mapper)
         {
             _weeklyClassRepo = weeklyClassRepo;
             _individualClassStudentRepo = individualClassStudentRepo;
             _professionalWorkDayRepo = professionalWorkDayRepo;
+            _parameterRepo = parameterRepo;
             _mapper = mapper;
         }
 
@@ -74,6 +79,7 @@ namespace Encuentros.API.Controllers.Pilates
         public ActionResult<IEnumerable<ClassDto>> GetByWeek(int week)
         {
             var weeklyClasses = _weeklyClassRepo.GetAllInclude(WeeklyClassIncludeExpressions);
+            var quantityBeds = Convert.ToInt32(_parameterRepo.GetById((long)ParameterEnum.QuantityBeds).Value);
 
             //var multiplier = 1 + week;
 
@@ -114,7 +120,7 @@ namespace Encuentros.API.Controllers.Pilates
                         classDto.ClassStudents.Add(new ClassStudentDto(s, true));
                     }
 
-                    classDto.Fill();
+                    classDto.Fill(quantityBeds);
 
                     response.Add(classDto);
                 }
@@ -130,6 +136,7 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var weeklyClass = _weeklyClassRepo.GetByQueryInclude(x => x.Day.Id == (long)criteria.Date.DayOfWeek && x.Hour == criteria.Hour,
                                                                  WeeklyClassIncludeExpressions).SingleOrDefault();
+            var quantityBeds = Convert.ToInt32(_parameterRepo.GetById((long)ParameterEnum.QuantityBeds).Value);
 
             if (weeklyClass == null)
                 return ValidationProblem("No se encontró la clase");
@@ -158,7 +165,7 @@ namespace Encuentros.API.Controllers.Pilates
                 }
             }
 
-            classDto.Fill();
+            classDto.Fill(quantityBeds);
 
             return Ok(classDto);
         }

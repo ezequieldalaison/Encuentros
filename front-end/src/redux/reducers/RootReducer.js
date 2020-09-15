@@ -11,6 +11,7 @@ import ClassReducer from "./Pilates/ClassReducer";
 import ProfessionalWorkDayReducer from "./Pilates/ProfessionalWorkDayReducer";
 import MovementReducer from "./General/MovementReducer";
 import ProfessionalPaymentReducer from "./Pilates/ProfessionalPaymentReducer";
+import ParameterReducer from "./Common/ParameterReducer";
 
 const RootReducer = combineReducers({
   professional: ProfessionalReducer,
@@ -24,7 +25,8 @@ const RootReducer = combineReducers({
   classes: ClassReducer,
   professionalWorkDays: ProfessionalWorkDayReducer,
   movements: MovementReducer,
-  professionalPayments: ProfessionalPaymentReducer
+  professionalPayments: ProfessionalPaymentReducer,
+  parameters: ParameterReducer
 });
 
 export default RootReducer;
