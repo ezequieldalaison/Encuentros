@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Encuentros.API.Controllers.Base;
 using Encuentros.Data.Interfaces;
 using Encuentros.DTOs.Pilates;
 using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Encuentros.API.Controllers.Pilates

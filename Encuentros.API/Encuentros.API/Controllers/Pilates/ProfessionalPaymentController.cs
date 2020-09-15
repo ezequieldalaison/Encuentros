@@ -5,6 +5,7 @@ using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.General;
 using Encuentros.Logic.Entities.Pilates;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Encuentros.API.Controllers.Pilates
@@ -40,6 +41,9 @@ namespace Encuentros.API.Controllers.Pilates
             if (month == null)
                 return NotFound("Month not found");
 
+            if (dto.QuantityHours <= 0)
+                return ValidationProblem("La cantidad de horas debe ser mayor a cero");
+
             var paymentRepeted = _repository.GetByQuery(x => x.ProfessionalId == dto.ProfessionalId && x.MonthId == dto.MonthId);
             if (paymentRepeted != null && paymentRepeted.Count() > 0)
                 return ValidationProblem("El professional ya tiene el mes abonado.");
@@ -48,11 +52,29 @@ namespace Encuentros.API.Controllers.Pilates
                                                     professional.FullName + " | " + month.Name);
             _repository.Create(payment);
 
-            var response = _repository.GetByIdInclude(payment.Id,
-                                                        x => x.Month,
-                                                        x => x.Professional,
-                                                        x => x.Movement,
-                                                        x => x.Movement.MovementStatus);
+            var entity = _repository.GetByIdInclude(payment.Id,
+                                                    x => x.Month,
+                                                    x => x.Professional,
+                                                    x => x.Movement,
+                                                    x => x.Movement.MovementStatus);
+
+            var response = _mapper.Map<ProfessionalPaymentDto>(entity);
+
+            return Ok(response);
+        }
+
+
+
+        [HttpGet("month/{monthId}")]
+        public ActionResult<IEnumerable<ProfessionalPaymentDto>> GetByMonth(long monthId)
+        {
+            var payments = _repository.GetByQueryInclude(x => x.Month.Id == monthId || monthId == 0,
+                                                         x => x.Month,
+                                                         x => x.Professional,
+                                                         x => x.Movement,
+                                                         x => x.Movement.MovementStatus);
+
+            var response = _mapper.Map<IEnumerable<ProfessionalPaymentDto>>(payments);
 
             return Ok(response);
         }

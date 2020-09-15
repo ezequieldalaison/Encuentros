@@ -19,8 +19,8 @@ const NavigationBar = props => {
                 <NavDropdown.Item href="/Pilates/Clases">
                   Clases
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/Pilates/Cuotas">
-                  Cuotas
+                <NavDropdown.Item href="/Pilates/Horarios">
+                  Horarios
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/Pilates/HorasProfesores">
@@ -29,12 +29,16 @@ const NavigationBar = props => {
                 <NavDropdown.Item href="/Pilates/PagoProfesores">
                   Pago Profesores
                 </NavDropdown.Item>
+                <NavDropdown.Divider />
                 <NavDropdown.Item href="/Pilates/Alumnos">
                   Alumnos
                 </NavDropdown.Item>
+                <NavDropdown.Item href="/Pilates/Cuotas">
+                  Cuotas
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/Pilates/Horarios">
-                  Horarios
+                <NavDropdown.Item href="/Pilates/Configuracion">
+                  Configuración
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="General" id="ddlGeneral">
@@ -45,9 +49,6 @@ const NavigationBar = props => {
                   Profesionales
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/Configuration">
-                  Configuración
-                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Nav className="ml-auto">

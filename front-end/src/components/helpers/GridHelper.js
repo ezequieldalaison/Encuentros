@@ -210,8 +210,7 @@ export const PROFESSIONAL_PAYMENTS = [
   },
   {
     Header: "Mes",
-    accessor: data =>
-      data.id > 0 ? formatFullDate(data.date) : getMonthName(data.date)
+    accessor: "month.name"
   },
   {
     Header: "Cantidad de Horas",

@@ -9,5 +9,6 @@ export default {
   areas: [],
   classes: [],
   professionalWorkDays: [],
-  movements: []
+  movements: [],
+  professionalPayments: []
 };

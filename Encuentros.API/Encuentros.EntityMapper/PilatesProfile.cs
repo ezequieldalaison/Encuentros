@@ -10,7 +10,7 @@ namespace Encuentros.EntityMapper
     {
         public PilatesProfile()
         {
-            CreateMap<Entity.FeeType, DTO.FeeTypeDto>();
+            CreateMap<Entity.FeeType, DTO.FeeTypeDto>().ReverseMap();
 
             CreateMap<Entity.Student, DTO.StudentDto>()
                 .ForMember(dest => dest.FullName, opt => opt.Ignore())
@@ -25,6 +25,9 @@ namespace Encuentros.EntityMapper
 
             CreateMap<Entity.ProfessionalWorkDay, DTO.ProfessionalWorkDayDto>()
                 .ReverseMap();
+
+            CreateMap<Entity.ProfessionalPayment, DTO.ProfessionalPaymentDto>()
+                .ReverseMap(); 
         }
     }
 }

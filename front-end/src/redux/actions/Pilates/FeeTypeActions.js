@@ -10,6 +10,10 @@ export function getFeeTypeSuccess(feeType) {
   return { type: Types.GET_FEE_TYPE_SUCCESS, feeType };
 }
 
+export function updateFeeTypesSuccess(feeTypes) {
+  return { type: Types.UPDATE_FEE_TYPES_SUCCESS, feeTypes };
+}
+
 export function getFeeTypes() {
   return function(dispatch) {
     dispatch(beginApiCall());
@@ -26,6 +30,16 @@ export function getFeeType(feeTypeId) {
     return FeeTypeApi.getFeeType(feeTypeId).then(feeType => {
       dispatch(getFeeTypeSuccess(feeType));
       return feeType;
+    });
+  };
+}
+
+export function updateFeeTypes(feeTypes) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return FeeTypeApi.updateFeeTypes(feeTypes).then(feeTypes => {
+      dispatch(updateFeeTypesSuccess(feeTypes));
+      return feeTypes;
     });
   };
 }

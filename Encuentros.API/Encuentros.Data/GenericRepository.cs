@@ -93,6 +93,12 @@ namespace Encuentros.Data
               });
         }
 
+        public void AttachEntity(TEntity entity)
+        {
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
         public void AddEntiy(TEntity entity)
         {
             _dbSet.Add(entity);

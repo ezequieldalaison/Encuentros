@@ -8,7 +8,6 @@ import Profile from "./components/Profile";
 import PrivateRoute from "./components/navigation/PrivateRoute";
 import PublicRoute from "./components/navigation/PublicRoute";
 import AuthContext from "./contexts/AuthContext";
-import Configuration from "./components/pages/General/Configuration";
 import PageNotFound from "./components/pages/PageNotFound";
 import { Route, Switch } from "react-router-dom";
 import Professionals from "./components/pages/General/Professional/ProfessionalPage";
@@ -23,6 +22,7 @@ import FeePage from "./components/pages/Pilates/Fee/FeePage";
 import ClassManagementPage from "./components/pages/Pilates/ClassManagement/ClassManagementPage";
 import ProfessionalWorkDayPage from "./components/pages/Pilates/ProfessionalWorkDay/ProfessionalWorkDayPage";
 import ProfessionalPaymentPage from "./components/pages/Pilates/ProfessionalPayment/ProfessionalPaymentPage";
+import ConfigurationPage from "./components/pages/Pilates/Configuration/ConfigurationPage";
 
 class App extends Component {
   constructor(props) {
@@ -44,7 +44,6 @@ class App extends Component {
           <PublicRoute path="/Callback" component={Callback} />
 
           <PrivateRoute path="/Profile" component={Profile} />
-          <PrivateRoute path="/Configuration" component={Configuration} />
           <PrivateRoute
             path="/General/Profesionales"
             component={Professionals}
@@ -66,6 +65,10 @@ class App extends Component {
             component={ProfessionalPaymentPage}
           />
           <PrivateRoute path="/Pilates/Cuotas" component={FeePage} />
+          <PrivateRoute
+            path="/Pilates/Configuracion"
+            component={ConfigurationPage}
+          />
 
           <Route component={PageNotFound} />
         </Switch>

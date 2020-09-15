@@ -7,23 +7,23 @@ export function getSuggestedProfessionalsSuccess(pwds) {
 }
 
 export function saveProfessionalWorkDaySuccess(pwd) {
-  return { type: Types.SAVE_PROFESSIONAL_WORK_DAY, pwd };
+  return { type: Types.SAVE_PROFESSIONAL_WORK_DAY_SUCCESS, pwd };
 }
 
 export function saveProfessionalWorkDaysSuccess(pwd) {
-  return { type: Types.SAVE_PROFESSIONAL_WORK_DAYS, pwd };
+  return { type: Types.SAVE_PROFESSIONAL_WORK_DAYS_SUCCESS, pwd };
 }
 
 export function getProfessionalWorkDaysByMonthSuccess(professionalWorkDays) {
   return {
-    type: Types.GET_PROFESSIONAL_WORK_DAY_BY_MONTH,
+    type: Types.GET_PROFESSIONAL_WORK_DAY_BY_MONTH_SUCCESS,
     professionalWorkDays
   };
 }
 
 export function getProfessionalWorkDaysByYearSuccess(professionalWorkDays) {
   return {
-    type: Types.GET_PROFESSIONAL_WORK_DAY_BY_YEAR,
+    type: Types.GET_PROFESSIONAL_WORK_DAY_BY_YEAR_SUCCESS,
     professionalWorkDays
   };
 }

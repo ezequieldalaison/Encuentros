@@ -26,7 +26,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
     getProfessionalWorkedHoursByMonth
   } = props;
   const [professionalHourVaue, setProfessionalHourVaue] = useState();
-  const [amount, setAmount] = useState(111);
+  const [amount, setAmount] = useState(0);
   const childProfessionalRef = useRef();
   const childMonthRef = useRef();
   const watchFields = watch(["quantityHours", "valueHour"]);
@@ -48,11 +48,16 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
     });
   }, [getParameter, setFormValue]);
 
+  useEffect(() => {
+    if (watchFields.quantityHours && watchFields.valueHour)
+      setAmount(watchFields.quantityHours * watchFields.valueHour);
+  }, [watchFields]);
+
   const onChangeProfessional = selectedOption => {
     getProfessionalWorkedHoursByMonth({
       professionalId: selectedOption.value,
       monthId: childMonthRef.current.getValue().value
-    }).then(q => setFormValue("quantityHours", q, { shouldValidate: true }));
+    }).then(q => changeQuantityHours(q));
   };
 
   const onChangeMonth = selectedOption => {
@@ -61,11 +66,11 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
       getProfessionalWorkedHoursByMonth({
         professionalId: professional.value,
         monthId: selectedOption.value
-      }).then(q => setFormValue("quantityHours", q, { shouldValidate: true }));
+      }).then(q => changeQuantityHours(q));
   };
 
-  const onAmountChange = () => {
-    setAmount(watchFields.quantityHours * watchFields.valueHour);
+  const changeQuantityHours = quantity => {
+    setFormValue("quantityHours", quantity, { shouldValidate: true });
   };
 
   return (
@@ -77,6 +82,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             areaId={1}
             ref={childProfessionalRef}
             onChange={onChangeProfessional}
+            register={register}
           />
         </Col>
         <Col xs={3}>
@@ -97,7 +103,6 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             type="number"
             isRequired
             error={errors.quantityHours}
-            onChange={onAmountChange}
           ></InputValidated>
         </Col>
         <Col xs={3}>
@@ -109,7 +114,6 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             isRequired
             error={errors.valueHour}
             defaultValue={professionalHourVaue}
-            onChange={onAmountChange}
           ></InputValidated>
         </Col>
         <Col xs={3}>

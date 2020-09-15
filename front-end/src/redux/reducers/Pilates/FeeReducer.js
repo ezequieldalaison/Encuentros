@@ -8,11 +8,6 @@ export default function FeeReducer(state = InitialState.fees, action) {
     case Types.CREATE_FEE_SUCCESS: {
       return [...state, { ...action.fee }];
     }
-    case Types.UPDATE_STUDENT_SUCCESS: {
-      return state.map(student =>
-        student.id === action.student.id ? action.student : student
-      );
-    }
     default:
       return state;
   }

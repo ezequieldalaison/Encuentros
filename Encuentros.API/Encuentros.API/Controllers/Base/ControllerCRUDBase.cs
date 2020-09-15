@@ -62,7 +62,6 @@ namespace Encuentros.API.Controllers.Base
             return Ok(response);
         }
 
-
         [HttpPost("list")]
         public virtual ActionResult CreateList(List<DTO> dtos)
         {
@@ -95,6 +94,25 @@ namespace Encuentros.API.Controllers.Base
             var entity = _mapper.Map<ENT>(dto);
             _repository.Update(entity);
             return Ok(dto);
+        }
+
+
+        [HttpPut("list")]
+        public virtual ActionResult UpdateList(List<DTO> dtos)
+        {
+            foreach (var dto in dtos)
+            {
+                var entityRepo = _repository.GetByIdInclude(dto.Id, IncludeExpressions);
+                if (entityRepo == null)
+                    return NotFound();
+
+                var entity = _mapper.Map<ENT>(dto);
+                _repository.AttachEntity(entity);
+            }
+
+            _repository.SaveChanges();
+
+            return Ok(new { Message = "ok" });
         }
 
         [HttpDelete("{id}")]

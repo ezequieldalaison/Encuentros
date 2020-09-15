@@ -10,7 +10,7 @@ import * as MonthActions from "../../redux/actions/Common/MonthActions";
 import { getCurrentMonth } from "../helpers/DateHelper";
 
 const MonthSelect = forwardRef((props, ref) => {
-  const { register, getMonths } = props;
+  const { register, getMonths, addOptionAll } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -42,12 +42,13 @@ const MonthSelect = forwardRef((props, ref) => {
   useEffect(() => {
     getMonths().then(months => {
       const mappedMonths = mapMonths(months);
+      if (addOptionAll) mappedMonths.unshift({ label: "TODOS", value: "0" });
       setOptions(mappedMonths);
 
       var month = mappedMonths.filter(x => x.value === getCurrentMonth());
       setSelectValue(month[0]);
     });
-  }, [getMonths]);
+  }, [getMonths, addOptionAll]);
 
   const mapMonths = months => {
     return months.map(m => {

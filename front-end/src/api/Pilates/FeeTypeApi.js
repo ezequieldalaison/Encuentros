@@ -17,3 +17,13 @@ export function getFeeType(feeTypeId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function updateFeeTypes(feeTypes) {
+  return fetch(baseUrl + "list", {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(feeTypes)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
