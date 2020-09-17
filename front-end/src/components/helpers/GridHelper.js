@@ -27,7 +27,7 @@ export const STUDENTS_GRID = [
     canSort: false
   },
   {
-    Header: "-",
+    Header: "customButtons:edit|activateInactivate",
     accessor: "",
     canSort: false
   }
@@ -74,7 +74,7 @@ export const PROFESSIONALS_GRID = [
     canSort: false
   },
   {
-    Header: "-",
+    Header: "customButtons:edit|activateInactivate",
     accessor: "",
     canSort: false
   }
@@ -173,7 +173,7 @@ export const WEEKLY_CLASSES_GRID = [
     accessor: "isActive"
   },
   {
-    Header: "-",
+    Header: "customButtons:edit|activateInactivate",
     accessor: "",
     canSort: false
   }

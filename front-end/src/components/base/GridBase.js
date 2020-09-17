@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import { useTable, useSortBy } from "react-table";
 import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
+import { EditButton, ActivateInactivateButton } from "./GridButtons";
 
 const GridBase = props => {
   const {
@@ -31,6 +31,34 @@ const GridBase = props => {
           ? false
           : true)
   );
+
+  const renderButtons = (header, cell, row) => {
+    let buttons = [];
+
+    if (header.includes("edit")) {
+      buttons.push(<EditButton onUpdate={props.onUpdate} id={row.values.id} />);
+    }
+
+    if (header.includes("activateInactivate")) {
+      buttons.push(
+        <ActivateInactivateButton
+          id={row.values.id}
+          inactivate={props.inactivate}
+          activate={props.activate}
+          isActive={row.values.isActive}
+        />
+      );
+    }
+
+    const td = (
+      <td style={{ width: "auto" }} key={cell.column.Header}>
+        {buttons}
+      </td>
+    );
+
+    return td;
+  };
+
   return (
     <Table
       striped
@@ -46,7 +74,9 @@ const GridBase = props => {
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
               <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                {column.render("Header")}
+                {column.render("Header").includes("customButtons")
+                  ? "-"
+                  : column.render("Header")}
                 <span>
                   {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
                 </span>
@@ -65,31 +95,8 @@ const GridBase = props => {
                   <td {...cell.getCellProps()}>
                     <Form.Check type="checkbox" disabled checked={cell.value} />
                   </td>
-                ) : cell.column.Header === "-" ? (
-                  <td style={{ width: "auto" }} key={cell.column.Header}>
-                    <Button
-                      variant="link"
-                      onClick={() => props.onUpdate(row.values.id)}
-                      style={{
-                        fontSize: "small",
-                        padding: "0",
-                        marginRight: "5px"
-                      }}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="link"
-                      onClick={() =>
-                        row.values.isActive
-                          ? props.inactivate(row.values.id)
-                          : props.activate(row.values.id)
-                      }
-                      style={{ fontSize: "small", padding: "0" }}
-                    >
-                      {row.values.isActive ? "Inactivar" : "Activar"}
-                    </Button>
-                  </td>
+                ) : cell.column.Header.includes("customButtons") ? (
+                  renderButtons(cell.column.Header, cell, row)
                 ) : (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 );
