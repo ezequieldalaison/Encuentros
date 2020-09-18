@@ -27,3 +27,9 @@ export function getProfessionalPayment(professionalPaymentId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function deleteProfessionalPayment(professionalPaymentId) {
+  return fetch(baseUrl + professionalPaymentId, { method: "DELETE" })
+    .then(handleResponse)
+    .catch(handleError);
+}

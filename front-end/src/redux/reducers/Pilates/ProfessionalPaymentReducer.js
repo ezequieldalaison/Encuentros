@@ -18,6 +18,12 @@ export default function ProfessionalPaymentReducer(
           : professionalPayment
       );
     }
+    case Types.DELETE_PROFESSIONAL_PAYMENT_SUCCESS: {
+      return state.filter(
+        professionalPayment =>
+          professionalPayment.id !== action.professionalPaymentId
+      );
+    }
     default:
       return state;
   }

@@ -123,6 +123,7 @@ namespace Encuentros.API.Controllers.Base
                 return NotFound();
 
             _repository.Delete(id);
+            _repository.SaveChanges();
             return Ok();
         }
 

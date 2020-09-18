@@ -15,6 +15,20 @@ const EditButton = props => (
   </Button>
 );
 
+const DeleteButton = props => (
+  <Button
+    variant="link"
+    onClick={() => props.onDelete(props.id)}
+    style={{
+      fontSize: "small",
+      padding: "0",
+      marginRight: "5px"
+    }}
+  >
+    Eliminar
+  </Button>
+);
+
 const ActivateInactivateButton = props => (
   <Button
     variant="link"
@@ -27,4 +41,4 @@ const ActivateInactivateButton = props => (
   </Button>
 );
 
-export { EditButton, ActivateInactivateButton };
+export { EditButton, DeleteButton, ActivateInactivateButton };

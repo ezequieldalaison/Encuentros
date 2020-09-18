@@ -79,7 +79,6 @@ namespace Encuentros.Data
         {
             var entity = GetById(id);
             _dbSet.Remove(entity);
-            _context.SaveChanges();
         }
 
         private IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)

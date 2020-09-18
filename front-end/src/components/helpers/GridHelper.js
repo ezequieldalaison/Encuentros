@@ -221,7 +221,7 @@ export const PROFESSIONAL_PAYMENTS = [
     accessor: "movement.amount"
   },
   {
-    Header: "customButtons:edit",
+    Header: "customButtons:edit|delete",
     accessor: "",
     canSort: false
   }

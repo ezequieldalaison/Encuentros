@@ -8,6 +8,6 @@
     [MovementId] BIGINT NOT NULL, 
     CONSTRAINT [FK_ProfessionalPayments_Professional_ProfessionalId] FOREIGN KEY ([ProfessionalId]) REFERENCES [dbo].Professionals ([Id]),
     CONSTRAINT [FK_ProfessionalPayments_Months_MonthId] FOREIGN KEY ([MonthId]) REFERENCES [dbo].Months ([Id]),
-    CONSTRAINT [FK_ProfessionalPayments_Movements_MovementId] FOREIGN KEY ([MovementId]) REFERENCES [dbo].Movements ([Id]), 
+    CONSTRAINT [FK_ProfessionalPayments_Movements_MovementId] FOREIGN KEY ([MovementId]) REFERENCES [dbo].Movements ([Id]) ON DELETE CASCADE, 
     CONSTRAINT [UK_ProfessionalPayments_ProfessionalId_MonthId] UNIQUE (ProfessionalId, MonthId)
 )

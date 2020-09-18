@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import GridBase from "./GridBase";
 import FormBase from "../base/FormBase";
 import { useForm } from "react-hook-form";
+import Modal from "react-bootstrap/Modal";
 
 const PageBase = ({
   isUsingRef,
@@ -29,6 +30,8 @@ const PageBase = ({
   const [showSearchState, setShowSearchState] = useState(false);
   const [showGridState, setShowGridState] = useState(true);
   const [showFormState, setShowFormState] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState();
   const addUpdateForm = useForm();
   const searchForm = useForm();
   const childFormRef = useRef();
@@ -56,6 +59,16 @@ const PageBase = ({
         addUpdateForm.setValue(key, entity[key], { shouldValidate: true });
       }
     });
+  };
+
+  const onDelete = id => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
+  const onConfirmDelete = () => {
+    props.onDelete(deleteId).catch(e => console.log(e));
+    setShowDeleteModal(false);
   };
 
   const onCancelForm = () => {
@@ -166,6 +179,7 @@ const PageBase = ({
                     activate={activateBase}
                     inactivate={inactivateBase}
                     onUpdate={onUpdate}
+                    onDelete={onDelete}
                   />
                   {hideAddButton ? null : (
                     <Row>
@@ -220,6 +234,18 @@ const PageBase = ({
           </Col>
         </Row>
       ) : null}
+
+      <Modal show={showDeleteModal} backdrop="static" keyboard={false}>
+        <Modal.Body>¿Está seguro que desea eliminar?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={onConfirmDelete}>
+            Aceptar
+          </Button>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

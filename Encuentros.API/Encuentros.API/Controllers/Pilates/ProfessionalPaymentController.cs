@@ -20,16 +20,19 @@ namespace Encuentros.API.Controllers.Pilates
         private readonly IGenericRepository<Professional> _professionalRepo;
         private readonly IGenericRepository<Month> _monthRepo;
         private readonly IMapper _mapper;
+        private readonly IGenericRepository<Movement> _movementRepo;
 
         public ProfessionalPaymentController(IGenericRepository<ProfessionalPayment> repository,
                                              IGenericRepository<Professional> professionalRepo,
                                              IGenericRepository<Month> monthRepo,
+                                             IGenericRepository<Movement> movementRepo,
                                              IMapper mapper)
         {
             _repository = repository;
             _professionalRepo = professionalRepo;
             _monthRepo = monthRepo;
             _mapper = mapper;
+            _movementRepo = movementRepo;
         }
 
         private Expression<Func<ProfessionalPayment, object>>[] IncludeExpressions
@@ -99,7 +102,6 @@ namespace Encuentros.API.Controllers.Pilates
             return Ok(response);
         }
 
-
         [HttpPut("{professionalPaymentId}")]
         public ActionResult Update(ProfessionalPaymentToCreateDto dto)
         {
@@ -135,6 +137,22 @@ namespace Encuentros.API.Controllers.Pilates
 
                 return Ok(response);
             }
+        }
+
+
+        [HttpDelete("{professionalPaymentId}")]
+        public ActionResult Delete(long professionalPaymentId)
+        {
+            var entityRepo = _repository.GetByIdInclude(professionalPaymentId, IncludeExpressions);
+            if (entityRepo == null)
+                return NotFound();
+
+            _repository.Delete(professionalPaymentId);
+            _movementRepo.Delete(entityRepo.Movement.Id);
+
+            _repository.SaveChanges();
+
+            return Ok(professionalPaymentId);
         }
     }
 }

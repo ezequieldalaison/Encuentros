@@ -2,7 +2,11 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import { useTable, useSortBy } from "react-table";
 import Form from "react-bootstrap/Form";
-import { EditButton, ActivateInactivateButton } from "./GridButtons";
+import {
+  EditButton,
+  ActivateInactivateButton,
+  DeleteButton
+} from "./GridButtons";
 
 const GridBase = props => {
   const {
@@ -38,8 +42,18 @@ const GridBase = props => {
     if (header.includes("edit")) {
       buttons.push(
         <EditButton
-          key={row.values.id}
+          key={"edit" + row.values.id}
           onUpdate={props.onUpdate}
+          id={row.values.id}
+        />
+      );
+    }
+
+    if (header.includes("delete")) {
+      buttons.push(
+        <DeleteButton
+          key={"delete" + row.values.id}
+          onDelete={props.onDelete}
           id={row.values.id}
         />
       );

@@ -198,7 +198,7 @@ namespace Encuentros.Data
                 x.Property(x => x.QuantityHours);
                 x.Property(x => x.ValueHour);
                 x.Property(x => x.MovementId);
-                x.HasOne(x => x.Movement);
+                x.HasOne(x => x.Movement).WithOne().HasForeignKey<ProfessionalPayment>(x => x.MovementId).OnDelete(DeleteBehavior.ClientCascade);
             });
         }
     }

@@ -203,10 +203,7 @@ namespace Encuentros.API.Controllers.Pilates
                 //Remove the deleted students
                 var toRemove = individualClassStudents.Where(x => !dto.ClassStudents.Where(x => x.IsIndividualClass)
                                                                       .Select(x => x.Student.Id).Contains(x.StudentId)).ToList();
-                foreach (var item in toRemove)
-                {
-                    _individualClassStudentRepo.Delete(item.Id);
-                }
+                DeleteIndividualClasses(toRemove);
 
                 //And finally we add the new IndividualClassStudent
                 var toAdd = dto.ClassStudents.Where(x => x.IsIndividualClass && !individualClassStudents.Select(p => p.StudentId).Contains(x.Student.Id)).ToList();
@@ -218,6 +215,15 @@ namespace Encuentros.API.Controllers.Pilates
 
                 return Get(new GetClassDto { Date = dto.Date, Hour = dto.Hour });
             }
+        }
+
+        private void DeleteIndividualClasses(List<IndividualClassStudent> toRemove)
+        {
+            foreach (var item in toRemove)
+            {
+                _individualClassStudentRepo.Delete(item.Id);
+            }
+            _individualClassStudentRepo.SaveChanges();
         }
     }
 }

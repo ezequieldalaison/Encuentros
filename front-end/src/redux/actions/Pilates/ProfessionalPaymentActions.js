@@ -30,6 +30,13 @@ export function getProfessionalPaymentSuccess(professionalPayment) {
   };
 }
 
+export function deleteProfessionalPaymentSuccess(professionalPaymentId) {
+  return {
+    type: Types.DELETE_PROFESSIONAL_PAYMENT_SUCCESS,
+    professionalPaymentId
+  };
+}
+
 export function saveProfessionalPayment(professionalPayment) {
   return function(dispatch) {
     dispatch(beginApiCall());
@@ -67,6 +74,22 @@ export function getProfessionalPayment(professionalPaymentId) {
       .then(professionalPayment => {
         dispatch(getProfessionalPaymentSuccess(professionalPayment));
         return professionalPayment;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function deleteProfessionalPayment(professionalPaymentId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalPaymentApi.deleteProfessionalPayment(
+      professionalPaymentId
+    )
+      .then(id => {
+        dispatch(deleteProfessionalPaymentSuccess(id));
+        return id;
       })
       .catch(error => {
         throw error;

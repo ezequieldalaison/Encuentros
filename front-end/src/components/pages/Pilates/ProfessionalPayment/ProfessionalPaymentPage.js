@@ -12,7 +12,8 @@ const ProfessionalPaymentPage = ({
   professionalPayments,
   saveProfessionalPayment,
   getProfessionalPaymentsPerMonth,
-  getProfessionalPayment
+  getProfessionalPayment,
+  deleteProfessionalPayment
 }) => {
   const columns = React.useMemo(() => PROFESSIONAL_PAYMENTS, []);
   const [paymentUnderUpdate, setPaymentUnderUpdate] = useState();
@@ -54,6 +55,12 @@ const ProfessionalPaymentPage = ({
     );
   };
 
+  const onDelete = id => {
+    return deleteProfessionalPayment(id).then(p =>
+      toast.success("El pago se eliminó correctamente")
+    );
+  };
+
   return (
     <PageBase
       isUsingRef
@@ -66,6 +73,7 @@ const ProfessionalPaymentPage = ({
       getEntity={getEntity}
       setEntityUnderUpdate={setPaymentUnderUpdate}
       isEditing={isEditing}
+      onDelete={onDelete}
     />
   );
 };
@@ -80,7 +88,9 @@ const mapDispatchToProps = {
   saveProfessionalPayment: ProfessionalPaymentActions.saveProfessionalPayment,
   getProfessionalPaymentsPerMonth:
     ProfessionalPaymentActions.getProfessionalPaymentsPerMonth,
-  getProfessionalPayment: ProfessionalPaymentActions.getProfessionalPayment
+  getProfessionalPayment: ProfessionalPaymentActions.getProfessionalPayment,
+  deleteProfessionalPayment:
+    ProfessionalPaymentActions.deleteProfessionalPayment
 };
 
 export default connect(
