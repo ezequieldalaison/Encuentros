@@ -21,5 +21,10 @@ namespace Encuentros.Logic.Entities.General
         public virtual Concept Concept { get; private set; }
         public virtual long MovementStatusId { get; private set; }
         public virtual MovementStatus MovementStatus { get; private set; }
+
+        public void UpdateAmount(decimal amount)
+        {
+            Amount = amount;
+        }
     }
 }

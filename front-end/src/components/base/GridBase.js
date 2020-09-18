@@ -36,7 +36,13 @@ const GridBase = props => {
     let buttons = [];
 
     if (header.includes("edit")) {
-      buttons.push(<EditButton onUpdate={props.onUpdate} id={row.values.id} />);
+      buttons.push(
+        <EditButton
+          key={row.values.id}
+          onUpdate={props.onUpdate}
+          id={row.values.id}
+        />
+      );
     }
 
     if (header.includes("activateInactivate")) {

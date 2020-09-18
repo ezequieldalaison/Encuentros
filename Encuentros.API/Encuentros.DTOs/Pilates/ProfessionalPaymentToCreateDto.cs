@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Encuentros.DTOs.Base;
+using System;
 
 namespace Encuentros.DTOs.Pilates
 {
-    public class ProfessionalPaymentToCreateDto
+    public class ProfessionalPaymentToCreateDto : DtoBase
     {
         public long ProfessionalId { get; set; }
         public long MonthId { get; set; }

@@ -23,15 +23,22 @@ export function getProfessionalPaymentsPerMonthSuccess(professionalPayments) {
   };
 }
 
+export function getProfessionalPaymentSuccess(professionalPayment) {
+  return {
+    type: Types.GET_PROFESSIONAL_PAYMENT_SUCCESS,
+    professionalPayment
+  };
+}
+
 export function saveProfessionalPayment(professionalPayment) {
   return function(dispatch) {
     dispatch(beginApiCall());
     return ProfessionalPaymentApi.saveProfessionalPayment(professionalPayment)
       .then(savedprofessionalPayment => {
         professionalPayment.id
-          ? dispatch(createProfessionalPaymentSuccess(savedprofessionalPayment))
+          ? dispatch(updateProfessionalPaymentSuccess(savedprofessionalPayment))
           : dispatch(
-              updateProfessionalPaymentSuccess(savedprofessionalPayment)
+              createProfessionalPaymentSuccess(savedprofessionalPayment)
             );
       })
       .catch(error => {
@@ -46,6 +53,20 @@ export function getProfessionalPaymentsPerMonth(monthId) {
     return ProfessionalPaymentApi.getProfessionalPaymentsPerMonth(monthId)
       .then(professionalPayments => {
         dispatch(getProfessionalPaymentsPerMonthSuccess(professionalPayments));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getProfessionalPayment(professionalPaymentId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalPaymentApi.getProfessionalPayment(professionalPaymentId)
+      .then(professionalPayment => {
+        dispatch(getProfessionalPaymentSuccess(professionalPayment));
+        return professionalPayment;
       })
       .catch(error => {
         throw error;

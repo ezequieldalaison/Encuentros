@@ -11,6 +11,13 @@ export default function ProfessionalPaymentReducer(
     case Types.CREATE_PROFESSIONAL_PAYMENT_SUCCESS: {
       return [...state, { ...action.professionalPayment }];
     }
+    case Types.UPDATE_PROFESSIONAL_PAYMENT_SUCCESS: {
+      return state.map(professionalPayment =>
+        professionalPayment.id === action.professionalPayment.id
+          ? action.professionalPayment
+          : professionalPayment
+      );
+    }
     default:
       return state;
   }

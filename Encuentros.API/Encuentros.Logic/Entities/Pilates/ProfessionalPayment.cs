@@ -27,5 +27,12 @@ namespace Encuentros.Logic.Entities.Pilates
         public virtual decimal ValueHour { get; private set; }
         public virtual long MovementId { get; private set; }
         public virtual Movement Movement { get; private set; }
+
+        public void Update(int quantityHours, decimal valueHour, decimal amount)
+        {
+            QuantityHours = quantityHours;
+            ValueHour = valueHour;
+            Movement.UpdateAmount(amount);
+        }
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PROFESSIONAL_PAYMENTS } from "../../../helpers/GridHelper";
 import PageBase from "../../../base/PageBase";
 import ProfessionalPaymentForm from "./ProfessionalPaymentForm";
@@ -11,13 +11,20 @@ import ProfessionalPaymentSearch from "./ProfessionalPaymentSearch";
 const ProfessionalPaymentPage = ({
   professionalPayments,
   saveProfessionalPayment,
-  getProfessionalPaymentsPerMonth
+  getProfessionalPaymentsPerMonth,
+  getProfessionalPayment
 }) => {
   const columns = React.useMemo(() => PROFESSIONAL_PAYMENTS, []);
+  const [paymentUnderUpdate, setPaymentUnderUpdate] = useState();
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     getProfessionalPaymentsPerMonth(getCurrentMonth());
   }, [getProfessionalPaymentsPerMonth]);
+
+  useEffect(() => {
+    setIsEditing(!!paymentUnderUpdate);
+  }, [paymentUnderUpdate]);
 
   const search = data => {
     getProfessionalPaymentsPerMonth(data.monthId);
@@ -29,8 +36,21 @@ const ProfessionalPaymentPage = ({
   };
 
   const onSubmit = data => {
+    if (paymentUnderUpdate) {
+      data = { ...paymentUnderUpdate, ...data };
+    }
+
     return saveProfessionalPayment(data).then(e =>
       toast.success("El pago se guardó correctamente")
+    );
+  };
+
+  const getEntity = professionalPaymentId => {
+    return getProfessionalPayment(professionalPaymentId).then(
+      professionalPayment => {
+        console.log(professionalPayment);
+        return professionalPayment;
+      }
     );
   };
 
@@ -43,6 +63,9 @@ const ProfessionalPaymentPage = ({
       onSubmit={onSubmit}
       search={ProfessionalPaymentSearch}
       onSearch={search}
+      getEntity={getEntity}
+      setEntityUnderUpdate={setPaymentUnderUpdate}
+      isEditing={isEditing}
     />
   );
 };
@@ -56,7 +79,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   saveProfessionalPayment: ProfessionalPaymentActions.saveProfessionalPayment,
   getProfessionalPaymentsPerMonth:
-    ProfessionalPaymentActions.getProfessionalPaymentsPerMonth
+    ProfessionalPaymentActions.getProfessionalPaymentsPerMonth,
+  getProfessionalPayment: ProfessionalPaymentActions.getProfessionalPayment
 };
 
 export default connect(

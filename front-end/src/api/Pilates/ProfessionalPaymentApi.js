@@ -19,3 +19,11 @@ export function getProfessionalPaymentsPerMonth(monthId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getProfessionalPayment(professionalPaymentId) {
+  return fetch(baseUrl + professionalPaymentId, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

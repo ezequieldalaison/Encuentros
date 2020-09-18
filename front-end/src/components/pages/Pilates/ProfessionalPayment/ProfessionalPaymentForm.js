@@ -23,7 +23,8 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
     watch,
     getParameter,
     setFormValue,
-    getProfessionalWorkedHoursByMonth
+    getProfessionalWorkedHoursByMonth,
+    isEditing
   } = props;
   const [professionalHourVaue, setProfessionalHourVaue] = useState();
   const [amount, setAmount] = useState(0);
@@ -37,6 +38,10 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
       cleanSelects() {
         childProfessionalRef.current.setValue(null);
         childMonthRef.current.setValue(null);
+      },
+      setSelectValue(professionalPayment) {
+        childProfessionalRef.current.setValue(professionalPayment.professional);
+        childMonthRef.current.setValue(professionalPayment.month);
       }
     }),
     []
@@ -83,6 +88,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             ref={childProfessionalRef}
             onChange={onChangeProfessional}
             register={register}
+            isDisabled={isEditing}
           />
         </Col>
         <Col xs={3}>
@@ -91,6 +97,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             ref={childMonthRef}
             register={register}
             onChange={onChangeMonth}
+            isDisabled={isEditing}
           />
         </Col>
       </Row>

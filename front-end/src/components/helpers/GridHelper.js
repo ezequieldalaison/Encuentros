@@ -219,5 +219,10 @@ export const PROFESSIONAL_PAYMENTS = [
   {
     Header: "Monto",
     accessor: "movement.amount"
+  },
+  {
+    Header: "customButtons:edit",
+    accessor: "",
+    canSort: false
   }
 ];

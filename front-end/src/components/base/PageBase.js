@@ -22,6 +22,7 @@ const PageBase = ({
   setEntityUnderUpdate,
   hideCleanButton,
   hideAddButton,
+  isEditing,
   ...props
 }) => {
   const { data, columns } = grid;
@@ -207,6 +208,7 @@ const PageBase = ({
                             setFormValue={addUpdateForm.setValue}
                             control={addUpdateForm.control}
                             watch={addUpdateForm.watch}
+                            isEditing={isEditing}
                           />
                         )}
                       ></FormBase>
