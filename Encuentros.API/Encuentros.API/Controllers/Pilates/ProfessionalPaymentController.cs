@@ -51,7 +51,7 @@ namespace Encuentros.API.Controllers.Pilates
         }
 
         [HttpPost]
-        public ActionResult Create(ProfessionalPaymentToCreateDto dto)
+        public ActionResult Create(ProfessionalPaymentToCreateUpdateDto dto)
         {
             var professional = _professionalRepo.GetById(dto.ProfessionalId);
             if (professional == null)
@@ -103,7 +103,7 @@ namespace Encuentros.API.Controllers.Pilates
         }
 
         [HttpPut("{professionalPaymentId}")]
-        public ActionResult Update(ProfessionalPaymentToCreateDto dto)
+        public ActionResult Update(ProfessionalPaymentToCreateUpdateDto dto)
         {
             using (var context = _repository.GetContext())
             {
@@ -138,7 +138,6 @@ namespace Encuentros.API.Controllers.Pilates
                 return Ok(response);
             }
         }
-
 
         [HttpDelete("{professionalPaymentId}")]
         public ActionResult Delete(long professionalPaymentId)

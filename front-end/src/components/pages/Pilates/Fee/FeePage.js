@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PageBase from "../../../base/PageBase";
 import { FEES_GRID } from "../../../helpers/GridHelper";
 import { connect } from "react-redux";
@@ -8,10 +8,17 @@ import { toast } from "react-toastify";
 import FeeSearch from "./FeeSearch";
 import { getCurrentMonth } from "../../../helpers/DateHelper";
 
-const FeePage = ({ fees, getFeesPerMonth, saveFee }) => {
+const FeePage = ({ fees, getFeesPerMonth, saveFee, getFee, deleteFee }) => {
+  const [feeUnderUpdate, setFeeUnderUpdate] = useState();
+  const [isEditing, setIsEditing] = useState(false);
+
   useEffect(() => {
     getFeesPerMonth(getCurrentMonth());
   }, [getFeesPerMonth]);
+
+  useEffect(() => {
+    setIsEditing(!!feeUnderUpdate);
+  }, [feeUnderUpdate]);
 
   const columns = React.useMemo(() => FEES_GRID, []);
 
@@ -21,13 +28,29 @@ const FeePage = ({ fees, getFeesPerMonth, saveFee }) => {
   };
 
   const onSubmit = data => {
+    if (feeUnderUpdate) {
+      data = { ...feeUnderUpdate, ...data };
+    }
+
     return saveFee(data).then(() => {
-      toast.success("El pagó se guardó correctamente");
+      toast.success("El pago de la cuota se guardó correctamente");
     });
   };
 
   const search = data => {
     getFeesPerMonth(data.monthId);
+  };
+
+  const getEntity = feeId => {
+    return getFee(feeId).then(fee => {
+      return fee;
+    });
+  };
+
+  const onDelete = id => {
+    return deleteFee(id).then(m =>
+      toast.success("El pago de la cuota se eliminó correctamente")
+    );
   };
 
   return (
@@ -40,6 +63,10 @@ const FeePage = ({ fees, getFeesPerMonth, saveFee }) => {
       search={FeeSearch}
       onSearch={search}
       hideCleanButton
+      setEntityUnderUpdate={setFeeUnderUpdate}
+      isEditing={isEditing}
+      getEntity={getEntity}
+      onDelete={onDelete}
     />
   );
 };
@@ -52,7 +79,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   getFeesPerMonth: FeeActions.getFeesPerMonth,
-  saveFee: FeeActions.saveFee
+  saveFee: FeeActions.saveFee,
+  getFee: FeeActions.getFee,
+  deleteFee: FeeActions.deleteFee
 };
 
 export default connect(

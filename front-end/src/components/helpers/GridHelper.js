@@ -100,6 +100,10 @@ export const CLASSES_GRID = [
 
 export const FEES_GRID = [
   {
+    Header: "id",
+    accessor: "id"
+  },
+  {
     Header: "Alumno",
     accessor: "student.fullName"
   },
@@ -128,6 +132,11 @@ export const FEES_GRID = [
   {
     Header: "Estado",
     accessor: "movement.movementStatus.name",
+    canSort: false
+  },
+  {
+    Header: "customButtons:edit|delete",
+    accessor: "",
     canSort: false
   }
 ];

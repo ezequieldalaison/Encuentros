@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Encuentros.DTOs.Base;
 
 namespace Encuentros.DTOs.Pilates
 {
-    public class FeeToCreateDto
+    public class FeeToCreateUpdateDto : DtoBase
     {
         public long StudentId { get; set; }
         public long MonthId { get; set; }

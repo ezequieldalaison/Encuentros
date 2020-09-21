@@ -78,6 +78,7 @@ const StudentSelect = forwardRef((props, ref) => {
       value={selectValue}
       noOptionsMessage={() => "No se encontraron resultados"}
       placeholder="Seleccione..."
+      isDisabled={props.isDisabled}
     />
   );
 });

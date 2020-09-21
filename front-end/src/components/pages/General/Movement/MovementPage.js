@@ -52,7 +52,6 @@ const MovementPage = ({
 
   const getEntity = movementId => {
     return getMovement(movementId).then(movement => {
-      movement.isPaid = movement.movementStatusId === 2;
       return movement;
     });
   };

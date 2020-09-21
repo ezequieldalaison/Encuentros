@@ -3,7 +3,7 @@ using System;
 
 namespace Encuentros.DTOs.Pilates
 {
-    public class ProfessionalPaymentToCreateDto : DtoBase
+    public class ProfessionalPaymentToCreateUpdateDto : DtoBase
     {
         public long ProfessionalId { get; set; }
         public long MonthId { get; set; }

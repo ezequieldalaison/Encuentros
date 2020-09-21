@@ -1,4 +1,5 @@
 ﻿using Encuentros.Logic.Base;
+using Encuentros.Logic.Enums;
 using System;
 
 namespace Encuentros.Logic.Entities.General
@@ -22,9 +23,16 @@ namespace Encuentros.Logic.Entities.General
         public virtual long MovementStatusId { get; private set; }
         public virtual MovementStatus MovementStatus { get; private set; }
 
+        public bool IsPaid => MovementStatusId == (long)MovementStatusEnum.Paid;
+
         public void UpdateAmount(decimal amount)
         {
             Amount = amount;
+        }
+
+        public void UpdateStatus(MovementStatusEnum movementStatusEnum)
+        {
+            MovementStatusId = (long)movementStatusEnum;
         }
     }
 }

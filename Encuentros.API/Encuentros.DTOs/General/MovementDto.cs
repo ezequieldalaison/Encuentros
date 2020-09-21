@@ -12,5 +12,6 @@ namespace Encuentros.DTOs.General
         public ConceptDto Concept { get; set; }
         public long MovementStatusId { get; set; }
         public MovementStatusDto MovementStatus { get; set; }
+        public bool IsPaid { get; set; }
     }
 }

@@ -170,10 +170,14 @@ namespace Encuentros.Data
             {
                 x.ToTable("Fees");
                 x.HasKey(x => x.Id);
+                x.Property(x => x.StudentId);
                 x.HasOne(x => x.Student)
                     .WithMany(x => x.Fees);
+                x.Property(x => x.FeeTypeId);
                 x.HasOne(x => x.FeeType);
+                x.Property(x => x.MonthId);
                 x.HasOne(x => x.Month);
+                x.Property(x => x.MovementId);
                 x.HasOne(x => x.Movement);
             });
 

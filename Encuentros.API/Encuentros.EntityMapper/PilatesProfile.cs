@@ -23,6 +23,9 @@ namespace Encuentros.EntityMapper
             CreateMap<Entity.Fee, DTO.FeeDto>()
                 .ReverseMap();
 
+            CreateMap<Entity.Fee, DTO.FeeToCreateUpdateDto>()
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Movement.Amount));
+
             CreateMap<Entity.ProfessionalWorkDay, DTO.ProfessionalWorkDayDto>()
                 .ReverseMap();
 

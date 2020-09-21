@@ -10,7 +10,14 @@ import { connect } from "react-redux";
 import * as FeeTypeActions from "../../../../redux/actions/Pilates/FeeTypeActions";
 
 const FeeForm = forwardRef((props, ref) => {
-  const { register, errors, setFormValue, students, getFeeType } = props;
+  const {
+    register,
+    errors,
+    setFormValue,
+    students,
+    getFeeType,
+    isEditing
+  } = props;
   const childFeeTypeRef = useRef();
   const childMonthRef = useRef();
   const childStudentRef = useRef();
@@ -22,6 +29,11 @@ const FeeForm = forwardRef((props, ref) => {
         childFeeTypeRef.current.setValue(null);
         childMonthRef.current.setValue(null);
         childStudentRef.current.setValue(null);
+      },
+      setSelectValue(fee) {
+        childFeeTypeRef.current.setValue(fee.feeType);
+        childMonthRef.current.setValue(fee.month);
+        childStudentRef.current.setValue(fee.student);
       }
     }),
     []
@@ -55,11 +67,20 @@ const FeeForm = forwardRef((props, ref) => {
     <Form.Group>
       <Row>
         <Col xs={3}>
+          <Form.Label>Mes</Form.Label>
+          <MonthSelect
+            ref={childMonthRef}
+            register={register}
+            isDisabled={isEditing}
+          />
+        </Col>
+        <Col xs={3}>
           <Form.Label>Alumno</Form.Label>
           <StudentSelect
             ref={childStudentRef}
             register={register}
             customOnChange={onStudentChange}
+            isDisabled={isEditing}
           />
         </Col>
         <Col xs={3}>
@@ -71,7 +92,7 @@ const FeeForm = forwardRef((props, ref) => {
           />
         </Col>
         <Col xs={3}>
-          <Form.Label>Importe</Form.Label>
+          <Form.Label>Monto</Form.Label>
           <InputValidated
             register={register}
             name="amount"
@@ -79,10 +100,6 @@ const FeeForm = forwardRef((props, ref) => {
             isRequired
             error={errors.amount}
           ></InputValidated>
-        </Col>
-        <Col xs={3}>
-          <Form.Label>Mes</Form.Label>
-          <MonthSelect ref={childMonthRef} register={register} />
         </Col>
       </Row>
       <Row>
