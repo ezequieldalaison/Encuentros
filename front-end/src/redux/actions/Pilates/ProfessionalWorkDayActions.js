@@ -6,8 +6,18 @@ export function getSuggestedProfessionalsSuccess(pwds) {
   return { type: Types.GET_SUGGESTED_PROFESSIONALS_SUCCESS, pwds };
 }
 
-export function saveProfessionalWorkDaySuccess(pwd) {
-  return { type: Types.SAVE_PROFESSIONAL_WORK_DAY_SUCCESS, pwd };
+export function updateProfessionalWorkDaySuccess(professionalWorkDay) {
+  return {
+    type: Types.UPDATE_PROFESSIONAL_WORK_DAY_SUCCESS,
+    professionalWorkDay
+  };
+}
+
+export function createProfessionalWorkDaySuccess(professionalWorkDay) {
+  return {
+    type: Types.CREATE_PROFESSIONAL_WORK_DAY_SUCCESS,
+    professionalWorkDay
+  };
 }
 
 export function saveProfessionalWorkDaysSuccess(pwd) {
@@ -25,6 +35,20 @@ export function getProfessionalWorkDaysByYearSuccess(professionalWorkDays) {
   return {
     type: Types.GET_PROFESSIONAL_WORK_DAY_BY_YEAR_SUCCESS,
     professionalWorkDays
+  };
+}
+
+export function getProfessionalWorkDaySuccess(professionalWorkDay) {
+  return {
+    type: Types.GET_PROFESSIONAL_WORK_DAY_SUCCESS,
+    professionalWorkDay
+  };
+}
+
+export function deleteProfessionalWorkDaySuccess(professionalWorkDayId) {
+  return {
+    type: Types.DELETE_PROFESSIONAL_WORK_DAY_SUCCESS,
+    professionalWorkDayId
   };
 }
 
@@ -47,7 +71,9 @@ export function saveProfessionalWorkDay(professionalWorkDay) {
     dispatch(beginApiCall());
     return ProfessionalWorkDayApi.saveProfessionalWorkDay(professionalWorkDay)
       .then(professionalWorkDay => {
-        dispatch(saveProfessionalWorkDaySuccess(professionalWorkDay));
+        professionalWorkDay.id
+          ? dispatch(updateProfessionalWorkDaySuccess(professionalWorkDay))
+          : dispatch(createProfessionalWorkDaySuccess(professionalWorkDay));
         return professionalWorkDay;
       })
       .catch(error => {
@@ -105,6 +131,36 @@ export function getProfessionalWorkedHoursByMonth(criteria) {
       .then(quantity => {
         //dispatch(getProfessionalWorkedHoursByMonthSuccess(quantity));
         return quantity;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getProfessionalWorkDay(professionalWorkDayId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalWorkDayApi.getProfessionalWorkDay(professionalWorkDayId)
+      .then(professionalWorkDay => {
+        dispatch(getProfessionalWorkDaySuccess(professionalWorkDay));
+        return professionalWorkDay;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function deleteProfessionalWorkDay(professionalWorkDayId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return ProfessionalWorkDayApi.deleteProfessionalWorkDay(
+      professionalWorkDayId
+    )
+      .then(id => {
+        dispatch(deleteProfessionalWorkDaySuccess(id));
+        return id;
       })
       .catch(error => {
         throw error;

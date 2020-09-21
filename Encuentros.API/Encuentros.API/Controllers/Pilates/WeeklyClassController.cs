@@ -42,6 +42,15 @@ namespace Encuentros.API.Controllers.Pilates
             }
         }
 
+        [HttpPost("search")]
+        public ActionResult GetByQuery(WeeklyClassSearchDto searchDto)
+        {
+            var entities = _repository.GetByQueryInclude(x => x.IsActive || searchDto.ShowInactives, IncludeExpressions);
+
+            var response = _mapper.Map<IEnumerable<WeeklyClassDto>>(entities);
+            return Ok(response);
+        }
+
         protected override bool IsValidForInactivate(WeeklyClass entityRepo)
         {
             if (entityRepo.WeeklyClassStudents.Count > 0)

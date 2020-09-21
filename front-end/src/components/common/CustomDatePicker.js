@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 const CustomDatePicker = forwardRef((props, ref) => {
-  const { control, xs } = props;
+  const { control, xs, isDisabled } = props;
   const [startDate, setStartDate] = useState(new Date());
 
   useImperativeHandle(
@@ -37,6 +37,7 @@ const CustomDatePicker = forwardRef((props, ref) => {
         popperContainer={CalendarContainer}
         locale={es}
         className="form-control"
+        disabled={isDisabled}
       />
     );
   };

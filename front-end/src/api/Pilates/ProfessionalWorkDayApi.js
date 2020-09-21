@@ -55,3 +55,18 @@ export function getProfessionalWorkedHoursByMonth(criteria) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getProfessionalWorkDay(getProfessionalWorkDayId) {
+  return fetch(baseUrl + getProfessionalWorkDayId, {
+    method: "GET",
+    headers: { "content-type": "application/json" }
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function deleteProfessionalWorkDay(professionalWorkDayId) {
+  return fetch(baseUrl + professionalWorkDayId, { method: "DELETE" })
+    .then(handleResponse)
+    .catch(handleError);
+}

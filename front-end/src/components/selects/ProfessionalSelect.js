@@ -53,7 +53,7 @@ const ProfessionalSelect = forwardRef((props, ref) => {
   };
 
   const onChange = selectedOption => {
-    props.onChange(selectedOption);
+    if (props.onChange) props.onChange(selectedOption);
     setSelectValue(selectedOption);
   };
 
@@ -67,6 +67,7 @@ const ProfessionalSelect = forwardRef((props, ref) => {
   return (
     <Select
       styles={customStyles}
+      menuPortalTarget={document.body}
       options={options}
       onChange={onChange}
       value={selectValue}

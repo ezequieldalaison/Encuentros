@@ -65,6 +65,9 @@ namespace Encuentros.API.Controllers.Base
         [HttpPost("list")]
         public virtual ActionResult CreateList(List<DTO> dtos)
         {
+            if (!IsValidForCreateList(dtos))
+                return ValidationProblem(ValidationMessage);
+
             foreach (var dto in dtos)
             {
                 if (dto.Id > 0)
@@ -128,6 +131,11 @@ namespace Encuentros.API.Controllers.Base
         }
 
         protected virtual bool IsValidForCreate(DTO dto)
+        {
+            return true;
+        }
+
+        protected virtual bool IsValidForCreateList(List<DTO> dtos)
         {
             return true;
         }

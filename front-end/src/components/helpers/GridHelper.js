@@ -205,6 +205,11 @@ export const PWD_DAILY_GRID = [
   {
     Header: "Cantidad de horas",
     accessor: "quantityHours"
+  },
+  {
+    Header: "customButtons:edit|delete",
+    accessor: "",
+    canSort: false
   }
 ];
 

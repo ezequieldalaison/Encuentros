@@ -27,10 +27,12 @@ const ProfessionalWorkDayModal = ({
     var request = Object.keys(data).map(professionalId => {
       return { date, professionalId, quantityHours: data[professionalId] };
     });
-    saveProfessionalWorkDays(request).then(resp => {
-      toast.success("Se cerró el día correctamente");
-      onSavePWD();
-    });
+    saveProfessionalWorkDays(request)
+      .then(resp => {
+        toast.success("Se cerró el día correctamente");
+        onSavePWD();
+      })
+      .catch(e => console.log(e));
   }
 
   useEffect(() => {

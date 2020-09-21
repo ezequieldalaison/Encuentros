@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Encuentros.API.Controllers.Pilates
 {
@@ -27,6 +28,18 @@ namespace Encuentros.API.Controllers.Pilates
         {
             _weeklyClassRepo = weeklyClassRepo;
             _professionalRepo = professionalRepo;
+        }
+
+        protected override Expression<Func<ProfessionalWorkDay, object>>[] IncludeExpressions
+        {
+            get
+            {
+                var expressions = new List<Expression<Func<ProfessionalWorkDay, object>>>();
+
+                expressions.Add(x => x.Professional);
+
+                return expressions.ToArray();
+            }
         }
 
         [HttpGet("suggestedProfessionals/{dayId}")]
@@ -90,6 +103,20 @@ namespace Encuentros.API.Controllers.Pilates
         {
             var quantityHours = _repository.GetByQuery(x => x.ProfessionalId == dto.ProfessionalId && x.Date.Month == dto.MonthId).Sum(x => x.QuantityHours);
             return Ok(quantityHours);
+        }
+
+        protected override bool IsValidForCreateList(List<ProfessionalWorkDayDto> dtos)
+        {
+            var quantityWeeklyClasses = _weeklyClassRepo.GetByQueryInclude(x => x.Day.Id == (int)dtos[0].Date.DayOfWeek && x.IsActive).Count();
+            var quantityHours = dtos.Sum(x => x.QuantityHours);
+
+            if (quantityHours != quantityWeeklyClasses)
+            {
+                ValidationMessage = "La cantidad de horas no coincide con la cantidad de clases ("+ quantityWeeklyClasses + ")";
+                return false;
+            }
+
+            return true;
         }
     }
 }
