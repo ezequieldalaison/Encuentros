@@ -124,7 +124,7 @@ namespace Encuentros.API.Controllers.Base
 
             _repository.Delete(id);
             _repository.SaveChanges();
-            return Ok();
+            return Ok(id);
         }
 
         protected virtual bool IsValidForCreate(DTO dto)

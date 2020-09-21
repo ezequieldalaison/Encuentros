@@ -134,6 +134,10 @@ export const FEES_GRID = [
 
 export const MOVEMENTS_GRID = [
   {
+    Header: "id",
+    accessor: "id"
+  },
+  {
     Header: "Fecha",
     accessor: data => formatFullDate(data.date)
   },
@@ -152,6 +156,11 @@ export const MOVEMENTS_GRID = [
   {
     Header: "Estado",
     accessor: "movementStatus.name"
+  },
+  {
+    Header: "customButtons:edit|delete",
+    accessor: "",
+    canSort: false
   }
 ];
 

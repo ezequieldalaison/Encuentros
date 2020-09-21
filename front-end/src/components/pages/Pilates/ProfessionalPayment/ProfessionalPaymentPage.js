@@ -49,7 +49,6 @@ const ProfessionalPaymentPage = ({
   const getEntity = professionalPaymentId => {
     return getProfessionalPayment(professionalPaymentId).then(
       professionalPayment => {
-        console.log(professionalPayment);
         return professionalPayment;
       }
     );

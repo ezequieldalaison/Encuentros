@@ -14,6 +14,14 @@ export function updateMovementSuccess(movement) {
   return { type: Types.UPDATE_MOVEMENT_SUCCESS, movement };
 }
 
+export function deleteMovementSuccess(movementId) {
+  return { type: Types.DELETE_MOVEMENT_SUCCESS, movementId };
+}
+
+export function getMovementSuccess(movement) {
+  return { type: Types.GET_MOVEMENT_SUCCESS, movement };
+}
+
 export function getMovementsByMonth(monthId) {
   return function(dispatch) {
     dispatch(beginApiCall());
@@ -36,6 +44,34 @@ export function saveMovement(movement) {
         movement.id
           ? dispatch(updateMovementSuccess(savedMovement))
           : dispatch(createMovementSuccess(savedMovement));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function getMovement(movementId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return MovementApi.getMovement(movementId)
+      .then(movement => {
+        dispatch(getMovementSuccess(movement));
+        return movement;
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function deleteMovement(movementId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return MovementApi.deleteMovement(movementId)
+      .then(id => {
+        dispatch(deleteMovementSuccess(id));
+        return id;
       })
       .catch(error => {
         throw error;

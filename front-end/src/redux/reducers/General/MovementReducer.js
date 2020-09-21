@@ -15,6 +15,9 @@ export default function MovementReducer(
         movement.id === action.movement.id ? action.movement : movement
       );
     }
+    case Types.DELETE_MOVEMENT_SUCCESS: {
+      return state.filter(movement => movement.id !== action.movementId);
+    }
     default:
       return state;
   }

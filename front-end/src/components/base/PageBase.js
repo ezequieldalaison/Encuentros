@@ -45,11 +45,14 @@ const PageBase = ({
   };
 
   const onUpdate = id => {
-    setShowSearchState(false);
-    setShowGridState(false);
-    setShowFormState(true);
-
     getEntity(id).then(entity => {
+      if (props.canEditDelete && !props.canEditDelete(entity, false)) {
+        return;
+      }
+
+      setShowSearchState(false);
+      setShowGridState(false);
+      setShowFormState(true);
       setEntityUnderUpdate(entity);
 
       if (childFormRef.current && childFormRef.current.setSelectValue)
@@ -62,8 +65,19 @@ const PageBase = ({
   };
 
   const onDelete = id => {
-    setDeleteId(id);
-    setShowDeleteModal(true);
+    if (props.canEditDelete) {
+      getEntity(id).then(entity => {
+        if (!props.canEditDelete(entity, true)) {
+          return;
+        }
+
+        setDeleteId(id);
+        setShowDeleteModal(true);
+      });
+    } else {
+      setDeleteId(id);
+      setShowDeleteModal(true);
+    }
   };
 
   const onConfirmDelete = () => {

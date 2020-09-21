@@ -62,6 +62,7 @@ const GridBase = props => {
     if (header.includes("activateInactivate")) {
       buttons.push(
         <ActivateInactivateButton
+          key={"activateInactivate" + row.values.id}
           id={row.values.id}
           inactivate={props.inactivate}
           activate={props.activate}

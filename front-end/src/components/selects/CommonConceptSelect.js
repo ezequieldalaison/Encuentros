@@ -67,6 +67,7 @@ const CommonConceptSelect = forwardRef((props, ref) => {
       noOptionsMessage={() => "No se encontraron resultados"}
       placeholder="Seleccione..."
       defaultValue={null}
+      isDisabled={props.isDisabled}
     />
   );
 });

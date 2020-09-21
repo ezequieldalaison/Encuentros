@@ -12,12 +12,13 @@ import CommonConceptSelect from "../../../selects/CommonConceptSelect";
 import AreaSelect from "../../../selects/AreaSelect";
 import CustomDatePicker from "../../../common/CustomDatePicker";
 import InputValidated from "../../../common/InputValidated";
+import TextAreaValidated from "../../../common/TextAreaValidated";
 
 const MovementForm = forwardRef((props, ref) => {
   const childConceptRef = useRef();
   const childAreaRef = useRef();
   const childDateRef = useRef();
-  const { register, control, errors } = props;
+  const { register, control, errors, isEditing } = props;
   const [areaId, setAreaId] = useState();
 
   useImperativeHandle(
@@ -27,6 +28,11 @@ const MovementForm = forwardRef((props, ref) => {
         childConceptRef.current.setValue(null);
         childAreaRef.current.setValue(null);
         childDateRef.current.setValue(new Date());
+      },
+      setSelectValue(movement) {
+        childConceptRef.current.setValue(movement.concept);
+        childAreaRef.current.setValue(movement.concept.area);
+        childDateRef.current.setValue(movement.date);
       }
     }),
     []
@@ -48,6 +54,7 @@ const MovementForm = forwardRef((props, ref) => {
               isMulti={false}
               customOnChange={onAreaChange}
               ref={childAreaRef}
+              isDisabled={isEditing}
             />
           </Col>
           <Col xs={3}>
@@ -56,6 +63,7 @@ const MovementForm = forwardRef((props, ref) => {
               register={register}
               areaId={areaId}
               ref={childConceptRef}
+              isDisabled={isEditing}
             />
           </Col>
           <CustomDatePicker control={control} xs={3} ref={childDateRef} />
@@ -73,12 +81,13 @@ const MovementForm = forwardRef((props, ref) => {
         <Row>
           <Col>
             <Form.Label>Comentarios</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows="3"
-              ref={register}
+            <TextAreaValidated
+              register={register}
               name="comments"
-            />
+              isRequired
+              maxLength="200"
+              error={errors.comments}
+            ></TextAreaValidated>
           </Col>
         </Row>
         <Row>

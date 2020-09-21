@@ -19,3 +19,17 @@ export function saveMovement(movement) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function getMovement(movementId) {
+  return fetch(baseUrl + movementId, {
+    method: "GET"
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function deleteMovement(movementId) {
+  return fetch(baseUrl + movementId, { method: "DELETE" })
+    .then(handleResponse)
+    .catch(handleError);
+}

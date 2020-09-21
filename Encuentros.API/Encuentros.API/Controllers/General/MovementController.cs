@@ -42,5 +42,38 @@ namespace Encuentros.API.Controllers.General
 
             return Ok(response);
         }
+
+        [HttpPut("{id}")]
+        public override ActionResult Update(MovementDto dto)
+        {
+            var entityRepo = _repository.GetByIdInclude(dto.Id, IncludeExpressions);
+            if (entityRepo == null)
+                return NotFound();
+
+            dto.MovementStatus = null;
+            var entity = _mapper.Map<Movement>(dto);
+            _repository.Update(entity);
+
+            entity = _repository.GetByIdInclude(dto.Id, IncludeExpressions);
+            dto = _mapper.Map<MovementDto>(entity);
+            return Ok(dto);
+        }
+
+        protected override bool IsValidForCreate(MovementDto dto)
+        {
+            if (dto.ConceptId <= 0)
+            {
+                ValidationMessage = "Se debe seleccionar un concepto";
+                return false;
+            }
+
+            if (dto.Date == DateTime.MinValue)
+            {
+                ValidationMessage = "Se debe seleccionar una fecha";
+                return false;
+            }
+
+            return true;
+        }
     }
 }

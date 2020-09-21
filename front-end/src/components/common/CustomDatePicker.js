@@ -14,7 +14,7 @@ const CustomDatePicker = forwardRef((props, ref) => {
     ref,
     () => ({
       setValue(date) {
-        setStartDate(date);
+        setStartDate(new Date(date));
       }
     }),
     []
