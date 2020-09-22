@@ -1,15 +1,9 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
-import RootReducer from "./reducers/RootReducer";
-import thunk from "redux-thunk";
-
-export default function configureStore(initialState) {
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
-
-  return createStore(
-    RootReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(thunk, reduxImmutableStateInvariant()))
+if (process.env.REACT_APP_NODE_ENV === "production") {
+  module.exports = require("./ConfigureStore.prod");
+} else if (process.env.REACT_APP_NODE_ENV === "development") {
+  module.exports = require("./ConfigureStore.dev");
+} else {
+  throw new Error(
+    "Configure store is missing - Enviroment: " + process.env.REACT_APP_NODE_ENV
   );
 }
