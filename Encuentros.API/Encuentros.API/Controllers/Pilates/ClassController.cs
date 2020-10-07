@@ -154,6 +154,7 @@ namespace Encuentros.API.Controllers.Pilates
                 Professional = _mapper.Map<ProfessionalDto>(weeklyClass.Professional),
                 ProfessionalId = weeklyClass.Professional.Id,
                 ClassStudents = classStudents.Select(s => new ClassStudentDto(s, false)).ToList(),
+                IsClosed = _professionalWorkDayRepo.GetByQuery(x => x.Date == criteria.Date).Any()
             };
 
             if (individualClassStudents.Count() > 0)
