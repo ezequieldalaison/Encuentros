@@ -110,9 +110,9 @@ namespace Encuentros.API.Controllers.Pilates
             var quantityWeeklyClasses = _weeklyClassRepo.GetByQueryInclude(x => x.Day.Id == (int)dtos[0].Date.DayOfWeek && x.IsActive).Count();
             var quantityHours = dtos.Sum(x => x.QuantityHours);
 
-            if (quantityHours != quantityWeeklyClasses)
+            if (quantityHours > quantityWeeklyClasses)
             {
-                ValidationMessage = "La cantidad de horas no coincide con la cantidad de clases ("+ quantityWeeklyClasses + ")";
+                ValidationMessage = "La cantidad de horas no puede ser mayor a la cantidad de clases ("+ quantityWeeklyClasses + ")";
                 return false;
             }
 
