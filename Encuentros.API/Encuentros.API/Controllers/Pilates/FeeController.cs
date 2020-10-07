@@ -79,9 +79,12 @@ namespace Encuentros.API.Controllers.Pilates
             if (feeType == null)
                 return NotFound("FeeType not found");
 
-            var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId && x.MonthId == feeDto.MonthId && x.FeeTypeId != FeeType.IndividualId);
-            if (feeRepeted != null && feeRepeted.Count() > 0)
-                return ValidationProblem("El alumno ya tiene el mes abonado.");
+            if (feeDto.FeeTypeId != FeeType.IndividualId)
+            {
+                var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId && x.MonthId == feeDto.MonthId && x.FeeTypeId != FeeType.IndividualId);
+                if (feeRepeted != null && feeRepeted.Count() > 0)
+                    return ValidationProblem("El alumno ya tiene el mes abonado.");
+            }
 
             Fee fee = new Fee(feeDto.StudentId, feeDto.FeeTypeId, feeDto.MonthId, feeDto.Amount, feeDto.IsPaid, student.FullName + " | " + month.Name);
             _repository.Create(fee);
@@ -120,12 +123,15 @@ namespace Encuentros.API.Controllers.Pilates
                 if (feeType == null)
                     return NotFound("FeeType not found");
 
-                var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId && 
-                                                             x.MonthId == feeDto.MonthId && 
-                                                             x.FeeTypeId != FeeType.IndividualId && 
+                if (feeDto.FeeTypeId != FeeType.IndividualId)
+                {
+                    var feeRepeted = _repository.GetByQuery(x => x.StudentId == feeDto.StudentId &&
+                                                             x.MonthId == feeDto.MonthId &&
+                                                             x.FeeTypeId != FeeType.IndividualId &&
                                                              x.Id != feeDto.Id);
-                if (feeRepeted != null && feeRepeted.Count() > 0)
-                    return ValidationProblem("El alumno ya tiene el mes abonado.");
+                    if (feeRepeted != null && feeRepeted.Count() > 0)
+                        return ValidationProblem("El alumno ya tiene el mes abonado.");
+                }
 
                 var entityRepo = _repository.GetByIdInclude(feeDto.Id, IncludeExpressions);
                 if (entityRepo == null)

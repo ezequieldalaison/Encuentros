@@ -62,13 +62,6 @@ const ClassStudentSelect = ({
               style={{ marginTop: "20%", marginLeft: "20%" }}
               onChange={onChangeIsIndividualClass}
               checked={isIndividualClass}
-              disabled={
-                classStudent &&
-                classStudent.student &&
-                classStudent.student.id > 0
-                  ? true
-                  : false
-              }
             />
           </div>
         </OverlayTrigger>

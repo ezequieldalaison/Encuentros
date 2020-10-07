@@ -9,6 +9,5 @@
     CONSTRAINT [FK_Fees_Students_StudentId] FOREIGN KEY ([StudentId]) REFERENCES [dbo].Students ([Id]),
     CONSTRAINT [FK_Fees_FeeTypes_FeeTypeId] FOREIGN KEY ([FeeTypeId]) REFERENCES [dbo].FeeTypes ([Id]),
     CONSTRAINT [FK_Fees_Months_MonthId] FOREIGN KEY ([MonthId]) REFERENCES [dbo].Months ([Id]),
-    CONSTRAINT [FK_Fees_Movements_MovementId] FOREIGN KEY ([MovementId]) REFERENCES [dbo].Movements ([Id]), 
-    CONSTRAINT [UK_Fees_StudentId_MonthId] UNIQUE (StudentId, MonthId)
+    CONSTRAINT [FK_Fees_Movements_MovementId] FOREIGN KEY ([MovementId]) REFERENCES [dbo].Movements ([Id])
 );
