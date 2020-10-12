@@ -16,9 +16,9 @@ export function updateProfessionalPaymentSuccess(professionalPayment) {
   };
 }
 
-export function getProfessionalPaymentsPerMonthSuccess(professionalPayments) {
+export function searchProfessionalPaymentsSuccess(professionalPayments) {
   return {
-    type: Types.GET_PROFESSIONAL_PAYMENTS_SUCCESS,
+    type: Types.SEARCH_PROFESSIONAL_PAYMENTS_SUCCESS,
     professionalPayments
   };
 }
@@ -54,12 +54,12 @@ export function saveProfessionalPayment(professionalPayment) {
   };
 }
 
-export function getProfessionalPaymentsPerMonth(monthId) {
+export function searchProfessionalPayments(criteria) {
   return function(dispatch) {
     dispatch(beginApiCall());
-    return ProfessionalPaymentApi.getProfessionalPaymentsPerMonth(monthId)
+    return ProfessionalPaymentApi.searchProfessionalPayments(criteria)
       .then(professionalPayments => {
-        dispatch(getProfessionalPaymentsPerMonthSuccess(professionalPayments));
+        dispatch(searchProfessionalPaymentsSuccess(professionalPayments));
       })
       .catch(error => {
         throw error;

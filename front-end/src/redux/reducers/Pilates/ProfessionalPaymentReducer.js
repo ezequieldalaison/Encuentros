@@ -7,6 +7,7 @@ export default function ProfessionalPaymentReducer(
 ) {
   switch (action.type) {
     case Types.GET_PROFESSIONAL_PAYMENTS_SUCCESS:
+    case Types.SEARCH_PROFESSIONAL_PAYMENTS_SUCCESS:
       return action.professionalPayments;
     case Types.CREATE_PROFESSIONAL_PAYMENT_SUCCESS: {
       return [...state, { ...action.professionalPayment }];

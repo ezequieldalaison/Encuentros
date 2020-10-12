@@ -79,11 +79,12 @@ namespace Encuentros.API.Controllers.Pilates
             return Ok(response);
         }
 
-        [HttpGet("month/{monthId}")]
-        public ActionResult<IEnumerable<ProfessionalPaymentDto>> GetByMonth(long monthId)
+        [HttpPost("search")]
+        public ActionResult<IEnumerable<ProfessionalPaymentDto>> Search(ProfessionalPaymentSearchDto searchDto)
         {
-            var payments = _repository.GetByQueryInclude(x => x.Month.Id == monthId || monthId == 0,
-                                                         IncludeExpressions);
+            var payments = _repository.GetByQueryInclude(x => (searchDto.MonthId == 0 || x.Month.Id == searchDto.MonthId) &&
+                                                              (!searchDto.ProfessionalId.HasValue || searchDto.ProfessionalId.Value == x.ProfessionalId),
+                                                              IncludeExpressions);
 
             var response = _mapper.Map<IEnumerable<ProfessionalPaymentDto>>(payments);
 

@@ -1,6 +1,5 @@
 import { handleResponse, handleError } from "../ApiUtils";
-// const baseUrl = process.env.API_URL + "/weeklyClass/";
-const baseUrl = "http://localhost:5000/api/professionalPayment/";
+const baseUrl = process.env.REACT_APP_API + "professionalPayment/";
 
 export function saveProfessionalPayment(professionalPayment) {
   return fetch(baseUrl + (professionalPayment.id || ""), {
@@ -12,9 +11,11 @@ export function saveProfessionalPayment(professionalPayment) {
     .catch(handleError);
 }
 
-export function getProfessionalPaymentsPerMonth(monthId) {
-  return fetch(baseUrl + "month/" + monthId, {
-    method: "GET"
+export function searchProfessionalPayments(criteria) {
+  return fetch(baseUrl + "search", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(criteria)
   })
     .then(handleResponse)
     .catch(handleError);

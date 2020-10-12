@@ -11,7 +11,7 @@ import ProfessionalPaymentSearch from "./ProfessionalPaymentSearch";
 const ProfessionalPaymentPage = ({
   professionalPayments,
   saveProfessionalPayment,
-  getProfessionalPaymentsPerMonth,
+  searchProfessionalPayments,
   getProfessionalPayment,
   deleteProfessionalPayment
 }) => {
@@ -20,15 +20,15 @@ const ProfessionalPaymentPage = ({
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    getProfessionalPaymentsPerMonth(getCurrentMonth());
-  }, [getProfessionalPaymentsPerMonth]);
+    searchProfessionalPayments({ monthId: getCurrentMonth() });
+  }, [searchProfessionalPayments]);
 
   useEffect(() => {
     setIsEditing(!!paymentUnderUpdate);
   }, [paymentUnderUpdate]);
 
   const search = data => {
-    getProfessionalPaymentsPerMonth(data.monthId);
+    searchProfessionalPayments(data);
   };
 
   const grid = {
@@ -63,6 +63,7 @@ const ProfessionalPaymentPage = ({
   return (
     <PageBase
       isUsingRef
+      isSearchUsingRef
       grid={grid}
       title="Pago Profesores"
       form={ProfessionalPaymentForm}
@@ -85,8 +86,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   saveProfessionalPayment: ProfessionalPaymentActions.saveProfessionalPayment,
-  getProfessionalPaymentsPerMonth:
-    ProfessionalPaymentActions.getProfessionalPaymentsPerMonth,
+  searchProfessionalPayments:
+    ProfessionalPaymentActions.searchProfessionalPayments,
   getProfessionalPayment: ProfessionalPaymentActions.getProfessionalPayment,
   deleteProfessionalPayment:
     ProfessionalPaymentActions.deleteProfessionalPayment
