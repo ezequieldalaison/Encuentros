@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 
 const PageBase = ({
   isUsingRef,
+  isSearchUsingRef,
   grid,
   title,
   form: FormComponent,
@@ -33,8 +34,9 @@ const PageBase = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
   const addUpdateForm = useForm();
+  const addUpdateFormRef = useRef();
   const searchForm = useForm();
-  const childFormRef = useRef();
+  const searchFormRef = useRef();
 
   const onAdd = () => {
     setShowSearchState(false);
@@ -55,8 +57,8 @@ const PageBase = ({
       setShowFormState(true);
       setEntityUnderUpdate(entity);
 
-      if (childFormRef.current && childFormRef.current.setSelectValue)
-        childFormRef.current.setSelectValue(entity);
+      if (addUpdateFormRef.current && addUpdateFormRef.current.setSelectValue)
+        addUpdateFormRef.current.setSelectValue(entity);
 
       for (var key in entity) {
         addUpdateForm.setValue(key, entity[key], { shouldValidate: true });
@@ -86,8 +88,8 @@ const PageBase = ({
   };
 
   const onCancelForm = () => {
-    if (childFormRef.current && childFormRef.current.cleanSelects)
-      childFormRef.current.cleanSelects();
+    if (addUpdateFormRef.current && addUpdateFormRef.current.cleanSelects)
+      addUpdateFormRef.current.cleanSelects();
     addUpdateForm.reset({});
     setShowSearchState(false);
     setShowGridState(true);
@@ -106,7 +108,7 @@ const PageBase = ({
     props
       .onSubmit(data)
       .then(() => {
-        if (childFormRef.current) childFormRef.current.cleanSelects();
+        if (addUpdateFormRef.current) addUpdateFormRef.current.cleanSelects();
         addUpdateForm.reset({});
         setShowSearchState(false);
         setShowGridState(true);
@@ -121,6 +123,9 @@ const PageBase = ({
   };
 
   const onCancelSearch = () => {
+    if (searchFormRef.current && searchFormRef.current.cleanSelects)
+      searchFormRef.current.cleanSelects();
+
     searchForm.reset({});
   };
 
@@ -159,6 +164,7 @@ const PageBase = ({
                         cancelButtonText="Limpiar"
                         elements={() => (
                           <SearchComponent
+                            {...(isSearchUsingRef && { ref: searchFormRef })}
                             onSubmit={onSubmitSearch}
                             register={searchForm.register}
                           />
@@ -229,7 +235,7 @@ const PageBase = ({
                         showCancelButton={true}
                         elements={() => (
                           <FormComponent
-                            {...(isUsingRef && { ref: childFormRef })}
+                            {...(isUsingRef && { ref: addUpdateFormRef })}
                             onSubmit={onSubmitForm}
                             register={addUpdateForm.register}
                             errors={addUpdateForm.errors}

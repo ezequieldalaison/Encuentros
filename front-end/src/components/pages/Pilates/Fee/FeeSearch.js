@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MonthSelect from "../../../selects/MonthSelect";
+import StudentSelect from "../../../selects/StudentSelect";
+import MovementStatusSelect from "../../../selects/MovementStatusSelect";
 
-const FeeSearch = props => {
+const FeeSearch = forwardRef((props, ref) => {
   const { register } = props;
+  const childStudentRef = useRef();
+  const childMonthRef = useRef();
+  const childMovementStatusRef = useRef();
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      cleanSelects() {
+        childMonthRef.current.setValue(null);
+        childStudentRef.current.setValue(null);
+        childMovementStatusRef.current.setValue(null);
+      }
+    }),
+    []
+  );
 
   return (
     <>
@@ -13,12 +30,23 @@ const FeeSearch = props => {
         <Row>
           <Col xs={3}>
             <Form.Label>Mes</Form.Label>
-            <MonthSelect register={register} />
+            <MonthSelect ref={childMonthRef} register={register} addOptionAll />
+          </Col>
+          <Col xs={3}>
+            <Form.Label>Alumno</Form.Label>
+            <StudentSelect ref={childStudentRef} register={register} />
+          </Col>
+          <Col xs={3}>
+            <Form.Label>Estado</Form.Label>
+            <MovementStatusSelect
+              ref={childMovementStatusRef}
+              register={register}
+            />
           </Col>
         </Row>
       </Form.Group>
     </>
   );
-};
+});
 
 export default FeeSearch;

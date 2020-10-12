@@ -8,13 +8,13 @@ import { toast } from "react-toastify";
 import FeeSearch from "./FeeSearch";
 import { getCurrentMonth } from "../../../helpers/DateHelper";
 
-const FeePage = ({ fees, getFeesPerMonth, saveFee, getFee, deleteFee }) => {
+const FeePage = ({ fees, searchFees, saveFee, getFee, deleteFee }) => {
   const [feeUnderUpdate, setFeeUnderUpdate] = useState();
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    getFeesPerMonth(getCurrentMonth());
-  }, [getFeesPerMonth]);
+    searchFees({ monthId: getCurrentMonth() });
+  }, [searchFees]);
 
   useEffect(() => {
     setIsEditing(!!feeUnderUpdate);
@@ -38,7 +38,8 @@ const FeePage = ({ fees, getFeesPerMonth, saveFee, getFee, deleteFee }) => {
   };
 
   const search = data => {
-    getFeesPerMonth(data.monthId);
+    console.log(data);
+    searchFees(data);
   };
 
   const getEntity = feeId => {
@@ -56,13 +57,13 @@ const FeePage = ({ fees, getFeesPerMonth, saveFee, getFee, deleteFee }) => {
   return (
     <PageBase
       isUsingRef
+      isSearchUsingRef
       grid={grid}
       title="Cuotas"
       form={FeeForm}
       onSubmit={onSubmit}
       search={FeeSearch}
       onSearch={search}
-      hideCleanButton
       setEntityUnderUpdate={setFeeUnderUpdate}
       isEditing={isEditing}
       getEntity={getEntity}
@@ -78,7 +79,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  getFeesPerMonth: FeeActions.getFeesPerMonth,
+  searchFees: FeeActions.searchFees,
   saveFee: FeeActions.saveFee,
   getFee: FeeActions.getFee,
   deleteFee: FeeActions.deleteFee

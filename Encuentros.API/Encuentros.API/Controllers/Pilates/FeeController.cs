@@ -54,10 +54,13 @@ namespace Encuentros.API.Controllers.Pilates
             }
         }
 
-        [HttpGet("month/{monthId}")]
-        public ActionResult<IEnumerable<FeeDto>> GetByMonth(long monthId)
+        [HttpPost("search")]
+        public ActionResult<IEnumerable<FeeDto>> Search(FeeSearchDto searchDto)
         {
-            var fees = _repository.GetByQueryInclude(x => x.Month.Id == monthId, IncludeExpressions);
+            var fees = _repository.GetByQueryInclude(x => (searchDto.MonthId == 0 || x.Month.Id == searchDto.MonthId) &&
+                                                          (!searchDto.StudentId.HasValue || searchDto.StudentId.Value == x.StudentId) &&
+                                                          (!searchDto.MovementStatusId.HasValue || searchDto.MovementStatusId.Value == x.Movement.MovementStatusId),
+                                                          IncludeExpressions);
 
             var response = _mapper.Map<IEnumerable<FeeDto>>(fees);
 

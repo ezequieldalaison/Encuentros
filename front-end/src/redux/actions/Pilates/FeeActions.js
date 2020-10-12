@@ -2,8 +2,8 @@ import * as Types from "../ActionTypes";
 import * as FeeApi from "../../../api/Pilates/FeeApi";
 import { beginApiCall } from "../ApiStatus/ApiStatusActions";
 
-export function getFeesPerMonthSuccess(fees) {
-  return { type: Types.GET_FEES_PER_MONTH_SUCCESS, fees };
+export function searchFeesSuccess(fees) {
+  return { type: Types.SEARCH_FEES_SUCCESS, fees };
 }
 
 export function createFeeSuccess(fee) {
@@ -22,12 +22,12 @@ export function deleteFeeSuccess(feeId) {
   return { type: Types.DELETE_FEE_SUCCESS, feeId };
 }
 
-export function getFeesPerMonth(monthId) {
+export function searchFees(criteria) {
   return function(dispatch) {
     dispatch(beginApiCall());
-    return FeeApi.getFeesPerMonth(monthId)
+    return FeeApi.searchFees(criteria)
       .then(fees => {
-        dispatch(getFeesPerMonthSuccess(fees));
+        dispatch(searchFeesSuccess(fees));
       })
       .catch(error => {
         throw error;

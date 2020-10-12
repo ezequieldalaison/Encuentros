@@ -1,7 +1,7 @@
 import { handleResponse, handleError } from "../ApiUtils";
-const baseUrl = process.env.REACT_APP_API + "month/";
+const baseUrl = process.env.REACT_APP_API + "movementStatus/";
 
-export function getMonths() {
+export function getMovementStatuses() {
   return fetch(baseUrl, {
     method: "GET"
   })
