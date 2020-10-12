@@ -77,3 +77,16 @@ export function deleteFee(feeId) {
       });
   };
 }
+
+export function changeMovementStatus(feeMovementStatus) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return FeeApi.changeMovementStatus(feeMovementStatus)
+      .then(savedFee => {
+        dispatch(updateFeeSuccess(savedFee));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}

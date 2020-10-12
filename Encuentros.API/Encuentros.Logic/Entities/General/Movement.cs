@@ -30,9 +30,9 @@ namespace Encuentros.Logic.Entities.General
             Amount = amount;
         }
 
-        public void UpdateStatus(MovementStatusEnum movementStatusEnum)
+        public void UpdateStatus(long movementStatusId)
         {
-            MovementStatusId = (long)movementStatusEnum;
+            MovementStatusId = movementStatusId;
         }
     }
 }

@@ -41,4 +41,21 @@ const ActivateInactivateButton = props => (
   </Button>
 );
 
-export { EditButton, DeleteButton, ActivateInactivateButton };
+const PaidPendingButton = props => (
+  <Button
+    variant="link"
+    onClick={() =>
+      props.isPaid ? props.setPending(props.id) : props.setPaid(props.id)
+    }
+    style={{ fontSize: "small", padding: "0" }}
+  >
+    {props.isPaid ? "Pendiente" : "Pago"}
+  </Button>
+);
+
+export {
+  EditButton,
+  DeleteButton,
+  ActivateInactivateButton,
+  PaidPendingButton
+};

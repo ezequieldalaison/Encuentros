@@ -25,6 +25,8 @@ const PageBase = ({
   hideCleanButton,
   hideAddButton,
   isEditing,
+  setPaid,
+  setPending,
   ...props
 }) => {
   const { data, columns } = grid;
@@ -129,12 +131,20 @@ const PageBase = ({
     searchForm.reset({});
   };
 
-  const inactivateBase = studentId => {
-    inactivate(studentId).catch(e => console.log(e));
+  const inactivateBase = entityId => {
+    inactivate(entityId).catch(e => console.log(e));
   };
 
-  const activateBase = studentId => {
-    activate(studentId).catch(e => console.log(e));
+  const activateBase = entityId => {
+    activate(entityId).catch(e => console.log(e));
+  };
+
+  const setPaidBase = entityId => {
+    setPaid(entityId).catch(e => console.log(e));
+  };
+
+  const setPendingBase = entityId => {
+    setPending(entityId).catch(e => console.log(e));
   };
 
   return (
@@ -198,6 +208,8 @@ const PageBase = ({
                     data={data}
                     activate={activateBase}
                     inactivate={inactivateBase}
+                    setPaid={setPaidBase}
+                    setPending={setPendingBase}
                     onUpdate={onUpdate}
                     onDelete={onDelete}
                   />

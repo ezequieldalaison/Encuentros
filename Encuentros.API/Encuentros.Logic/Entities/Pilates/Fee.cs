@@ -31,7 +31,7 @@ namespace Encuentros.Logic.Entities.Pilates
         public void Update(decimal amount, long feeTypeId, long monthId, bool isPaid)
         {
             Movement.UpdateAmount(amount);
-            Movement.UpdateStatus(isPaid ? MovementStatusEnum.Paid : MovementStatusEnum.Pending);
+            Movement.UpdateStatus(isPaid ? (long)MovementStatusEnum.Paid : (long)MovementStatusEnum.Pending);
             FeeType = null;
             FeeTypeId = feeTypeId;
             Month = null;

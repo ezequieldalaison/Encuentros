@@ -104,6 +104,11 @@ export const FEES_GRID = [
     accessor: "id"
   },
   {
+    Header: "isPaid",
+    accessor: "isPaid",
+    hide: true
+  },
+  {
     Header: "Alumno",
     accessor: "student.fullName"
   },
@@ -135,7 +140,7 @@ export const FEES_GRID = [
     canSort: false
   },
   {
-    Header: "customButtons:edit|delete",
+    Header: "customButtons:edit|delete|paidPending",
     accessor: "",
     canSort: false
   }

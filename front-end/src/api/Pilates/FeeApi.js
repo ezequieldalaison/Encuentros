@@ -34,3 +34,13 @@ export function deleteFee(feeId) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function changeMovementStatus(feeMovementStatus) {
+  return fetch(baseUrl + "movementStatus/" + feeMovementStatus.entityId, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(feeMovementStatus)
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

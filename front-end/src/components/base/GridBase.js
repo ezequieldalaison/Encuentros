@@ -5,7 +5,8 @@ import Form from "react-bootstrap/Form";
 import {
   EditButton,
   ActivateInactivateButton,
-  DeleteButton
+  DeleteButton,
+  PaidPendingButton
 } from "./GridButtons";
 
 const GridBase = props => {
@@ -21,7 +22,9 @@ const GridBase = props => {
       data: props.data,
       initialState: {
         pageIndex: 0,
-        hiddenColumns: ["id"]
+        hiddenColumns: props.columns
+          .filter(x => x.Header === "id" || x.hide)
+          .map(x => x.Header)
       }
     },
     useSortBy
@@ -67,6 +70,18 @@ const GridBase = props => {
           inactivate={props.inactivate}
           activate={props.activate}
           isActive={row.values.isActive}
+        />
+      );
+    }
+
+    if (header.includes("paidPending")) {
+      buttons.push(
+        <PaidPendingButton
+          key={"paidPending" + row.values.id}
+          id={row.values.id}
+          setPaid={props.setPaid}
+          setPending={props.setPending}
+          isPaid={row.values.isPaid}
         />
       );
     }

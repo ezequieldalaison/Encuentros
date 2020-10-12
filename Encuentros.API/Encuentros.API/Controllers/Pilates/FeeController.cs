@@ -167,5 +167,26 @@ namespace Encuentros.API.Controllers.Pilates
 
             return Ok(feeId);
         }
+
+        [HttpPut("movementStatus/{feeId}")]
+        public ActionResult ChangeMovementStatus(ChangeMovementStatusDto changeMovementStatusDto)
+        {
+            using (var context = _repository.GetContext())
+            {
+                var entityRepo = _repository.GetByIdInclude(changeMovementStatusDto.EntityId, IncludeExpressions);
+                if (entityRepo == null)
+                    return NotFound();
+
+                context.Attach(entityRepo);
+
+                entityRepo.Movement.UpdateStatus(changeMovementStatusDto.MovementStatusId);
+
+                _repository.Update(entityRepo);
+
+                var entity = _repository.GetByIdInclude(changeMovementStatusDto.EntityId, IncludeExpressions);
+
+                return Ok(entity);
+            }
+        }
     }
 }

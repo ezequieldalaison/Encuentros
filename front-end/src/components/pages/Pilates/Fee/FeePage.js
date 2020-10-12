@@ -7,8 +7,16 @@ import FeeForm from "./FeeForm";
 import { toast } from "react-toastify";
 import FeeSearch from "./FeeSearch";
 import { getCurrentMonth } from "../../../helpers/DateHelper";
+import { MovementStatusEnum } from "../../../../enums/GeneralEnums";
 
-const FeePage = ({ fees, searchFees, saveFee, getFee, deleteFee }) => {
+const FeePage = ({
+  fees,
+  searchFees,
+  saveFee,
+  getFee,
+  deleteFee,
+  changeMovementStatus
+}) => {
   const [feeUnderUpdate, setFeeUnderUpdate] = useState();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -54,6 +62,26 @@ const FeePage = ({ fees, searchFees, saveFee, getFee, deleteFee }) => {
     );
   };
 
+  const setFeePaid = feeId => {
+    console.log("setPaid" + feeId);
+    return changeMovementStatus({
+      entityId: feeId,
+      movementStatusId: MovementStatusEnum.PAID
+    }).then(x =>
+      toast.success("El estado de la cuota se modificó correctamente")
+    );
+  };
+
+  const setFeePending = feeId => {
+    console.log("setPending" + feeId);
+    return changeMovementStatus({
+      entityId: feeId,
+      movementStatusId: MovementStatusEnum.PENDING
+    }).then(x =>
+      toast.success("El estado de la cuota se modificó correctamente")
+    );
+  };
+
   return (
     <PageBase
       isUsingRef
@@ -68,6 +96,8 @@ const FeePage = ({ fees, searchFees, saveFee, getFee, deleteFee }) => {
       isEditing={isEditing}
       getEntity={getEntity}
       onDelete={onDelete}
+      setPaid={setFeePaid}
+      setPending={setFeePending}
     />
   );
 };
@@ -82,7 +112,8 @@ const mapDispatchToProps = {
   searchFees: FeeActions.searchFees,
   saveFee: FeeActions.saveFee,
   getFee: FeeActions.getFee,
-  deleteFee: FeeActions.deleteFee
+  deleteFee: FeeActions.deleteFee,
+  changeMovementStatus: FeeActions.changeMovementStatus
 };
 
 export default connect(
