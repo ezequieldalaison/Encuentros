@@ -5,6 +5,7 @@ using Encuentros.DTOs.General;
 using Encuentros.DTOs.Pilates;
 using Encuentros.Logic.Entities.General;
 using Encuentros.Logic.Entities.Pilates;
+using Encuentros.Logic.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,6 @@ namespace Encuentros.API.Controllers.Pilates
             return Ok(response);
         }
 
-
         [HttpGet("year/{year}")]
         public ActionResult GetProfessionalWorkDaysByYear(int year)
         {
@@ -99,10 +99,19 @@ namespace Encuentros.API.Controllers.Pilates
         }
 
         [HttpPost("workedHours")]
-        public ActionResult GetProfessionalWorkedHoursByMonth(SearchProfessionalWorkedHoursDto dto)
+        public ActionResult<ProfessionalWorkedHoursDto> GetProfessionalWorkedHoursByMonth(SearchProfessionalWorkedHoursDto dto)
         {
             var quantityHours = _repository.GetByQuery(x => x.ProfessionalId == dto.ProfessionalId && x.Date.Month == dto.MonthId).Sum(x => x.QuantityHours);
-            return Ok(quantityHours);
+            var quantityWorkedDays = _repository.GetByQueryInclude(x => x.Date.Month == dto.MonthId).GroupBy(x => x.Date).Count();
+            var quantityBusinessDays = DateTimeExtensions.WeekdaysInMonth((int)dto.MonthId, DateTime.UtcNow.Year);
+
+            var response = new ProfessionalWorkedHoursDto
+            {
+                QuantityHours = quantityHours,
+                IsMonthClosed = quantityBusinessDays == quantityWorkedDays
+            };
+
+            return Ok(response);
         }
 
         protected override bool IsValidForCreateList(List<ProfessionalWorkDayDto> dtos)
@@ -112,7 +121,7 @@ namespace Encuentros.API.Controllers.Pilates
 
             if (quantityHours > quantityWeeklyClasses)
             {
-                ValidationMessage = "La cantidad de horas no puede ser mayor a la cantidad de clases ("+ quantityWeeklyClasses + ")";
+                ValidationMessage = "La cantidad de horas no puede ser mayor a la cantidad de clases (" + quantityWeeklyClasses + ")";
                 return false;
             }
 

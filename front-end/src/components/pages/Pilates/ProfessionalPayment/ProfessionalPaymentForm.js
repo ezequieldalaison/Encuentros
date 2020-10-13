@@ -28,6 +28,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
   } = props;
   const [professionalHourVaue, setProfessionalHourVaue] = useState();
   const [amount, setAmount] = useState(0);
+  const [showWarning, setShowWarning] = useState(false);
   const childProfessionalRef = useRef();
   const childMonthRef = useRef();
   const watchFields = watch(["quantityHours", "valueHour"]);
@@ -38,6 +39,8 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
       cleanSelects() {
         childProfessionalRef.current.setValue(null);
         childMonthRef.current.setValue(null);
+        setShowWarning(false);
+        setAmount(0);
       },
       setSelectValue(professionalPayment) {
         childProfessionalRef.current.setValue(professionalPayment.professional);
@@ -62,7 +65,10 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
     getProfessionalWorkedHoursByMonth({
       professionalId: selectedOption.value,
       monthId: childMonthRef.current.getValue().value
-    }).then(q => changeQuantityHours(q));
+    }).then(r => {
+      changeQuantityHours(r.quantityHours);
+      setShowWarning(!r.isMonthClosed);
+    });
   };
 
   const onChangeMonth = selectedOption => {
@@ -71,7 +77,10 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
       getProfessionalWorkedHoursByMonth({
         professionalId: professional.value,
         monthId: selectedOption.value
-      }).then(q => changeQuantityHours(q));
+      }).then(r => {
+        changeQuantityHours(r.quantityHours);
+        setShowWarning(!r.isMonthClosed);
+      });
   };
 
   const changeQuantityHours = quantity => {
@@ -80,6 +89,15 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
 
   return (
     <Form.Group>
+      {showWarning ? (
+        <Row>
+          <Col>
+            <strong style={{ color: "red" }}>
+              Aún restan días del mes por cerrar
+            </strong>
+          </Col>
+        </Row>
+      ) : null}
       <Row>
         <Col xs={3}>
           <Form.Label>Profesor</Form.Label>
