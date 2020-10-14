@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as ProfessionalActions from "../../redux/actions/General/ProfessionalActions";
 
 const ProfessionalSelect = forwardRef((props, ref) => {
-  const { register, getProfessionalsByArea, areaId } = props;
+  const { register, getProfessionalsByArea, areaId, isPopUp } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -67,7 +67,7 @@ const ProfessionalSelect = forwardRef((props, ref) => {
   return (
     <Select
       styles={customStyles}
-      menuPortalTarget={document.body}
+      menuPortalTarget={isPopUp ? null : document.body}
       options={options}
       onChange={onChange}
       value={selectValue}

@@ -118,6 +118,7 @@ const ClassModal = ({
               areaId={1}
               ref={childProfessionalRef}
               onChange={onChangeProfessional}
+              isPopUp
             />
           </Col>
         </Row>
