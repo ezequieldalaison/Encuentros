@@ -32,4 +32,4 @@ jobs:
         app-name: 'encuentros-prueba'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_b6ba8b3f6fcb4258a27f7570900ff62c }}
-        package: .
+        package: ./front-end/build
