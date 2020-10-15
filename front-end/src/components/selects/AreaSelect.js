@@ -34,16 +34,18 @@ const AreaSelect = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    if (!!register) {
-      isMulti
-        ? register({
-            name: "areaIds",
-            value: selectValue ? selectValue.map(x => x.value) : null
-          })
-        : register({
-            name: "areaId",
-            value: selectValue ? selectValue.value : null
-          });
+    if (register) {
+      if (isMulti) {
+        register({
+          name: "areaIds",
+          value: selectValue ? selectValue.map(x => x.value) : null
+        });
+      } else {
+        register({
+          name: "areaId",
+          value: selectValue ? selectValue.value : null
+        });
+      }
     }
   }, [register, selectValue, isMulti]);
 
