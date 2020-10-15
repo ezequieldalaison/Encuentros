@@ -30,6 +30,6 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'encuentros-prueba'
-        slot-name: 'test'
+        slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_b6ba8b3f6fcb4258a27f7570900ff62c }}
         package: .
