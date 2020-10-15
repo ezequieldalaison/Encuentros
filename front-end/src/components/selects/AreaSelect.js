@@ -57,11 +57,11 @@ const AreaSelect = forwardRef((props, ref) => {
   }, [getAreas]);
 
   const getValueForMulti = selectValue => {
-    selectValue ? selectValue.map(x => x.value) : null;
+    return selectValue ? selectValue.map(x => x.value) : null;
   };
 
   const getValueForSingle = selectValue => {
-    selectValue ? selectValue.value : null;
+    return selectValue ? selectValue.value : null;
   };
 
   const mapAreas = areas => {
