@@ -25,6 +25,11 @@ jobs:
       run: |
         npm install
         npm run build --if-present
+    
+    - name: Copy web.config
+      with:
+        source: ./front-end/web.config
+        target: ./front-end/build
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
