@@ -24,11 +24,11 @@ namespace Encuentros.Data.IoCExtensions
 
         private static string GetConnectionString()
         {
-            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            //var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
-                .AddJsonFile($"appsettings.{envName}.json", optional: false)
+                .AddJsonFile($"appsettings.json", optional: false)
                 .Build();
 
             if (string.IsNullOrEmpty(configuration.GetConnectionString("DefaultConnection")))

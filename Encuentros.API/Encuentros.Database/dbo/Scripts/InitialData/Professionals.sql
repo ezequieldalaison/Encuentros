@@ -2,8 +2,7 @@
 
 	MERGE [dbo].[Professionals] AS TARGET
 	USING(VALUES
-		(1, 'Danilo', 'Mengarelli', '35678000', 'dani@gmail.com', '3413444555', null, 1),
-		(2, 'Matias', 'Sanchez', '35444000', 'matias@gmail.com', '341121234', null, 1)
+		(1, 'Danilo', 'Mengarelli', '35678000', 'dani@gmail.com', '3413444555', null, 1)
 	) AS SOURCE([Id], [Name], [LastName], [DocumentNumber], [Email], [PhoneNumber], [Percentage], [IsActive])
 	ON TARGET.[Id] = SOURCE.[Id]
 	WHEN MATCHED THEN
