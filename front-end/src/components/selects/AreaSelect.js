@@ -38,12 +38,12 @@ const AreaSelect = forwardRef((props, ref) => {
       if (isMulti) {
         register({
           name: "areaIds",
-          value: selectValue ? selectValue.map(x => x.value) : null
+          value: getValueForMulti(selectValue)
         });
       } else {
         register({
           name: "areaId",
-          value: selectValue ? selectValue.value : null
+          value: getValueForSingle(selectValue)
         });
       }
     }
@@ -55,6 +55,14 @@ const AreaSelect = forwardRef((props, ref) => {
       setOptions(mappedAreas);
     });
   }, [getAreas]);
+
+  const getValueForMulti = selectValue => {
+    selectValue ? selectValue.map(x => x.value) : null;
+  };
+
+  const getValueForSingle = selectValue => {
+    selectValue ? selectValue.value : null;
+  };
 
   const mapAreas = areas => {
     return areas.map(m => {
