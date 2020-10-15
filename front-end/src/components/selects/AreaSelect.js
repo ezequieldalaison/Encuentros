@@ -34,7 +34,7 @@ const AreaSelect = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    if (register) {
+    if (!!register) {
       isMulti
         ? register({
             name: "areaIds",
