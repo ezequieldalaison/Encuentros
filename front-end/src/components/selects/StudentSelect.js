@@ -13,7 +13,12 @@ const StudentSelect = forwardRef((props, ref) => {
   const [selectValue, setSelectValue] = useState();
 
   useEffect(() => {
-    if (register) registerSelect();
+    if (register) {
+      const p = {};
+      p.name = "studentId";
+      p.value = selectValue ? selectValue.value : null;
+      register(p);
+    }
   }, [register, selectValue]);
 
   useImperativeHandle(
@@ -30,13 +35,6 @@ const StudentSelect = forwardRef((props, ref) => {
     }),
     []
   );
-
-  const registerSelect = () => {
-    const p = {};
-    p.name = "studentId";
-    p.value = selectValue ? selectValue.value : null;
-    register(p);
-  };
 
   const promiseOptions = inputValue =>
     inputValue
