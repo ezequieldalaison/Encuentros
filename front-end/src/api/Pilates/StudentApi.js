@@ -1,6 +1,5 @@
 import { handleResponse, handleError } from "../ApiUtils";
-// const baseUrl = process.env.API_URL + "/student/";
-const baseUrl = "http://localhost:5000/api/student/";
+const baseUrl = process.env.REACT_APP_API + "student/";
 
 export function getStudents() {
   return fetch(baseUrl)

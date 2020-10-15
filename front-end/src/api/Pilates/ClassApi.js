@@ -1,6 +1,5 @@
 import { handleResponse, handleError } from "../ApiUtils";
-// const baseUrl = process.env.API_URL + "/weeklyClass/";
-const baseUrl = "http://localhost:5000/api/class/";
+const baseUrl = process.env.REACT_APP_API + "class/";
 
 export function getClassesByWeek(week) {
   return fetch(baseUrl + "week/" + week, {

@@ -1,6 +1,5 @@
 import { handleResponse, handleError } from "../ApiUtils";
-// const baseUrl = process.env.API_URL + "/professional/";
-const baseUrl = "http://localhost:5000/api/professional/";
+const baseUrl = process.env.REACT_APP_API + "professional/";
 
 export function getProfessionals() {
   return fetch(baseUrl)
