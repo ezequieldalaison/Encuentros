@@ -27,6 +27,7 @@ jobs:
         npm run build --if-present
     
     - name: Copy web.config
+      uses: ./
       with:
         source: ./front-end/web.config
         target: ./front-end/build
