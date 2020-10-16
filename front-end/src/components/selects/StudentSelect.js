@@ -14,11 +14,12 @@ const StudentSelect = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (register) {
+      const value = selectValue ? selectValue.value : null;
       register({
         name: "studentId",
-        value: selectValue ? selectValue.value : null
+        value: value
       });
-      if (setFormValue) setFormValue("studentId", selectValue.value);
+      if (setFormValue) setFormValue("studentId", value);
     }
   }, [register, selectValue, setFormValue]);
 

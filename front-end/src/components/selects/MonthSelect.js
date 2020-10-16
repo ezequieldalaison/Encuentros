@@ -33,11 +33,12 @@ const MonthSelect = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (register) {
+      const value = selectValue ? selectValue.value : null;
       register({
         name: "monthId",
-        value: selectValue ? selectValue.value : null
+        value: value
       });
-      if (setFormValue) setFormValue("monthId", selectValue.value);
+      if (setFormValue) setFormValue("monthId", value);
     }
   }, [register, selectValue, setFormValue]);
 

@@ -26,11 +26,12 @@ const FeeTypeSelect = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (register) {
+      const value = selectValue ? selectValue.value : null;
       register({
         name: "feeTypeId",
-        value: selectValue ? selectValue.value : null
+        value: value
       });
-      if (setFormValue) setFormValue("feeTypeId", selectValue.value);
+      if (setFormValue) setFormValue("feeTypeId", value);
     }
   }, [register, selectValue, setFormValue]);
 
