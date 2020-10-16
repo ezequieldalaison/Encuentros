@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as StudentActions from "../../redux/actions/Pilates/StudentActions";
 
 const StudentSelect = forwardRef((props, ref) => {
-  const { register, searchStudents, customOnChange } = props;
+  const { register, searchStudents, customOnChange, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const StudentSelect = forwardRef((props, ref) => {
   const onChange = selectedOption => {
     if (customOnChange) customOnChange(selectedOption);
     setSelectValue(selectedOption);
+    setFormValue("studentId", selectedOption.value);
   };
 
   const customStyles = {

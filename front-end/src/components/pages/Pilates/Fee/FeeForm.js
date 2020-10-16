@@ -81,6 +81,7 @@ const FeeForm = forwardRef((props, ref) => {
             register={register}
             customOnChange={onStudentChange}
             isDisabled={isEditing}
+            setFormValue={setFormValue}
           />
         </Col>
         <Col xs={3}>
