@@ -177,6 +177,7 @@ const PageBase = ({
                             {...(isSearchUsingRef && { ref: searchFormRef })}
                             onSubmit={onSubmitSearch}
                             register={searchForm.register}
+                            setFormValue={searchForm.setValue}
                           />
                         )}
                       ></FormBase>

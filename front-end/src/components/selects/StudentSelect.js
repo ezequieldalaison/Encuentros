@@ -2,7 +2,8 @@ import React, {
   useState,
   forwardRef,
   useImperativeHandle,
-  useEffect
+  useEffect,
+  useCallback
 } from "react";
 import AsyncSelect from "react-select/async";
 import { connect } from "react-redux";
@@ -12,28 +13,37 @@ const StudentSelect = forwardRef((props, ref) => {
   const { register, searchStudents, customOnChange, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
 
+  const updateValues = useCallback(
+    selectedOption => {
+      setSelectValue(selectedOption);
+
+      const value = selectedOption ? selectedOption.value : null;
+      setFormValue("studentId", value);
+    },
+    [setFormValue]
+  );
+
   useEffect(() => {
-    if (register) {
-      const p = {};
-      p.name = "studentId";
-      p.value = selectValue ? selectValue.value : null;
-      register(p);
-    }
+    if (register)
+      register({
+        name: "studentId",
+        value: selectValue ? selectValue.value : null
+      });
   }, [register, selectValue]);
 
   useImperativeHandle(
     ref,
     () => ({
       setFreeStudent() {
-        setSelectValue({ value: 0, label: "LIBRE" });
+        updateValues({ value: 0, label: "LIBRE" });
       },
       setValue(student) {
         if (student)
-          setSelectValue({ value: student.id, label: student.fullName });
-        else setSelectValue(null);
+          updateValues({ value: student.id, label: student.fullName });
+        else updateValues(null);
       }
     }),
-    []
+    [updateValues]
   );
 
   const promiseOptions = inputValue =>
@@ -52,8 +62,7 @@ const StudentSelect = forwardRef((props, ref) => {
 
   const onChange = selectedOption => {
     if (customOnChange) customOnChange(selectedOption);
-    setSelectValue(selectedOption);
-    setFormValue("studentId", selectedOption.value);
+    updateValues(selectedOption);
   };
 
   const customStyles = {

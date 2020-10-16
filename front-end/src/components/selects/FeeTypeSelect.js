@@ -2,26 +2,37 @@ import React, {
   useState,
   useEffect,
   forwardRef,
-  useImperativeHandle
+  useImperativeHandle,
+  useCallback
 } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
 import * as FeeTypeActions from "../../redux/actions/Pilates/FeeTypeActions";
 
 const FeeTypeSelect = forwardRef((props, ref) => {
-  const { register, getFeeTypes, customOnChange } = props;
+  const { register, getFeeTypes, customOnChange, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
+
+  const updateValues = useCallback(
+    selectedOption => {
+      setSelectValue(selectedOption);
+
+      const value = selectedOption ? selectedOption.value : null;
+      setFormValue("feeTypeId", value);
+    },
+    [setFormValue]
+  );
 
   useImperativeHandle(
     ref,
     () => ({
       setValue(feeType) {
-        if (feeType) setSelectValue({ value: feeType.id, label: feeType.name });
-        else setSelectValue(null);
+        if (feeType) updateValues({ value: feeType.id, label: feeType.name });
+        else updateValues(null);
       }
     }),
-    []
+    [updateValues]
   );
 
   useEffect(() => {
@@ -47,7 +58,7 @@ const FeeTypeSelect = forwardRef((props, ref) => {
 
   const onChange = selectedOption => {
     if (customOnChange) customOnChange(selectedOption);
-    setSelectValue(selectedOption);
+    updateValues(selectedOption);
   };
 
   const customStyles = {

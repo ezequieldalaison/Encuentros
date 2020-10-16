@@ -2,7 +2,8 @@ import React, {
   useState,
   useEffect,
   forwardRef,
-  useImperativeHandle
+  useImperativeHandle,
+  useCallback
 } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
@@ -10,25 +11,35 @@ import * as MonthActions from "../../redux/actions/Common/MonthActions";
 import { getCurrentMonth } from "../helpers/DateHelper";
 
 const MonthSelect = forwardRef((props, ref) => {
-  const { register, getMonths, addOptionAll } = props;
+  const { register, getMonths, addOptionAll, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
+
+  const updateValues = useCallback(
+    selectedOption => {
+      setSelectValue(selectedOption);
+
+      const value = selectedOption ? selectedOption.value : null;
+      setFormValue("monthId", value);
+    },
+    [setFormValue]
+  );
 
   useImperativeHandle(
     ref,
     () => ({
       setValue(month) {
-        if (month) setSelectValue({ value: month.id, label: month.name });
+        if (month) updateValues({ value: month.id, label: month.name });
         else {
           month = options.filter(x => x.value === getCurrentMonth());
-          setSelectValue(month[0]);
+          updateValues(month[0]);
         }
       },
       getValue() {
         return selectValue;
       }
     }),
-    [options, selectValue]
+    [options, selectValue, updateValues]
   );
 
   useEffect(() => {
@@ -46,9 +57,9 @@ const MonthSelect = forwardRef((props, ref) => {
       setOptions(mappedMonths);
 
       var month = mappedMonths.filter(x => x.value === getCurrentMonth());
-      setSelectValue(month[0]);
+      updateValues(month[0]);
     });
-  }, [getMonths, addOptionAll]);
+  }, [getMonths, addOptionAll, updateValues]);
 
   const mapMonths = months => {
     return months.map(m => {
@@ -57,7 +68,7 @@ const MonthSelect = forwardRef((props, ref) => {
   };
 
   const onChange = selectedOption => {
-    setSelectValue(selectedOption);
+    updateValues(selectedOption);
     if (props.onChange) props.onChange(selectedOption);
   };
 

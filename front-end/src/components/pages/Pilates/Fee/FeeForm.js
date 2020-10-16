@@ -72,6 +72,7 @@ const FeeForm = forwardRef((props, ref) => {
             ref={childMonthRef}
             register={register}
             isDisabled={isEditing}
+            setFormValue={setFormValue}
           />
         </Col>
         <Col xs={3}>
@@ -90,6 +91,7 @@ const FeeForm = forwardRef((props, ref) => {
             ref={childFeeTypeRef}
             register={register}
             customOnChange={onFeeTypeChange}
+            setFormValue={setFormValue}
           />
         </Col>
         <Col xs={3}>
