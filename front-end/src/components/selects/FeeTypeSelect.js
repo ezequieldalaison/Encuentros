@@ -2,8 +2,7 @@ import React, {
   useState,
   useEffect,
   forwardRef,
-  useImperativeHandle,
-  useCallback
+  useImperativeHandle
 } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
@@ -14,34 +13,26 @@ const FeeTypeSelect = forwardRef((props, ref) => {
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
-  const updateValues = useCallback(
-    selectedOption => {
-      setSelectValue(selectedOption);
-
-      const value = selectedOption ? selectedOption.value : null;
-      setFormValue("feeTypeId", value);
-    },
-    [setFormValue]
-  );
-
   useImperativeHandle(
     ref,
     () => ({
       setValue(feeType) {
-        if (feeType) updateValues({ value: feeType.id, label: feeType.name });
-        else updateValues(null);
+        if (feeType) setSelectValue({ value: feeType.id, label: feeType.name });
+        else setSelectValue(null);
       }
     }),
-    [updateValues]
+    []
   );
 
   useEffect(() => {
-    if (register)
+    if (register) {
       register({
         name: "feeTypeId",
         value: selectValue ? selectValue.value : null
       });
-  }, [register, selectValue]);
+      if (setFormValue) setFormValue("feeTypeId", selectValue.value);
+    }
+  }, [register, selectValue, setFormValue]);
 
   useEffect(() => {
     getFeeTypes().then(feeTypes => {
@@ -58,7 +49,7 @@ const FeeTypeSelect = forwardRef((props, ref) => {
 
   const onChange = selectedOption => {
     if (customOnChange) customOnChange(selectedOption);
-    updateValues(selectedOption);
+    setSelectValue(selectedOption);
   };
 
   const customStyles = {
