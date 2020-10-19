@@ -70,10 +70,12 @@ export function saveProfessionalWorkDay(professionalWorkDay) {
   return function(dispatch) {
     dispatch(beginApiCall());
     return ProfessionalWorkDayApi.saveProfessionalWorkDay(professionalWorkDay)
-      .then(professionalWorkDay => {
+      .then(savedProfessionalWorkDay => {
         professionalWorkDay.id
-          ? dispatch(updateProfessionalWorkDaySuccess(professionalWorkDay))
-          : dispatch(createProfessionalWorkDaySuccess(professionalWorkDay));
+          ? dispatch(updateProfessionalWorkDaySuccess(savedProfessionalWorkDay))
+          : dispatch(
+              createProfessionalWorkDaySuccess(savedProfessionalWorkDay)
+            );
         return professionalWorkDay;
       })
       .catch(error => {
