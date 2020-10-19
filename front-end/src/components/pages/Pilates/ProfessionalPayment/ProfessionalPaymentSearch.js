@@ -6,7 +6,7 @@ import MonthSelect from "../../../selects/MonthSelect";
 import ProfessionalSelect from "../../../selects/ProfessionalSelect";
 
 const ProfessionalPaymentSearch = forwardRef((props, ref) => {
-  const { register } = props;
+  const { register, setFormValue } = props;
   const childMonthRef = useRef();
   const childProfessionalRef = useRef();
 
@@ -27,7 +27,12 @@ const ProfessionalPaymentSearch = forwardRef((props, ref) => {
         <Row>
           <Col xs={3}>
             <Form.Label>Mes</Form.Label>
-            <MonthSelect register={register} ref={childMonthRef} addOptionAll />
+            <MonthSelect
+              register={register}
+              ref={childMonthRef}
+              addOptionAll
+              setFormValue={setFormValue}
+            />
           </Col>
           <Col xs={3}>
             <Form.Label>Profesor</Form.Label>
@@ -35,6 +40,7 @@ const ProfessionalPaymentSearch = forwardRef((props, ref) => {
               areaId={1}
               ref={childProfessionalRef}
               register={register}
+              setFormValue={setFormValue}
             />
           </Col>
         </Row>

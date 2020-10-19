@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as MovementStatusActions from "../../redux/actions/General/MovementStatusActions";
 
 const MovementStatusSelect = forwardRef((props, ref) => {
-  const { register, getMovementStatuses, addOptionAll } = props;
+  const { register, getMovementStatuses, addOptionAll, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -32,12 +32,15 @@ const MovementStatusSelect = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    if (register)
+    if (register) {
+      const value = selectValue ? selectValue.value : null;
       register({
         name: "movementStatusId",
-        value: selectValue ? selectValue.value : null
+        value: value
       });
-  }, [register, selectValue]);
+      if (setFormValue) setFormValue("movementStatusId", value);
+    }
+  }, [register, selectValue, setFormValue]);
 
   useEffect(() => {
     getMovementStatuses().then(movementStatuses => {

@@ -54,7 +54,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
     getParameter(ParametersEnum.PROFESSIONAL_HOUR_VALUE).then(parameter => {
       setProfessionalHourVaue(parameter.value);
     });
-  }, [getParameter, setFormValue]);
+  }, [getParameter]);
 
   useEffect(() => {
     if (watchFields.quantityHours && watchFields.valueHour)
@@ -107,6 +107,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             onChange={onChangeProfessional}
             register={register}
             isDisabled={isEditing}
+            setFormValue={setFormValue}
           />
         </Col>
         <Col xs={3}>
@@ -116,6 +117,7 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             register={register}
             onChange={onChangeMonth}
             isDisabled={isEditing}
+            setFormValue={setFormValue}
           />
         </Col>
       </Row>

@@ -40,8 +40,8 @@ namespace Encuentros.Data
           params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = GetAllIncluding(includeProperties);
-            IEnumerable<TEntity> results = query.Where(predicate).ToList();
-            return results;
+            IEnumerable<TEntity> results = query.Where(predicate);
+            return results.ToList();
         }
 
         public virtual IEnumerable<TEntity> GetByQuery(Expression<Func<TEntity, bool>> predicate)

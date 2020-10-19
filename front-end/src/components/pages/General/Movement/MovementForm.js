@@ -15,10 +15,10 @@ import InputValidated from "../../../common/InputValidated";
 import TextAreaValidated from "../../../common/TextAreaValidated";
 
 const MovementForm = forwardRef((props, ref) => {
+  const { register, control, errors, isEditing, setFormValue } = props;
   const childConceptRef = useRef();
   const childAreaRef = useRef();
   const childDateRef = useRef();
-  const { register, control, errors, isEditing } = props;
   const [areaId, setAreaId] = useState();
 
   useImperativeHandle(
@@ -55,6 +55,7 @@ const MovementForm = forwardRef((props, ref) => {
               customOnChange={onAreaChange}
               ref={childAreaRef}
               isDisabled={isEditing}
+              setFormValue={setFormValue}
             />
           </Col>
           <Col xs={3}>
@@ -64,6 +65,7 @@ const MovementForm = forwardRef((props, ref) => {
               areaId={areaId}
               ref={childConceptRef}
               isDisabled={isEditing}
+              setFormValue={setFormValue}
             />
           </Col>
           <CustomDatePicker control={control} xs={3} ref={childDateRef} />

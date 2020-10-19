@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as ConceptActions from "../../redux/actions/General/ConceptActions";
 
 const CommonConceptSelect = forwardRef((props, ref) => {
-  const { register, getCommonConcepts, areaId } = props;
+  const { register, getCommonConcepts, areaId, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -25,12 +25,15 @@ const CommonConceptSelect = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    if (register)
+    if (register) {
+      const value = selectValue ? selectValue.value : null;
       register({
         name: "conceptId",
-        value: selectValue ? selectValue.value : null
+        value: value
       });
-  }, [register, selectValue]);
+      if (setFormValue) setFormValue("conceptId", value);
+    }
+  }, [register, selectValue, setFormValue]);
 
   useEffect(() => {
     if (areaId)

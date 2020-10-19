@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import MonthSelect from "../../../selects/MonthSelect";
 
 const ProfessionalWorkDaySearch = props => {
-  const { register } = props;
+  const { register, setFormValue } = props;
   const [mode, setMode] = useState("monthly");
   const childMonthRef = useRef();
 
@@ -40,7 +40,11 @@ const ProfessionalWorkDaySearch = props => {
           <Row>
             <Col xs={3}>
               <Form.Label>Mes</Form.Label>
-              <MonthSelect ref={childMonthRef} register={register} />
+              <MonthSelect
+                ref={childMonthRef}
+                register={register}
+                setFormValue={setFormValue}
+              />
             </Col>
           </Row>
         ) : null}

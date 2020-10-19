@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import * as AreaActions from "../../redux/actions/Common/AreaActions";
 
 const AreaSelect = forwardRef((props, ref) => {
-  const { register, getAreas, customOnChange, isMulti } = props;
+  const { register, getAreas, customOnChange, isMulti, setFormValue } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -36,18 +36,22 @@ const AreaSelect = forwardRef((props, ref) => {
   useEffect(() => {
     if (register) {
       if (isMulti) {
+        const values = selectValue ? selectValue.map(x => x.value) : null;
         register({
           name: "areaIds",
-          value: getValueForMulti(selectValue)
+          value: values
         });
+        if (setFormValue) setFormValue("conceptId", values);
       } else {
+        const value = selectValue ? selectValue.value : null;
         register({
           name: "areaId",
-          value: getValueForSingle(selectValue)
+          value: value
         });
+        if (setFormValue) setFormValue("conceptId", value);
       }
     }
-  }, [register, selectValue, isMulti]);
+  }, [register, selectValue, isMulti, setFormValue]);
 
   useEffect(() => {
     getAreas().then(areas => {
@@ -55,14 +59,6 @@ const AreaSelect = forwardRef((props, ref) => {
       setOptions(mappedAreas);
     });
   }, [getAreas]);
-
-  const getValueForMulti = selectValue => {
-    return selectValue ? selectValue.map(x => x.value) : null;
-  };
-
-  const getValueForSingle = selectValue => {
-    return selectValue ? selectValue.value : null;
-  };
 
   const mapAreas = areas => {
     return areas.map(m => {

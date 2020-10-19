@@ -36,7 +36,7 @@ namespace Encuentros.API.Controllers.General
         [HttpGet("month/{monthId}")]
         public ActionResult GetMovementsByMonth(long monthId)
         {
-            var movements = _repository.GetByQueryInclude(x => x.Date.Month == monthId, IncludeExpressions);
+            var movements = _repository.GetByQueryInclude(x => x.Date.HasValue && x.Date.Value.Month == monthId, IncludeExpressions);
 
             var response = _mapper.Map<IEnumerable<MovementDto>>(movements);
 

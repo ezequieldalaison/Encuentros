@@ -6,7 +6,7 @@ namespace Encuentros.Logic.Entities.General
 {
     public class Movement : EntityBase
     {
-        public Movement(DateTime date, decimal amount, string comments, long conceptId, long movementStatusId)
+        public Movement(DateTime? date, decimal amount, string comments, long conceptId, long movementStatusId)
         {
             Date = date;
             Amount = amount;
@@ -15,7 +15,7 @@ namespace Encuentros.Logic.Entities.General
             MovementStatusId = movementStatusId;
         }
 
-        public virtual DateTime Date { get; private set; }
+        public virtual DateTime? Date { get; private set; }
         public virtual decimal Amount { get; private set; }
         public virtual string Comments { get; private set; }
         public virtual long ConceptId { get; private set; }

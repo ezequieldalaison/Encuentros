@@ -8,7 +8,7 @@ import InputValidated from "../../../common/InputValidated";
 import ProfessionalSelect from "../../../selects/ProfessionalSelect";
 
 const ProfessionalWorkDayForm = forwardRef((props, ref) => {
-  const { register, control, errors, isEditing } = props;
+  const { register, control, errors, isEditing, setFormValue } = props;
   const childDateRef = useRef();
   const childProfessionalRef = useRef();
 
@@ -37,6 +37,7 @@ const ProfessionalWorkDayForm = forwardRef((props, ref) => {
             ref={childProfessionalRef}
             register={register}
             isDisabled={isEditing}
+            setFormValue={setFormValue}
           />
         </Col>
         <CustomDatePicker

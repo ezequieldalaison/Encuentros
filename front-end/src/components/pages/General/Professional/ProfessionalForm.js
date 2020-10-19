@@ -8,8 +8,8 @@ import AreaSelect from "../../../selects/AreaSelect";
 import { connect } from "react-redux";
 
 const ProfessionalForm = forwardRef((props, ref) => {
+  const { register, errors, setFormValue } = props;
   const childAreaRef = useRef();
-  const { register, errors } = props;
 
   useImperativeHandle(
     ref,
@@ -93,7 +93,12 @@ const ProfessionalForm = forwardRef((props, ref) => {
           </Col>
           <Col xs={3}>
             <Form.Label>Áreas</Form.Label>
-            <AreaSelect ref={childAreaRef} register={register} isMulti={true} />
+            <AreaSelect
+              ref={childAreaRef}
+              register={register}
+              isMulti={true}
+              setFormValue={setFormValue}
+            />
           </Col>
         </Row>
       </Form.Group>

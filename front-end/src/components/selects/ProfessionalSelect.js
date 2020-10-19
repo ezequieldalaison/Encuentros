@@ -9,7 +9,13 @@ import { connect } from "react-redux";
 import * as ProfessionalActions from "../../redux/actions/General/ProfessionalActions";
 
 const ProfessionalSelect = forwardRef((props, ref) => {
-  const { register, getProfessionalsByArea, areaId, isPopUp } = props;
+  const {
+    register,
+    getProfessionalsByArea,
+    areaId,
+    isPopUp,
+    setFormValue
+  } = props;
   const [selectValue, setSelectValue] = useState();
   const [options, setOptions] = useState();
 
@@ -32,12 +38,15 @@ const ProfessionalSelect = forwardRef((props, ref) => {
   );
 
   useEffect(() => {
-    if (register)
+    if (register) {
+      const value = selectValue ? selectValue.value : null;
       register({
         name: "professionalId",
-        value: selectValue ? selectValue.value : null
+        value: value
       });
-  }, [register, selectValue]);
+      if (setFormValue) setFormValue("professionalId", value);
+    }
+  }, [register, selectValue, setFormValue]);
 
   useEffect(() => {
     getProfessionalsByArea(areaId).then(professionals => {
