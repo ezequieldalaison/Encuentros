@@ -150,7 +150,6 @@ const ProfessionalPaymentForm = forwardRef((props, ref) => {
             type="number"
             ref={register}
             value={amount}
-            disabled
           />
         </Col>
       </Row>
