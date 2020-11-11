@@ -5,7 +5,7 @@ import logo from "../images/logo_blanco.jpg";
 const Home = () => {
   return (
     <>
-      <p>v0.01</p>
+      <p>v0.02</p>
       <Image src={logo} fluid />
     </>
   );
