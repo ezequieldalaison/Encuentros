@@ -1,4 +1,4 @@
-import { handleResponse, handleError } from "../ApiUtils";
+import { handleResponse, handleError, handleFileResponse } from "../ApiUtils";
 const baseUrl = process.env.REACT_APP_API + "fee/";
 
 export function searchFees(criteria) {
@@ -42,5 +42,13 @@ export function changeMovementStatus(feeMovementStatus) {
     body: JSON.stringify(feeMovementStatus)
   })
     .then(handleResponse)
+    .catch(handleError);
+}
+
+export function generateReceipt(feeId) {
+  return fetch(baseUrl + "receipt/" + feeId, {
+    method: "GET"
+  })
+    .then(handleFileResponse)
     .catch(handleError);
 }

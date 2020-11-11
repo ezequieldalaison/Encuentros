@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Encuentros.DTOs\Encuentros.DTOs.csproj" />
     <ProjectReference Include="..\Encuentros.EntityMapper\Encuentros.EntityMapper.csproj" />
     <ProjectReference Include="..\Encuentros.Logic\Encuentros.Logic.csproj" />
+    <ProjectReference Include="..\Encuentros.Reports\Encuentros.Reports.csproj" />
   </ItemGroup>
 
   <ItemGroup>

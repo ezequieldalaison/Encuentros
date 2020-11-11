@@ -43,6 +43,7 @@ export function saveFee(fee) {
         fee.id
           ? dispatch(updateFeeSuccess(savedFee))
           : dispatch(createFeeSuccess(savedFee));
+        return savedFee;
       })
       .catch(error => {
         throw error;
@@ -84,9 +85,19 @@ export function changeMovementStatus(feeMovementStatus) {
     return FeeApi.changeMovementStatus(feeMovementStatus)
       .then(savedFee => {
         dispatch(updateFeeSuccess(savedFee));
+        return savedFee;
       })
       .catch(error => {
         throw error;
       });
+  };
+}
+
+export function generateReceipt(feeId) {
+  return function(dispatch) {
+    dispatch(beginApiCall());
+    return FeeApi.generateReceipt(feeId).catch(error => {
+      throw error;
+    });
   };
 }

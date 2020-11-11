@@ -6,7 +6,6 @@ namespace Encuentros.Logic.Extensions
     {
         public static int WeekdaysInMonth(int monthId, int year)
         {
-            var startDate = new DateTime(year, monthId, 1);
             var quantityDaysInMonth = DateTime.DaysInMonth(year, monthId);
 
             var quantityWeekdays = 0;

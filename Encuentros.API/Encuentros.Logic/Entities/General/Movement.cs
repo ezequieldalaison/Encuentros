@@ -22,6 +22,7 @@ namespace Encuentros.Logic.Entities.General
         public virtual Concept Concept { get; private set; }
         public virtual long MovementStatusId { get; private set; }
         public virtual MovementStatus MovementStatus { get; private set; }
+        public virtual string ReceiptNumber { get; private set; }
 
         public bool IsPaid => MovementStatusId == (long)MovementStatusEnum.Paid;
 
@@ -33,6 +34,11 @@ namespace Encuentros.Logic.Entities.General
         public void UpdateStatus(long movementStatusId)
         {
             MovementStatusId = movementStatusId;
+        }
+
+        public void SetReceiptNumber(string receiptNumber)
+        {
+            ReceiptNumber = receiptNumber;
         }
     }
 }

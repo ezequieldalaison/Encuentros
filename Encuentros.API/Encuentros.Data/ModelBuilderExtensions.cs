@@ -66,6 +66,7 @@ namespace Encuentros.Data
                 x.Property(x => x.ConceptId);
                 x.HasOne(x => x.MovementStatus);
                 x.Property(x => x.MovementStatusId);
+                x.Property(x => x.ReceiptNumber);
             });
 
             modelBuilder.Entity<Professional>(x =>
@@ -101,6 +102,21 @@ namespace Encuentros.Data
                 x.Property(x => x.Value);
                 x.HasOne(x => x.Area);
                 x.Property(x => x.AreaId);
+            });
+
+            modelBuilder.Entity<ReceiptType>(x =>
+            {
+                x.ToTable("ReceiptTypes");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.Name);
+            });
+
+            modelBuilder.Entity<ReceiptNumber>(x =>
+            {
+                x.ToTable("ReceiptNumbers");
+                x.HasKey(x => x.Id);
+                x.Property(x => x.ReceiptTypeId);
+                x.Property(x => x.LastNumber);
             });
         }
 

@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[ReceiptTypes]
+(
+	[Id] BIGINT NOT NULL PRIMARY KEY, 
+    [Name] VARCHAR(50) NOT NULL
+)

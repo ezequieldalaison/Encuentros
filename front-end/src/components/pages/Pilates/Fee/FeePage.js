@@ -15,6 +15,7 @@ const FeePage = ({
   saveFee,
   getFee,
   deleteFee,
+  generateReceipt,
   changeMovementStatus
 }) => {
   const [feeUnderUpdate, setFeeUnderUpdate] = useState();
@@ -40,13 +41,15 @@ const FeePage = ({
       data = { ...feeUnderUpdate, ...data };
     }
 
-    return saveFee(data).then(() => {
+    return saveFee(data).then(fee => {
       toast.success("El pago de la cuota se guardó correctamente");
+      if (fee.isPaid) {
+        generateReceipt(fee.id);
+      }
     });
   };
 
   const search = data => {
-    console.log(data);
     searchFees(data);
   };
 
@@ -63,17 +66,18 @@ const FeePage = ({
   };
 
   const setFeePaid = feeId => {
-    console.log("setPaid" + feeId);
     return changeMovementStatus({
       entityId: feeId,
       movementStatusId: MovementStatusEnum.PAID
-    }).then(x =>
-      toast.success("El estado de la cuota se modificó correctamente")
-    );
+    }).then(fee => {
+      toast.success("El estado de la cuota se modificó correctamente");
+      if (fee.isPaid) {
+        generateReceipt(fee.id);
+      }
+    });
   };
 
   const setFeePending = feeId => {
-    console.log("setPending" + feeId);
     return changeMovementStatus({
       entityId: feeId,
       movementStatusId: MovementStatusEnum.PENDING
@@ -113,7 +117,8 @@ const mapDispatchToProps = {
   saveFee: FeeActions.saveFee,
   getFee: FeeActions.getFee,
   deleteFee: FeeActions.deleteFee,
-  changeMovementStatus: FeeActions.changeMovementStatus
+  changeMovementStatus: FeeActions.changeMovementStatus,
+  generateReceipt: FeeActions.generateReceipt
 };
 
 export default connect(

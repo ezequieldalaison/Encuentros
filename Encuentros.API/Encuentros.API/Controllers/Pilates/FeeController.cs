@@ -4,6 +4,9 @@ using Encuentros.DTOs.Pilates;
 using Encuentros.Logic.Entities.Common;
 using Encuentros.Logic.Entities.General;
 using Encuentros.Logic.Entities.Pilates;
+using Encuentros.Logic.Enums;
+using Encuentros.Reports;
+using Encuentros.Reports.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,12 +25,14 @@ namespace Encuentros.API.Controllers.Pilates
         private readonly IGenericRepository<Month> _monthRepo;
         private readonly IGenericRepository<FeeType> _feeTypeRepo;
         private readonly IGenericRepository<Movement> _movementRepo;
+        private readonly IGenericRepository<ReceiptNumber> _receiptNumberRepo;
 
         public FeeController(IGenericRepository<Fee> repository,
                              IGenericRepository<Student> studentRepo,
                              IGenericRepository<Month> monthRepo,
                              IGenericRepository<FeeType> feeTypeRepo,
                              IGenericRepository<Movement> movementRepo,
+                             IGenericRepository<ReceiptNumber> receiptNumberRepo,
                              IMapper mapper)
         {
             _repository = repository;
@@ -36,6 +41,7 @@ namespace Encuentros.API.Controllers.Pilates
             _monthRepo = monthRepo;
             _feeTypeRepo = feeTypeRepo;
             _movementRepo = movementRepo;
+            _receiptNumberRepo = receiptNumberRepo;
         }
 
         private Expression<Func<Fee, object>>[] IncludeExpressions
@@ -68,11 +74,11 @@ namespace Encuentros.API.Controllers.Pilates
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<FeeDto>> Create(FeeToCreateUpdateDto feeDto)
+        public ActionResult Create(FeeToCreateUpdateDto feeDto)
         {
             var student = _studentRepo.GetById(feeDto.StudentId);
             if (student == null)
-                return NotFound("Student not found" );
+                return NotFound("Student not found");
 
             var month = _monthRepo.GetById(feeDto.MonthId);
             if (month == null)
@@ -186,6 +192,51 @@ namespace Encuentros.API.Controllers.Pilates
                 var entity = _repository.GetByIdInclude(changeMovementStatusDto.EntityId, IncludeExpressions);
 
                 return Ok(entity);
+            }
+        }
+
+        [HttpGet("receipt/{feeId}")]
+        public ActionResult Receipt(long feeId)
+        {
+            using (var context = _repository.GetContext())
+            {
+                var fee = _repository.GetByIdInclude(feeId, IncludeExpressions);
+                context.Attach(fee);
+
+                string number = fee.Movement.ReceiptNumber;
+
+                if (string.IsNullOrEmpty(number))
+                {
+                    var receiptNumber = _receiptNumberRepo.GetByQuery(x => x.ReceiptTypeId == (long)ReceiptTypeEnum.FeeReceipt).SingleOrDefault();
+                    receiptNumber.IncrementNumber();
+                    _receiptNumberRepo.Update(receiptNumber);
+
+                    fee.Movement.SetReceiptNumber(receiptNumber.LastNumberFormatted);
+
+                    _repository.Update(fee);
+
+                    number = receiptNumber.LastNumberFormatted;
+                }
+
+                var receipt = new PilatesReceipt
+                {
+                    CustomerFullName = fee.Student.FullName,
+                    PointOfSaleNumber = "00002",
+                    ReceiptNumber = number,
+                    Date = fee.Movement.Date.Value,
+                    ReceiptConcepts = new List<ReceiptConcept>
+                    {
+                        new ReceiptConcept
+                        {
+                            Amount = fee.Movement.Amount,
+                            Description = "Pilates - " + fee.Month.Name
+                        }
+                    }
+                };
+
+                var file = receipt.Create();
+
+                return File(file, "application/pdf", "Recibo_" + fee.Month.Name + "_" + fee.Student.FullName + ".pdf");
             }
         }
     }

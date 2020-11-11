@@ -10,14 +10,16 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-:r .\InitialData\Areas.sql
-:r .\InitialData\Days.sql
-:r .\InitialData\Months.sql
-:r .\InitialData\JournalSides.sql
-:r .\InitialData\FeeTypes.sql
-:r .\InitialData\MovementStatuses.sql
-:r .\InitialData\Professionals.sql
-:r .\InitialData\Parameters.sql
+--:r .\InitialData\Areas.sql
+--:r .\InitialData\Days.sql
+--:r .\InitialData\Months.sql
+--:r .\InitialData\JournalSides.sql
+--:r .\InitialData\FeeTypes.sql
+--:r .\InitialData\MovementStatuses.sql
+--:r .\InitialData\Professionals.sql
+--:r .\InitialData\Parameters.sql
+--:r .\InitialData\ReceiptTypes.sql
 
-:r .\InitialData\Concepts.sql
-:r .\InitialData\WeeklyClasses.sql
+--:r .\InitialData\Concepts.sql
+--:r .\InitialData\WeeklyClasses.sql
+--:r .\InitialData\ReceiptNumbers.sql

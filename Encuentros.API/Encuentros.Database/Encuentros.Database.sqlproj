@@ -82,6 +82,8 @@
     <Build Include="dbo\Tables\ProfessionalWorkDays.sql" />
     <Build Include="dbo\Tables\ProfessionalPayments.sql" />
     <Build Include="dbo\Tables\Parameters.sql" />
+    <Build Include="dbo\Tables\ReceiptTypes.sql" />
+    <Build Include="dbo\Tables\ReceiptNumbers.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Scripts\InitialData.PostDeployment.sql" />
@@ -98,5 +100,10 @@
     <None Include="dbo\Scripts\InitialData\WeeklyClasses.sql" />
     <None Include="dbo\Scripts\InitialData\Professionals.sql" />
     <None Include="dbo\Scripts\InitialData\Parameters.sql" />
+    <None Include="dbo\Scripts\InitialData\ReceiptTypes.sql" />
+    <None Include="dbo\Scripts\InitialData\ReceiptNumbers.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Encuentros.Database.refactorlog" />
   </ItemGroup>
 </Project>
