@@ -41,14 +41,14 @@ const AreaSelect = forwardRef((props, ref) => {
           name: "areaIds",
           value: values
         });
-        if (setFormValue) setFormValue("conceptId", values);
+        if (setFormValue) setFormValue("areaIds", values);
       } else {
         const value = selectValue ? selectValue.value : null;
         register({
           name: "areaId",
           value: value
         });
-        if (setFormValue) setFormValue("conceptId", value);
+        if (setFormValue) setFormValue("areaId", value);
       }
     }
   }, [register, selectValue, isMulti, setFormValue]);

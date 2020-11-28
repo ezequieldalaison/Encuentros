@@ -31,7 +31,7 @@ namespace Encuentros.API
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:3000", "https://encuentros-prueba.azurewebsites.net")
+                        builder.WithOrigins("http://localhost:3000", "https://encuentros-prueba.azurewebsites.net", "https://equipoencuentros.azurewebsites.net")
                                .AllowAnyHeader()
                                .AllowAnyMethod();
                     });
@@ -109,7 +109,7 @@ namespace Encuentros.API
                 {
                     Title = $"Encuentros",
                     Version = groupName,
-                    Description = "Aplicación Encuentros",
+                    Description = "AplicaciÃ³n Encuentros",
                     Contact = new OpenApiContact
                     {
                         Name = "Encuentros",

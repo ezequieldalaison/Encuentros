@@ -6,6 +6,9 @@ export default function ProfessionalWorkDayReducer(
   action
 ) {
   switch (action.type) {
+    case Types.CREATE_PROFESSIONAL_WORK_DAY_SUCCESS: {
+      return [...state, { ...action.professionalWorkDay }];
+    }
     case Types.GET_PROFESSIONAL_WORK_DAY_BY_MONTH_SUCCESS:
     case Types.GET_PROFESSIONAL_WORK_DAY_BY_YEAR_SUCCESS:
       return action.professionalWorkDays;
