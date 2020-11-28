@@ -83,8 +83,8 @@ namespace Encuentros.API.Controllers.Pilates
 
             //var multiplier = 1 + week;
 
-            var startDate = DateTime.Now.Date.AddDays((-(int)DateTime.Now.DayOfWeek) + (7 * week)); //previous Sunday
-            var endDate = DateTime.Now.Date.AddDays((6 - (int)DateTime.Now.DayOfWeek) + (7 * week)); //next Saturday
+            var startDate = DateTime.UtcNow.Date.AddDays((-(int)DateTime.UtcNow.DayOfWeek) + (7 * week)); //previous Sunday
+            var endDate = DateTime.UtcNow.Date.AddDays((6 - (int)DateTime.UtcNow.DayOfWeek) + (7 * week)); //next Saturday
 
             var individualClassStudents = _individualClassStudentRepo.GetByQueryInclude(x => x.Date >= startDate && x.Date <= endDate,
                                                                                         IndividualClassStudentIncludeExpressions);
