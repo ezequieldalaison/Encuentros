@@ -7,7 +7,7 @@ export function getCurrentMonth() {
 }
 
 export function formatFullDate(date) {
-  var d = new Date(date);
+  var d = convertDateTime(date);
   const ye = new Intl.DateTimeFormat("en", { year: "numeric" }).format(d);
   const mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(d);
   const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
@@ -16,7 +16,7 @@ export function formatFullDate(date) {
 
 export function formatDateWithoutYear(date) {
   if (!date) return "";
-  var d = new Date(date);
+  var d = convertDateTime(date);
   const mo = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(d);
   const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(d);
   return `${da}/${mo}`;
@@ -25,7 +25,7 @@ export function formatDateWithoutYear(date) {
 export function isToday(date) {
   if (!date) return false;
 
-  var d = new Date(date);
+  var d = convertDateTime(date);
   var d1 = new Date();
   const formatted = new Intl.DateTimeFormat("en", {
     year: "numeric",
@@ -44,14 +44,14 @@ export function isToday(date) {
 export function isLowerThanToday(date) {
   if (!date) return false;
 
-  var d = new Date(date);
+  var d = convertDateTime(date);
   var d1 = new Date();
 
   return d1 > d;
 }
 
 export function getMonthName(date) {
-  var d = new Date(date);
+  var d = convertDateTime(date);
   const mo = new Intl.DateTimeFormat("en", { month: "numeric" }).format(d);
   return Months[mo];
 }
@@ -70,3 +70,9 @@ const Months = {
   11: "Noviembre",
   12: "Diciembre"
 };
+
+function convertDateTime(date) {
+  var d = new Date(date);
+  var c = new Date(d.getTime() + d.getTimezoneOffset() * 60 * 1000);
+  return c;
+}
