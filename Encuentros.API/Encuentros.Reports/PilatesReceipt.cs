@@ -9,9 +9,9 @@ namespace Encuentros.Reports
 {
     public class PilatesReceipt
     {
-        public static readonly string BASEURI = @"C:\Encuentros\Encuentros.API\Encuentros.Reports\Templates\";
-        public static readonly string SRC = @"C:\Encuentros\Encuentros.API\Encuentros.Reports\Templates\" + "PilatesReceipt.html";
-        public static readonly string DEST = @"C:\Users\dalaison\Desktop\Reports\";
+        public static readonly string BASEURI = @".\Templates\";
+        public static readonly string SRC = @".\Templates\" + "PilatesReceipt.html";
+        public static readonly string DEST = @".\Output";
 
         public string PointOfSaleNumber { get; set; }
         public string ReceiptNumber { get; set; }
