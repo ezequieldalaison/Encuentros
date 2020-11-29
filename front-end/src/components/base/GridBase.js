@@ -133,6 +133,13 @@ const GridBase = props => {
                   </td>
                 ) : cell.column.Header.includes("customButtons") ? (
                   renderButtons(cell.column.Header, cell, row)
+                ) : cell.value === "LIBRE" ? (
+                  <td
+                    style={{ backgroundColor: "lightgreen" }}
+                    {...cell.getCellProps()}
+                  >
+                    {cell.render("Cell")}
+                  </td>
                 ) : (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 );
